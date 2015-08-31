@@ -1,0 +1,11 @@
+#define SEMICOLON 1
+#define TYPE_INT 2
+#define TYPE_FLOAT 3
+#define TYPE_DOUBLE 4
+#define TYPE_CHAR 5
+#define IDENTIFIER 6
+#define ATTRIBUTION 7
+#define DIGIT 8
+#define N_INTEGER 9
+#define N_REAL 10
+#define CHAR 11
