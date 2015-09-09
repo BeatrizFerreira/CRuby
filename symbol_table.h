@@ -1,0 +1,1 @@
+int insert(char *token);
