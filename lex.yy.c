@@ -483,8 +483,7 @@ char *yytext;
 #include <stdlib.h>
 #include <stdio.h>
 #include "compiler.tab.h"
-#include "symbol_table.h"
-#line 488 "lex.yy.c"
+#line 487 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -666,9 +665,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 15 "compiler.l"
+#line 14 "compiler.l"
 
-#line 672 "lex.yy.c"
+#line 671 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -753,71 +752,71 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 16 "compiler.l"
-{printf ("xxpto"); return SEMICOLON;}
+#line 15 "compiler.l"
+return SEMICOLON;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 17 "compiler.l"
+#line 16 "compiler.l"
 return TYPE_INT;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 18 "compiler.l"
+#line 17 "compiler.l"
 return TYPE_FLOAT;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 19 "compiler.l"
+#line 18 "compiler.l"
 return TYPE_DOUBLE;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 20 "compiler.l"
+#line 19 "compiler.l"
 return TYPE_CHAR;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 21 "compiler.l"
-{insert(yytext); return IDENTIFIER;}
+#line 20 "compiler.l"
+return IDENTIFIER;
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 22 "compiler.l"
+#line 21 "compiler.l"
 ;
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 23 "compiler.l"
-return ATTRIBUTION;
+#line 22 "compiler.l"
+return ATTR;
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 24 "compiler.l"
+#line 23 "compiler.l"
 return N_INTEGER;
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 25 "compiler.l"
+#line 24 "compiler.l"
 return N_REAL;
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 26 "compiler.l"
-return CHAR;
+#line 25 "compiler.l"
+return N_CHAR;
 	YY_BREAK
 case 12:
 /* rule 12 can match eol */
 YY_RULE_SETUP
-#line 27 "compiler.l"
+#line 26 "compiler.l"
 return END_LINE;
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 29 "compiler.l"
+#line 28 "compiler.l"
 ECHO;
 	YY_BREAK
-#line 821 "lex.yy.c"
+#line 820 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1814,10 +1813,10 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 29 "compiler.l"
+#line 28 "compiler.l"
 
 
-main(){yylex();}
+/*main(){yylex();}*/
 int yywrap() {
 return 0;
 }

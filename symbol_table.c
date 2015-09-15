@@ -1,3 +1,4 @@
-int insere_TS(char *token){
+int insert(char *token){
     return 0;
 }
+

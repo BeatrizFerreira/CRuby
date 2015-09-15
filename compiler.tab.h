@@ -39,31 +39,31 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     SEMICOLON = 258,
-     TYPE_INT = 259,
-     TYPE_FLOAT = 260,
-     TYPE_DOUBLE = 261,
-     TYPE_CHAR = 262,
-     IDENTIFIER = 263,
-     ATTR = 264,
-     N_INTEGER = 265,
-     N_REAL = 266,
-     CHAR = 267,
-     END_LINE = 268
+     TYPE_INT = 258,
+     TYPE_FLOAT = 259,
+     TYPE_DOUBLE = 260,
+     TYPE_CHAR = 261,
+     IDENTIFIER = 262,
+     ATTR = 263,
+     N_INTEGER = 264,
+     N_REAL = 265,
+     N_CHAR = 266,
+     END_LINE = 267,
+     SEMICOLON = 268
    };
 #endif
 /* Tokens.  */
-#define SEMICOLON 258
-#define TYPE_INT 259
-#define TYPE_FLOAT 260
-#define TYPE_DOUBLE 261
-#define TYPE_CHAR 262
-#define IDENTIFIER 263
-#define ATTR 264
-#define N_INTEGER 265
-#define N_REAL 266
-#define CHAR 267
-#define END_LINE 268
+#define TYPE_INT 258
+#define TYPE_FLOAT 259
+#define TYPE_DOUBLE 260
+#define TYPE_CHAR 261
+#define IDENTIFIER 262
+#define ATTR 263
+#define N_INTEGER 264
+#define N_REAL 265
+#define N_CHAR 266
+#define END_LINE 267
+#define SEMICOLON 268
 
 
 

@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "compiler.tab.h"
-#include "symbol_table.h"
 %}
 digit [0-9]
 identifier [a-zA-Z]+[a-zA-Z{digit}]*
@@ -13,21 +12,21 @@ white [ \t]+
 end_line [\n]
 
 %%
-";" {printf ("xxpto"); return SEMICOLON;}
+";" return SEMICOLON;
 "int" return TYPE_INT;
 "float" return TYPE_FLOAT;
 "double" return TYPE_DOUBLE;
 "char" return TYPE_CHAR;
-{identifier} {insert(yytext); return IDENTIFIER;}
+{identifier} return IDENTIFIER;
 {white} ;
-"=" return ATTRIBUTION;
+"=" return ATTR;
 {n_integer} return N_INTEGER;
 {n_real} return N_REAL;
-{char} return CHAR;
+{char} return N_CHAR;
 {end_line} return END_LINE;
 
 %%
-main(){yylex();}
+/*main(){yylex();}*/
 int yywrap() {
 return 0;
 }
