@@ -10,10 +10,15 @@ char p3[100];
 extern char* yytext;
 %}
 
-%token TYPE_INT TYPE_FLOAT TYPE_DOUBLE TYPE_CHAR
-%token IDENTIFIER
-%token ATTR
-%token N_INTEGER N_REAL N_CHAR
+%union{
+    char * strval;
+    int intval;
+}
+
+%token <strval> TYPE_INT TYPE_FLOAT TYPE_DOUBLE TYPE_CHAR
+%token <strval> IDENTIFIER
+%token <strval> ATTR
+%token <strval> N_INTEGER N_REAL N_CHAR
 %token END_LINE
 %token SEMICOLON
 
@@ -29,24 +34,27 @@ Line:
     command
     | END_LINE
     ;
+
 command:
     declaration
     | attribution
     ;
+
+declaration:
+    type IDENTIFIER SEMICOLON {printf("%s (DEC)\n", $2 );}
+    | type attribution
+    ;
+
 attribution:
     /*{ printf("%s", yytext );}*/
-    IDENTIFIER { strcpy(p1, yytext); } ATTR expression { strcpy(p2, yytext); } SEMICOLON { printf("%s = %s\n", p1 , p2 );}
+    IDENTIFIER ATTR expression SEMICOLON {printf("%s (ID) = ", $1);}
     ;
 
 expression:
-    N_INTEGER
-    | N_REAL
-    | N_CHAR
-    | IDENTIFIER
-    ;
-declaration:
-    type IDENTIFIER SEMICOLON
-    | type attribution
+    N_INTEGER {printf("%s\n", $1);}
+    | N_REAL {printf("%s\n", $1);}
+    | N_CHAR {printf("%s\n", $1);}
+    | IDENTIFIER {printf("%s\n", $1);}
     ;
 
 type:

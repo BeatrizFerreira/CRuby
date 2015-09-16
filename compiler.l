@@ -12,18 +12,18 @@ white [ \t]+
 end_line [\n]
 
 %%
-";" return SEMICOLON;
-"int" return TYPE_INT;
-"float" return TYPE_FLOAT;
-"double" return TYPE_DOUBLE;
-"char" return TYPE_CHAR;
-{identifier} return IDENTIFIER;
-{white} ;
-"=" return ATTR;
-{n_integer} return N_INTEGER;
-{n_real} return N_REAL;
-{char} return N_CHAR;
-{end_line} return END_LINE;
+";" 			return SEMICOLON;
+"int" 			return TYPE_INT;
+"float" 		return TYPE_FLOAT;
+"double" 		return TYPE_DOUBLE;
+"char" 			return TYPE_CHAR;
+{identifier} 	{yylval.strval = strdup(yytext); return IDENTIFIER;}
+"=" 			return ATTR;
+{n_integer} 	{yylval.strval = strdup(yytext); return N_INTEGER;}
+{n_real} 		{yylval.strval = strdup(yytext); return N_REAL;}
+"'"{char}"'" 	{yylval.strval = strdup(yytext); return N_CHAR;}
+{end_line} 		return END_LINE;
+{white} 		/*ignore*/;
 
 %%
 /*main(){yylex();}*/
