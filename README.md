@@ -20,5 +20,9 @@ Estruturas:
 6) Funções
   - Definição de funções. Ex.: Função que soma 2 números inteiros.
 
-Regras:
-Se faltar o hangout de planejamento da sprint, vai fazer TUDO!!
+
+Integrantes
+- Beatriz Gonçalves
+- Euler Carvalho
+- Gustavo Cavalcante
+- Kleber Brito
