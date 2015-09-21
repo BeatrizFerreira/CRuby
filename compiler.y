@@ -15,18 +15,25 @@ struct simbolo{
 /*
     VETOR DA TABELA DE SÍMBOLOS
 */
+
+FILE *fp;
 simbolo tabela_simbolos[50];
 int contador_simbolos = 0;
-int cont;
+int cont = 0;
+
+
 
 /*
     ASSINATURAS
 */
-void procura_tablela_simbolos(char *simbolo);
+int procura_tablela_simbolos(char *simbolo);
 
 char p1[100];
 char p2[100];
 char p3[100];
+
+char type[100];
+char valor[100];
 
 extern char* yytext;
 %}
@@ -69,15 +76,46 @@ declaration:
         tabela_simbolos[cont].foiDefinido = 0;
         cont++;
     }
-    | type attribution {
-        tabela_simbolos[cont].foiDefinido = 0;
-        cont++;
+    | declaration_attribution
+    ;
+
+declaration_attribution:
+
+    type IDENTIFIER ATTR expression SEMICOLON{
+
+        if ( procura_tablela_simbolos ($2) ){
+
+            printf("Já está declarada!\n");
+        }else{
+
+            tabela_simbolos[cont].nome = strdup($2);
+            tabela_simbolos[cont].foiDefinido = 0;
+            cont++;
+            printf("Variavel declarada com sucesso!\n");
+            fp = fopen("ruby.rb", "a");
+            fprintf(fp, "%s = %s\n", $2 , p1 );
+            fclose(fp);
+        }
+
     }
     ;
 
 attribution:
     /*{ printf("%s", yytext );}*/
-    IDENTIFIER ATTR expression SEMICOLON {printf("%s = %s", $1, p1); procura_tablela_simbolos($1); }
+    IDENTIFIER ATTR expression SEMICOLON {
+
+        if ( procura_tablela_simbolos($1) ){
+
+            printf("Variavel foi declarada!\n");
+
+            fp = fopen("ruby.rb", "a");
+            fprintf(fp, "%s = %s\n", $1 , p1 );
+            fclose(fp);
+        }else{
+
+            printf("Variavel nao foi declarada!\n");
+        }
+     }
     ;
 
 expression:
@@ -89,7 +127,7 @@ expression:
 
 type:
     TYPE_INT { tabela_simbolos[cont].tipo = strdup(yytext);
-
+                strcpy(type, yytext); 
                 printf("tipo = %s\n", tabela_simbolos[cont].tipo );}
     |TYPE_FLOAT { tabela_simbolos[cont].tipo = strdup(yytext);
 
@@ -102,7 +140,7 @@ type:
                 printf("tipo = %s\n", tabela_simbolos[cont].tipo );}
 %%
 
-void procura_tablela_simbolos(char *simbolo){
+int procura_tablela_simbolos(char *simbolo){
     
     int i;
 
@@ -112,8 +150,12 @@ void procura_tablela_simbolos(char *simbolo){
             break;
     }
 
+    printf("%d < %d\n", i , cont);
+
     if ( i == cont )
-        printf("Variavel não declarada\n");
+        return 0; // não está na tabela de símbolos
+    else
+        return 1;
 
 }
 
@@ -122,7 +164,10 @@ int yyerror(char *s) {
 }
 
 int main(void) {
+
+    fp = fopen("ruby.rb", "w+");
     yyparse();
+    fclose(fp);
 }
 
 

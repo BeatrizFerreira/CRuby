@@ -68,13 +68,41 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct simbolo simbolo;
+struct simbolo{
+    
+    char *nome;
+    char *valor;
+    char *tipo;
+    int foiDefinido;
+    int linha;
+};
+/*
+    VETOR DA TABELA DE SÍMBOLOS
+*/
+
+FILE *fp;
+simbolo tabela_simbolos[50];
+int contador_simbolos = 0;
+int cont = 0;
+
+
+
+/*
+    ASSINATURAS
+*/
+int procura_tablela_simbolos(char *simbolo);
+
 char p1[100];
 char p2[100];
 char p3[100];
 
+char type[100];
+char valor[100];
+
 extern char* yytext;
 
-#line 78 "compiler.tab.c" /* yacc.c:339  */
+#line 106 "compiler.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -128,12 +156,12 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 13 "compiler.y" /* yacc.c:355  */
+#line 41 "compiler.y" /* yacc.c:355  */
 
     char * strval;
     int intval;
 
-#line 137 "compiler.tab.c" /* yacc.c:355  */
+#line 165 "compiler.tab.c" /* yacc.c:355  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -148,7 +176,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 152 "compiler.tab.c" /* yacc.c:358  */
+#line 180 "compiler.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -395,11 +423,11 @@ union yyalloc
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  14
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  8
+#define YYNNTS  9
 /* YYNRULES -- Number of rules.  */
 #define YYNRULES  18
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  24
+#define YYNSTATES  26
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
@@ -446,8 +474,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    30,    30,    31,    34,    35,    39,    40,    44,    45,
-      50,    54,    55,    56,    57,    61,    62,    63,    64
+       0,    59,    59,    60,    63,    64,    68,    69,    73,    79,
+      84,   105,   122,   123,   124,   129,   132,   135,   138
 };
 #endif
 
@@ -459,7 +487,8 @@ static const char *const yytname[] =
   "$end", "error", "$undefined", "TYPE_INT", "TYPE_FLOAT", "TYPE_DOUBLE",
   "TYPE_CHAR", "IDENTIFIER", "ATTR", "N_INTEGER", "N_REAL", "N_CHAR",
   "END_LINE", "SEMICOLON", "$accept", "Input", "Line", "command",
-  "declaration", "attribution", "expression", "type", YY_NULLPTR
+  "declaration", "declaration_attribution", "attribution", "expression",
+  "type", YY_NULLPTR
 };
 #endif
 
@@ -473,10 +502,10 @@ static const yytype_uint16 yytoknum[] =
 };
 # endif
 
-#define YYPACT_NINF -8
+#define YYPACT_NINF -14
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-8)))
+  (!!((Yystate) == (-14)))
 
 #define YYTABLE_NINF -1
 
@@ -487,9 +516,9 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -8,     0,    -8,    -8,    -8,    -8,    -8,    -7,    -8,    -8,
-      -8,    -8,    -8,    -5,     6,     1,    -8,    -8,    -8,    -8,
-      -8,    -3,    -8,    -8
+     -14,     0,   -14,   -14,   -14,   -14,   -14,    -7,   -14,   -14,
+     -14,   -14,   -14,   -14,    -5,     6,     1,   -14,   -14,   -14,
+      -3,     6,   -14,   -14,    -2,   -14
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -498,20 +527,20 @@ static const yytype_int8 yypact[] =
 static const yytype_uint8 yydefact[] =
 {
        2,     0,     1,    15,    16,    17,    18,     0,     5,     3,
-       4,     6,     7,     0,     0,     0,     9,    14,    11,    12,
-      13,     0,     8,    10
+       4,     6,     9,     7,     0,     0,     0,    12,    13,    14,
+       0,     0,     8,    11,     0,    10
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -8,    -8,    -8,    -8,    -8,    -2,    -8,    -8
+     -14,   -14,   -14,   -14,   -14,   -14,   -14,   -13,   -14
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     1,     9,    10,    11,    12,    21,    13
+      -1,     1,     9,    10,    11,    12,    13,    20,    14
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -519,14 +548,14 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-       2,    14,    15,     3,     4,     5,     6,     7,     0,    14,
-      23,    16,     8,    17,    22,    18,    19,    20
+       2,    15,    16,     3,     4,     5,     6,     7,    24,    21,
+      23,    25,     8,     0,    22,    17,    18,    19
 };
 
 static const yytype_int8 yycheck[] =
 {
-       0,     8,     7,     3,     4,     5,     6,     7,    -1,     8,
-      13,    13,    12,     7,    13,     9,    10,    11
+       0,     8,     7,     3,     4,     5,     6,     7,    21,     8,
+      13,    13,    12,    -1,    13,     9,    10,    11
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -534,22 +563,22 @@ static const yytype_int8 yycheck[] =
 static const yytype_uint8 yystos[] =
 {
        0,    15,     0,     3,     4,     5,     6,     7,    12,    16,
-      17,    18,    19,    21,     8,     7,    19,     7,     9,    10,
-      11,    20,    13,    13
+      17,    18,    19,    20,    22,     8,     7,     9,    10,    11,
+      21,     8,    13,    13,    21,    13
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
        0,    14,    15,    15,    16,    16,    17,    17,    18,    18,
-      19,    20,    20,    20,    20,    21,    21,    21,    21
+      19,    20,    21,    21,    21,    22,    22,    22,    22
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     0,     2,     1,     1,     1,     1,     3,     2,
-       4,     1,     1,     1,     1,     1,     1,     1,     1
+       0,     2,     0,     2,     1,     1,     1,     1,     3,     1,
+       5,     4,     1,     1,     1,     1,     1,     1,     1
 };
 
 
@@ -1226,49 +1255,115 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 30 "compiler.y" /* yacc.c:1646  */
+#line 59 "compiler.y" /* yacc.c:1646  */
     {printf("Qualquer coisa: INPUT \n ");}
-#line 1232 "compiler.tab.c" /* yacc.c:1646  */
+#line 1261 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 44 "compiler.y" /* yacc.c:1646  */
-    {printf("%s (DEC)\n", (yyvsp[-1].strval) );}
-#line 1238 "compiler.tab.c" /* yacc.c:1646  */
+#line 73 "compiler.y" /* yacc.c:1646  */
+    {
+        printf("=======%s\n", (yyvsp[-1].strval));
+        tabela_simbolos[cont].nome = strdup((yyvsp[-1].strval));
+        tabela_simbolos[cont].foiDefinido = 0;
+        cont++;
+    }
+#line 1272 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 50 "compiler.y" /* yacc.c:1646  */
-    {printf("%s (ID) = ", (yyvsp[-3].strval));}
-#line 1244 "compiler.tab.c" /* yacc.c:1646  */
+#line 84 "compiler.y" /* yacc.c:1646  */
+    {
+
+        if ( procura_tablela_simbolos ((yyvsp[-3].strval)) ){
+
+            printf("Já está declarada!\n");
+        }else{
+
+            tabela_simbolos[cont].nome = strdup((yyvsp[-3].strval));
+            tabela_simbolos[cont].foiDefinido = 0;
+            cont++;
+            printf("Variavel declarada com sucesso!\n");
+            fp = fopen("ruby.rb", "a");
+            fprintf(fp, "%s = %s\n", (yyvsp[-3].strval) , p1 );
+            fclose(fp);
+        }
+
+    }
+#line 1294 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 54 "compiler.y" /* yacc.c:1646  */
-    {printf("%s\n", (yyvsp[0].strval));}
-#line 1250 "compiler.tab.c" /* yacc.c:1646  */
+#line 105 "compiler.y" /* yacc.c:1646  */
+    {
+
+        if ( procura_tablela_simbolos((yyvsp[-3].strval)) ){
+
+            printf("Variavel foi declarada!\n");
+
+            fp = fopen("ruby.rb", "a");
+            fprintf(fp, "%s = %s\n", (yyvsp[-3].strval) , p1 );
+            fclose(fp);
+        }else{
+
+            printf("Variavel nao foi declarada!\n");
+        }
+     }
+#line 1313 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 55 "compiler.y" /* yacc.c:1646  */
-    {printf("%s\n", (yyvsp[0].strval));}
-#line 1256 "compiler.tab.c" /* yacc.c:1646  */
+#line 122 "compiler.y" /* yacc.c:1646  */
+    {strcpy(p1, yytext);}
+#line 1319 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 56 "compiler.y" /* yacc.c:1646  */
+#line 123 "compiler.y" /* yacc.c:1646  */
     {printf("%s\n", (yyvsp[0].strval));}
-#line 1262 "compiler.tab.c" /* yacc.c:1646  */
+#line 1325 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 57 "compiler.y" /* yacc.c:1646  */
+#line 124 "compiler.y" /* yacc.c:1646  */
     {printf("%s\n", (yyvsp[0].strval));}
-#line 1268 "compiler.tab.c" /* yacc.c:1646  */
+#line 1331 "compiler.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 15:
+#line 129 "compiler.y" /* yacc.c:1646  */
+    { tabela_simbolos[cont].tipo = strdup(yytext);
+                strcpy(type, yytext); 
+                printf("tipo = %s\n", tabela_simbolos[cont].tipo );}
+#line 1339 "compiler.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 16:
+#line 132 "compiler.y" /* yacc.c:1646  */
+    { tabela_simbolos[cont].tipo = strdup(yytext);
+
+                printf("tipo = %s\n", tabela_simbolos[cont].tipo );}
+#line 1347 "compiler.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 17:
+#line 135 "compiler.y" /* yacc.c:1646  */
+    { tabela_simbolos[cont].tipo = strdup(yytext);
+
+                printf("tipo = %s\n", tabela_simbolos[cont].tipo );}
+#line 1355 "compiler.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 18:
+#line 138 "compiler.y" /* yacc.c:1646  */
+    { tabela_simbolos[cont].tipo = strdup(yytext);
+
+                printf("tipo = %s\n", tabela_simbolos[cont].tipo );}
+#line 1363 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1272 "compiler.tab.c" /* yacc.c:1646  */
+#line 1367 "compiler.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1496,14 +1591,37 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 66 "compiler.y" /* yacc.c:1906  */
+#line 141 "compiler.y" /* yacc.c:1906  */
 
+
+int procura_tablela_simbolos(char *simbolo){
+    
+    int i;
+
+    for( i = 0; i < cont ; i++ ){
+
+        if ( strcmp(simbolo, tabela_simbolos[i].nome) == 0 ) 
+            break;
+    }
+
+    printf("%d < %d\n", i , cont);
+
+    if ( i == cont )
+        return 0; // não está na tabela de símbolos
+    else
+        return 1;
+
+}
 
 int yyerror(char *s) {
     printf("error: %s\n",s);
 }
 
 int main(void) {
+
+    fp = fopen("ruby.rb", "w+");
     yyparse();
+    fclose(fp);
 }
+
 
