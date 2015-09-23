@@ -120,9 +120,9 @@ attribution:
 
 expression:
     N_INTEGER {strcpy(p1, yytext);}
-    | N_REAL {printf("%s\n", $1);}
-    | N_CHAR {printf("%s\n", $1);}
-    /*| IDENTIFIER {printf("%s\n", $1);}*/  
+    | N_REAL {strcpy(p1, yytext);}
+    | N_CHAR {strcpy(p1, yytext);}
+    | IDENTIFIER {strcpy(p1, yytext);}  
     ;
 
 type:

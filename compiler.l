@@ -7,7 +7,7 @@ digit [0-9]
 identifier [a-zA-Z]+[a-zA-Z{digit}]*
 n_integer [+-]?{digit}+
 n_real [+-]?{digit}+\.{digit}+
-char \'.{1}\'
+char .{1}
 white [ \t]+
 end_line [\n]
 

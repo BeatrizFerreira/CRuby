@@ -14,3 +14,5 @@ t = 'T';
 
 double dd;
 dd = 12;
+
+int w = x;
