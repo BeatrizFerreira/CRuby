@@ -22,6 +22,11 @@ end_line [\n]
 {n_integer} 	{yylval.strval = strdup(yytext); return N_INTEGER;}
 {n_real} 		{yylval.strval = strdup(yytext); return N_REAL;}
 "'"{char}"'" 	{yylval.strval = strdup(yytext); return N_CHAR;}
+"+"				return PLUS;
+"-"				return MINUS;
+"*"				return TIMES;
+"/"				return DIVISION;
+
 {end_line} 		return END_LINE;
 {white} 		/*ignore*/;
 
