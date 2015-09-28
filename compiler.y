@@ -56,6 +56,10 @@ declaration:
         printf("=======%s\n", $2);
         tabela_simbolos[cont].nome = strdup($2);
         tabela_simbolos[cont].foiDefinido = 0;
+
+        fp = fopen("ruby.rb", "a");
+        fprintf(fp, "%s = 0\n", $2);
+        fclose(fp);
         cont++;
     }
     | declaration_attribution
@@ -69,6 +73,7 @@ declaration_attribution:
 
             printf("Já está declarada!\n");
         }else{
+
 
             tabela_simbolos[cont].nome = strdup($2);
             tabela_simbolos[cont].foiDefinido = 0;
@@ -104,7 +109,24 @@ expression:
     N_INTEGER {fp = fopen("ruby.rb", "a");fprintf(fp, "%s", yytext ); fclose(fp);}
     | N_REAL {fp = fopen("ruby.rb", "a");fprintf(fp, "%s", yytext ); fclose(fp);}
     | N_CHAR {fp = fopen("ruby.rb", "a");fprintf(fp, "%s", yytext ); fclose(fp);}
-    | IDENTIFIER {fp = fopen("ruby.rb", "a");fprintf(fp, "%s", yytext ); fclose(fp);}  
+    | IDENTIFIER {
+
+        if ( procura_tabela_simbolos($1) ){
+
+            printf("Variavel foi declarada!\n");
+
+            // fp = fopen("ruby.rb", "a");
+            // fprintf(fp, "\n%s = ", $1 );
+            // fclose(fp);
+        }else{
+
+            yyerror("syntax\n");
+
+            exit(1);
+            printf("Variavel nao foi dec2222222222222larada!\n");
+        }
+
+        fp = fopen("ruby.rb", "a");fprintf(fp, "%s", yytext ); fclose(fp);}  
     | math_operation
     ;
 
@@ -130,7 +152,11 @@ type:
 %%
 
 int yyerror(char *s) {
+    
+    fp = fopen("ruby.rb", "w");
+    fclose(fp);
     printf("error: %s\n",s);
+
 }
 
 int main(void) {

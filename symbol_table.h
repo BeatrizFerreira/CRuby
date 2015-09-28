@@ -10,7 +10,6 @@ struct simbolo{
 /*
     VETOR DA TABELA DE SÍMBOLOS
 */
-
 FILE *fp;
 simbolo tabela_simbolos[50];
 int contador_simbolos = 0;
