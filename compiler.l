@@ -26,6 +26,8 @@ end_line [\n]
 "-"				return MINUS;
 "*"				return TIMES;
 "/"				return DIVISION;
+["("]*			return LEFT_PARENTHESIS;
+[")"]*			return RIGHT_PARENTHESIS;
 
 {end_line} 		return END_LINE;
 {white} 		/*ignore*/;

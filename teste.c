@@ -16,3 +16,7 @@ double dd;
 dd = 12;
 
 int w = x;
+
+int op = x + xx;
+
+int e = ( 1 + 2 ) * 3;

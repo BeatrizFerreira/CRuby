@@ -4,10 +4,6 @@
 #include <string.h>
 #include "symbol_table.h"
 
-/*
-    ASSINATURAS
-*/
-int procura_tabela_simbolos(char *simbolo);
 
 char p1[100];
 char p2[100];
@@ -32,6 +28,7 @@ extern char* yytext;
 %token END_LINE
 %token SEMICOLON
 %token PLUS MINUS TIMES DIVISION
+%token LEFT_PARENTHESIS RIGHT_PARENTHESIS
 
 %start Input
 
@@ -54,8 +51,9 @@ command:
 declaration:
     type IDENTIFIER SEMICOLON {
         printf("=======%s\n", $2);
-        tabela_simbolos[cont].nome = strdup($2);
-        tabela_simbolos[cont].foiDefinido = 0;
+        InserirSimbolo(&tabela_simbolos, strdup($2), '0', 0)
+        //tabela_simbolos[cont].nome = strdup($2);
+        //tabela_simbolos[cont].foiDefinido = 0;
 
         fp = fopen("ruby.rb", "a");
         fprintf(fp, "%s = 0\n", $2);
@@ -68,12 +66,10 @@ declaration:
 declaration_attribution:
 
     type IDENTIFIER {
-
         if ( procura_tabela_simbolos ($2) ){
 
             printf("Já está declarada!\n");
         }else{
-
 
             tabela_simbolos[cont].nome = strdup($2);
             tabela_simbolos[cont].foiDefinido = 0;
@@ -136,6 +132,7 @@ math_operation:
     | expression TIMES {fp = fopen("ruby.rb", "a");fprintf(fp, " * " ); fclose(fp);} expression
     | expression DIVISION {fp = fopen("ruby.rb", "a");fprintf(fp, " / " ); fclose(fp);} expression
     ;
+
 type:
     TYPE_INT { tabela_simbolos[cont].tipo = strdup(yytext);
                 strcpy(type, yytext); 
@@ -162,7 +159,15 @@ int yyerror(char *s) {
 int main(void) {
 
     fp = fopen("ruby.rb", "w+");
+    
+    /*passo = 1;
     yyparse();
+
+    rewind(fp, 0); //volta o arquivo para 0
+
+    passo = 2;*/
+    yyparse();
+
     fclose(fp);
 }
 
