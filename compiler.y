@@ -4,14 +4,6 @@
 #include <string.h>
 #include "symbol_table.h"
 
-
-char p1[100];
-char p2[100];
-char p3[100];
-
-char type[100];
-char valor[100];
-
 extern char* yytext;
 %}
 
@@ -35,7 +27,6 @@ extern char* yytext;
 %%
 Input:
     /* Empty */
-    {printf("Qualquer coisa: INPUT \n ");}
     | Input Line 
     ;
 Line:
@@ -49,126 +40,65 @@ command:
     ;
 
 declaration:
-    type IDENTIFIER SEMICOLON {
-        printf("=======%s\n", $2);
-        InserirSimbolo(&tabela_simbolos, strdup($2), '0', 0)
-        //tabela_simbolos[cont].nome = strdup($2);
-        //tabela_simbolos[cont].foiDefinido = 0;
-
-        fp = fopen("ruby.rb", "a");
-        fprintf(fp, "%s = 0\n", $2);
-        fclose(fp);
-        cont++;
-    }
+    type IDENTIFIER SEMICOLON {InserirSimbolo(&tabela_simbolos, $2); cont++; linhas++;}
     | declaration_attribution
     ;
 
 declaration_attribution:
-
-    type IDENTIFIER {
-        if ( procura_tabela_simbolos ($2) ){
-
-            printf("Já está declarada!\n");
-        }else{
-
-            tabela_simbolos[cont].nome = strdup($2);
-            tabela_simbolos[cont].foiDefinido = 0;
-            cont++;
-            printf("Variavel declarada com sucesso!\n");
-            fp = fopen("ruby.rb", "a");
-            fprintf(fp, "\n%s = ", $2);
-            fclose(fp);
-        }
-
-    } ATTR expression SEMICOLON
+    type IDENTIFIER{InserirSimbolo(&tabela_simbolos, $2);InsereNaSaida(&saida, ($2), linhas);cont++;} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression SEMICOLON {linhas++;}
     ;
 
 attribution:
-    /*{ printf("%s", yytext );}*/
-    IDENTIFIER ATTR {
-
-        if ( procura_tabela_simbolos($1) ){
-
-            printf("Variavel foi declarada!\n");
-
-            fp = fopen("ruby.rb", "a");
-            fprintf(fp, "\n%s = ", $1 );
-            fclose(fp);
-        }else{
-
-            printf("Variavel nao foi declarada!\n");
-        }
-     } expression SEMICOLON
+    IDENTIFIER{InsereNaSaida(&saida, $1, linhas);} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression SEMICOLON {linhas++;}
     ;
 
 expression:
-    N_INTEGER {fp = fopen("ruby.rb", "a");fprintf(fp, "%s", yytext ); fclose(fp);}
-    | N_REAL {fp = fopen("ruby.rb", "a");fprintf(fp, "%s", yytext ); fclose(fp);}
-    | N_CHAR {fp = fopen("ruby.rb", "a");fprintf(fp, "%s", yytext ); fclose(fp);}
-    | IDENTIFIER {
-
-        if ( procura_tabela_simbolos($1) ){
-
-            printf("Variavel foi declarada!\n");
-
-            // fp = fopen("ruby.rb", "a");
-            // fprintf(fp, "\n%s = ", $1 );
-            // fclose(fp);
-        }else{
-
-            yyerror("syntax\n");
-
-            exit(1);
-            printf("Variavel nao foi dec2222222222222larada!\n");
-        }
-
-        fp = fopen("ruby.rb", "a");fprintf(fp, "%s", yytext ); fclose(fp);}  
+    N_INTEGER {InsereNaSaida(&saida, yytext, linhas);}
+    | N_REAL {InsereNaSaida(&saida, yytext, linhas);}
+    | N_CHAR {InsereNaSaida(&saida, yytext, linhas);}
+    | IDENTIFIER {if(procura_tabela_simbolos(yytext)){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variavel nao declarada");} }
     | math_operation
+    | LEFT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);} expression RIGHT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);}
     ;
 
 math_operation:
-    | expression PLUS {fp = fopen("ruby.rb", "a");fprintf(fp, " + " ); fclose(fp);} expression 
-    | expression MINUS {fp = fopen("ruby.rb", "a");fprintf(fp, " - " ); fclose(fp);} expression 
-    | expression TIMES {fp = fopen("ruby.rb", "a");fprintf(fp, " * " ); fclose(fp);} expression
-    | expression DIVISION {fp = fopen("ruby.rb", "a");fprintf(fp, " / " ); fclose(fp);} expression
+    | expression PLUS {InsereNaSaida(&saida, " + ", linhas);} expression 
+    | expression MINUS {InsereNaSaida(&saida, " - ", linhas);} expression 
+    | expression TIMES {InsereNaSaida(&saida, " * ", linhas);} expression
+    | expression DIVISION {InsereNaSaida(&saida, " / ", linhas);} expression
     ;
 
 type:
-    TYPE_INT { tabela_simbolos[cont].tipo = strdup(yytext);
-                strcpy(type, yytext); 
-                printf("tipo = %s\n", tabela_simbolos[cont].tipo );}
-    |TYPE_FLOAT { tabela_simbolos[cont].tipo = strdup(yytext);
-
-                printf("tipo = %s\n", tabela_simbolos[cont].tipo );}
-    |TYPE_DOUBLE { tabela_simbolos[cont].tipo = strdup(yytext);
-
-                printf("tipo = %s\n", tabela_simbolos[cont].tipo );}
-    |TYPE_CHAR { tabela_simbolos[cont].tipo = strdup(yytext);
-
-                printf("tipo = %s\n", tabela_simbolos[cont].tipo );}
+    TYPE_INT 
+    |TYPE_FLOAT 
+    |TYPE_DOUBLE 
+    |TYPE_CHAR
 %%
 
 int yyerror(char *s) {
-    
-    fp = fopen("ruby.rb", "w");
-    fclose(fp);
     printf("error: %s\n",s);
 
 }
 
 int main(void) {
+    saida = NULL;
+    tabela_simbolos = NULL;
+    linhas = 0;
 
-    fp = fopen("ruby.rb", "w+");
-    
+    yyparse();
+
+    fp = fopen("ruby.rb", "w");
+    Imprime(saida);
+    fclose(fp);
     /*passo = 1;
     yyparse();
 
     rewind(fp, 0); //volta o arquivo para 0
 
-    passo = 2;*/
+    passo = 2;
     yyparse();
 
-    fclose(fp);
+    fclose(fp);*/
 }
 
 
