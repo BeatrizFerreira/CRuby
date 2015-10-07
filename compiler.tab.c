@@ -1272,7 +1272,7 @@ yyreduce:
 
   case 12:
 #line 48 "compiler.y" /* yacc.c:1646  */
-    {linhas++;}
+    {InsereNaSaida(&saida, "\n", linhas);linhas++;}
 #line 1277 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1290,7 +1290,7 @@ yyreduce:
 
   case 15:
 #line 52 "compiler.y" /* yacc.c:1646  */
-    {linhas++;}
+    {InsereNaSaida(&saida, "\n", linhas);linhas++;}
 #line 1295 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1314,7 +1314,7 @@ yyreduce:
 
   case 19:
 #line 59 "compiler.y" /* yacc.c:1646  */
-    {if(procura_tabela_simbolos(yytext)){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variavel nao declarada");} }
+    {if(procura_tabela_simbolos((yyvsp[0].strval))){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variavel nao declarada");} }
 #line 1319 "compiler.tab.c" /* yacc.c:1646  */
     break;
 

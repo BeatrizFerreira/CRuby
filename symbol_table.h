@@ -33,7 +33,7 @@ int procura_tabela_simbolos(char nomesimbolo[MAX]){
         Simbolo *aux = tabela_simbolos;
         while(aux->proximo != NULL)
         {
-            if ( strcmp(nomesimbolo, tabela_simbolos->nome) == 0 ) 
+            if ( strcmp(nomesimbolo, aux->nome) == 0 ) 
                 return 1; //esta na tabela de simbolos
             aux = aux->proximo;
         }

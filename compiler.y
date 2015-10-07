@@ -45,18 +45,18 @@ declaration:
     ;
 
 declaration_attribution:
-    type IDENTIFIER{InserirSimbolo(&tabela_simbolos, $2);InsereNaSaida(&saida, ($2), linhas);cont++;} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression SEMICOLON {linhas++;}
+    type IDENTIFIER{InserirSimbolo(&tabela_simbolos, $2);InsereNaSaida(&saida, ($2), linhas);cont++;} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression SEMICOLON {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;
 
 attribution:
-    IDENTIFIER{InsereNaSaida(&saida, $1, linhas);} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression SEMICOLON {linhas++;}
+    IDENTIFIER{InsereNaSaida(&saida, $1, linhas);} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression SEMICOLON {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;
 
 expression:
     N_INTEGER {InsereNaSaida(&saida, yytext, linhas);}
     | N_REAL {InsereNaSaida(&saida, yytext, linhas);}
     | N_CHAR {InsereNaSaida(&saida, yytext, linhas);}
-    | IDENTIFIER {if(procura_tabela_simbolos(yytext)){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variavel nao declarada");} }
+    | IDENTIFIER {if(procura_tabela_simbolos($1)){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variavel nao declarada");} }
     | math_operation
     | LEFT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);} expression RIGHT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);}
     ;
