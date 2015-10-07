@@ -19,7 +19,7 @@ extern char* yytext;
 %token <strval> N_INTEGER N_REAL N_CHAR
 %token END_LINE
 %token SEMICOLON
-%token PLUS MINUS TIMES DIVISION
+%token PLUS MINUS TIMES DIVISION MENOR MENORIGUAL MAIOR MAIORIGUAL IGUAL DIFERENTE E OU SE SENAO
 %token LEFT_PARENTHESIS RIGHT_PARENTHESIS
 
 %start Input
@@ -37,6 +37,7 @@ Line:
 command:
     declaration
     | attribution
+    | conditional
     ;
 
 declaration:
@@ -58,6 +59,7 @@ expression:
     | N_CHAR {InsereNaSaida(&saida, yytext, linhas);}
     | IDENTIFIER {if(procura_tabela_simbolos($1)){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variavel nao declarada");} }
     | math_operation
+    | comparator
     | LEFT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);} expression RIGHT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);}
     ;
 
@@ -68,10 +70,33 @@ math_operation:
     | expression DIVISION {InsereNaSaida(&saida, " / ", linhas);} expression
     ;
 
+comparator:
+    expression MENOR expression
+    | expression MENORIGUAL expression
+    | expression MAIOR expression
+    | expression MAIORIGUAL expression
+    | expression IGUAL expression 
+    | expression DIFERENTE expression
+    ;
+
+conditional:
+    SE LEFT_PARENTHESIS multiple_conditional RIGHT_PARENTHESIS SEMICOLON
+    ;
+
+multiple_conditional:
+    comparator
+    | comparator booleans
+    ;
+
+booleans:
+    E multiple_conditional
+    | OU multiple_conditional
+    ;
+
 type:
-    TYPE_INT 
-    |TYPE_FLOAT 
-    |TYPE_DOUBLE 
+    TYPE_INT
+    |TYPE_FLOAT
+    |TYPE_DOUBLE
     |TYPE_CHAR
 %%
 

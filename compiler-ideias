@@ -1,0 +1,55 @@
+
+condicional:
+	IF LEFT_PARENTESIS comparative RIGHT_PARENTESIS "{" command "}"
+	|IF LEFT_PARENTESIS comparative RIGHT_PARENTESIS "{" command "}" ELSE "{" command "}"
+	;
+
+comparative:
+	expression MENOR expression
+	|expression MENORIGUAL expression
+	|expression MAIOR expression
+	|expression MAIORIGUAL expression
+	|expression IGUAL expression
+	|expression DIFERENTE expression
+	|expression E expression
+	|expression OU expression
+	;
+
+"<"			return MENOR;
+"<="		return MENORIGUAL;
+">"			return MAIOR;
+">="		return MAIORIGUAL;
+"=="		return IGUAL;
+"!="		return DIFERENTE;
+"&&"		return E;
+"||"		return OU;
+"if"		return IF;
+"else"		return ELSE;
+
+conditional:
+	expressao operador expressao
+	;
+
+multiple_conditional:
+	conditional
+	| conditional booleans
+	;
+
+booleans:
+	E multiple_conditional
+	| OU multiple_conditional
+	;
+
+if ( multiple_conditional )
+
+x < 5 || 
+
+if ( expressao )
+expressao = x, operacao matematica, 'a', 1, 1.2
+
+expressao = (  )
+
+
+expressao = (x <= 5)
+
+if  ( expressao &&|| expressao )

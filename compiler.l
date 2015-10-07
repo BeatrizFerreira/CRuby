@@ -12,6 +12,7 @@ white [ \t]+
 end_line [\n]
 
 %%
+"if"			return SE;
 ";" 			return SEMICOLON;
 "int" 			return TYPE_INT;
 "float" 		return TYPE_FLOAT;
@@ -22,10 +23,20 @@ end_line [\n]
 {n_integer} 	{yylval.strval = strdup(yytext); return N_INTEGER;}
 {n_real} 		{yylval.strval = strdup(yytext); return N_REAL;}
 "'"{char}"'" 	{yylval.strval = strdup(yytext); return N_CHAR;}
+"if"			return SE;
 "+"				return PLUS;
 "-"				return MINUS;
 "*"				return TIMES;
 "/"				return DIVISION;
+"<"				return MENOR;
+"<="			return MENORIGUAL;
+">"				return MAIOR;
+">="			return MAIORIGUAL;
+"=="			return IGUAL;
+"!="			return DIFERENTE;
+"&&"			return E;
+"||"			return OU;
+"else"			return SENAO;
 "("				return LEFT_PARENTHESIS;
 ")"				return RIGHT_PARENTHESIS;
 

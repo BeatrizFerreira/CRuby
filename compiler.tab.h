@@ -60,8 +60,18 @@ extern int yydebug;
     MINUS = 270,
     TIMES = 271,
     DIVISION = 272,
-    LEFT_PARENTHESIS = 273,
-    RIGHT_PARENTHESIS = 274
+    MENOR = 273,
+    MENORIGUAL = 274,
+    MAIOR = 275,
+    MAIORIGUAL = 276,
+    IGUAL = 277,
+    DIFERENTE = 278,
+    E = 279,
+    OU = 280,
+    SE = 281,
+    SENAO = 282,
+    LEFT_PARENTHESIS = 283,
+    RIGHT_PARENTHESIS = 284
   };
 #endif
 
@@ -75,7 +85,7 @@ union YYSTYPE
     char * strval;
     int intval;
 
-#line 79 "compiler.tab.h" /* yacc.c:1909  */
+#line 89 "compiler.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
