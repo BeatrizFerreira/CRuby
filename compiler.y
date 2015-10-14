@@ -78,9 +78,18 @@ comparator:
     | expression DIFERENTE {InsereNaSaida(&saida, " != ", linhas);}  expression
     ;
 
+if_:
+    SE {InsereNaSaida(&saida, "if (", linhas); }LEFT_PARENTHESIS multiple_conditional RIGHT_PARENTHESIS {InsereNaSaida(&saida, ")\n", linhas);} 
+
 conditional:
-    SE {InsereNaSaida(&saida, "if (", linhas); }LEFT_PARENTHESIS multiple_conditional RIGHT_PARENTHESIS {InsereNaSaida(&saida, ")\n", linhas);} END_LINE {InsereNaSaida(&saida, "\t", linhas);} command {InsereNaSaida(&saida, "end\n", linhas);}
+    if_ LEFT_BRACKETS multiple_command
+    |
+    if_ END_LINE {InsereNaSaida(&saida, "\t", linhas);} command {InsereNaSaida(&saida, "end\n", linhas);}
     ;
+
+multiple_command:
+    | command multiple_command
+    | RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);}
 
 multiple_conditional:
     comparator
