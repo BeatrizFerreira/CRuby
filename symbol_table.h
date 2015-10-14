@@ -6,6 +6,8 @@
 
 int linhas;
 
+int erro = 0;
+
 typedef struct simbolo{
     char nome[MAX];
     struct simbolo * proximo;
@@ -28,13 +30,19 @@ int cont = 0;
 int procura_tabela_simbolos(char nomesimbolo[MAX]){
     
     if(tabela_simbolos == NULL){
+        printf("vazio!\n");
         return 0; // nao esta na tabela de simbolos
     }else{
+
+        printf("nao vazio1\n");
         Simbolo *aux = tabela_simbolos;
-        while(aux->proximo != NULL)
+        while( aux != NULL)
         {
-            if ( strcmp(nomesimbolo, aux->nome) == 0 ) 
+            printf("hue\n");
+            if ( strcmp(nomesimbolo, aux->nome) == 0 ){
+
                 return 1; //esta na tabela de simbolos
+            }
             aux = aux->proximo;
         }
         return 0; //simbolo nao foi encontrado
@@ -46,7 +54,7 @@ Simbolo * AddSimbolo(char nome[MAX])
 {
     Simbolo * novo = (Simbolo*) malloc(sizeof(Simbolo));
     strcpy(novo->nome, nome);
-    novo->proximo == NULL;
+    novo->proximo = NULL;
 
     return novo;
 }
@@ -55,13 +63,17 @@ void InserirSimbolo(Simbolo ** temp, char nome[MAX])
 {
     if ( !procura_tabela_simbolos(nome) ){//se nao esta na tabela, insere o novo simbolo
         Simbolo * aux = AddSimbolo(nome);
-        Simbolo * head = *temp;
+        // Simbolo * head = *temp;
         if(*temp == NULL)
         {
             *temp = aux;
+            // aux->proximo = NULL;
+            printf("entrou if\n");
         }
         else
         {
+
+            printf("entrou else\n");
             Simbolo * aux2 = *temp;
             while(aux2->proximo != NULL)
             {
@@ -102,10 +114,18 @@ void InsereNaSaida(Saida ** temp, char string[MAX], int linha){
 
 void Imprime(Saida * temp)
 {
-    Saida * aux = temp;
-    while(aux != NULL)
-    {
-        fprintf(fp, "%s", aux->string );
-        aux= aux->proximo;    
+
+    if ( erro == 0){
+
+        Saida * aux = temp;
+        while(aux != NULL)
+        {
+            fprintf(fp, "%s", aux->string );
+            aux= aux->proximo;    
+        }
+    }else{
+
+
+        fprintf(fp, "##\n## SYNTAX ERROR\n##\n");
     }
 }

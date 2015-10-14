@@ -20,7 +20,7 @@ extern char* yytext;
 %token END_LINE
 %token SEMICOLON
 %token PLUS MINUS TIMES DIVISION MENOR MENORIGUAL MAIOR MAIORIGUAL IGUAL DIFERENTE E OU SE SENAO
-%token LEFT_PARENTHESIS RIGHT_PARENTHESIS
+%token LEFT_PARENTHESIS RIGHT_PARENTHESIS eof LEFT_BRACKETS RIGHT_BRACKETS
 
 %start Input
 
@@ -38,7 +38,6 @@ command:
     declaration
     | attribution
     | conditional
-    ;
 
 declaration:
     type IDENTIFIER SEMICOLON {InserirSimbolo(&tabela_simbolos, $2); cont++; linhas++;}
@@ -50,14 +49,14 @@ declaration_attribution:
     ;
 
 attribution:
-    IDENTIFIER{InsereNaSaida(&saida, $1, linhas);} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression SEMICOLON {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+    IDENTIFIER{if(procura_tabela_simbolos($1)){InsereNaSaida(&saida, yytext, linhas);}else{erro++;yyerror("Variavel nao declarada");}} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression SEMICOLON {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;
 
 expression:
     N_INTEGER {InsereNaSaida(&saida, yytext, linhas);}
     | N_REAL {InsereNaSaida(&saida, yytext, linhas);}
     | N_CHAR {InsereNaSaida(&saida, yytext, linhas);}
-    | IDENTIFIER {if(procura_tabela_simbolos($1)){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variavel nao declarada");} }
+    | IDENTIFIER {printf("!%s\n", $1);if(procura_tabela_simbolos($1)){InsereNaSaida(&saida, yytext, linhas);}else{erro++;yyerror("Variavel nao declarada");} }
     | math_operation
     | comparator
     | LEFT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);} expression RIGHT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);}
@@ -71,16 +70,16 @@ math_operation:
     ;
 
 comparator:
-    expression MENOR expression
-    | expression MENORIGUAL expression
-    | expression MAIOR expression
-    | expression MAIORIGUAL expression
-    | expression IGUAL expression 
-    | expression DIFERENTE expression
+    expression MENOR {InsereNaSaida(&saida, " < ", linhas);} expression
+    | expression MENORIGUAL {InsereNaSaida(&saida, " <= ", linhas);}  expression
+    | expression MAIOR {InsereNaSaida(&saida, " > ", linhas);}  expression
+    | expression MAIORIGUAL {InsereNaSaida(&saida, " >= ", linhas);} expression
+    | expression IGUAL {InsereNaSaida(&saida, " == ", linhas);}  expression 
+    | expression DIFERENTE {InsereNaSaida(&saida, " != ", linhas);}  expression
     ;
 
 conditional:
-    SE LEFT_PARENTHESIS multiple_conditional RIGHT_PARENTHESIS SEMICOLON
+    SE {InsereNaSaida(&saida, "if (", linhas); }LEFT_PARENTHESIS multiple_conditional RIGHT_PARENTHESIS {InsereNaSaida(&saida, ")\n", linhas);} END_LINE {InsereNaSaida(&saida, "\t", linhas);} command {InsereNaSaida(&saida, "end\n", linhas);}
     ;
 
 multiple_conditional:
@@ -89,8 +88,8 @@ multiple_conditional:
     ;
 
 booleans:
-    E multiple_conditional
-    | OU multiple_conditional
+    E {InsereNaSaida(&saida, " and ", linhas);}  multiple_conditional
+    | {InsereNaSaida(&saida, " or ", linhas);} OU multiple_conditional
     ;
 
 type:
@@ -102,7 +101,7 @@ type:
 
 int yyerror(char *s) {
     printf("error: %s\n",s);
-
+    // erro++;
 }
 
 int main(void) {

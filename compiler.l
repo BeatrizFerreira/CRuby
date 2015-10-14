@@ -39,9 +39,12 @@ end_line [\n]
 "else"			return SENAO;
 "("				return LEFT_PARENTHESIS;
 ")"				return RIGHT_PARENTHESIS;
+"{"				return LEFT_BRACKETS;
+"}"				return RIGHT_BRACKETS;
 
 {end_line} 		return END_LINE;
 {white} 		/*ignore*/;
+<<EOF>>			return eof;
 
 %%
 /*main(){yylex();}*/

@@ -71,7 +71,10 @@ extern int yydebug;
     SE = 281,
     SENAO = 282,
     LEFT_PARENTHESIS = 283,
-    RIGHT_PARENTHESIS = 284
+    RIGHT_PARENTHESIS = 284,
+    eof = 285,
+    LEFT_BRACKETS = 286,
+    RIGHT_BRACKETS = 287
   };
 #endif
 
@@ -85,7 +88,7 @@ union YYSTYPE
     char * strval;
     int intval;
 
-#line 89 "compiler.tab.h" /* yacc.c:1909  */
+#line 92 "compiler.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
