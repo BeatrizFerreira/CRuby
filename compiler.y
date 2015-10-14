@@ -89,6 +89,7 @@ conditional:
 
 multiple_command:
     | command multiple_command
+    | END_LINE multiple_command
     | RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);}
 
 multiple_conditional:
