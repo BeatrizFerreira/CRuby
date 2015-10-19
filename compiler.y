@@ -38,9 +38,10 @@ command:
     declaration
     | attribution
     | conditional
+    ;
 
 declaration:
-    type IDENTIFIER SEMICOLON {InserirSimbolo(&tabela_simbolos, $2); cont++; linhas++;}
+    type IDENTIFIER {InsereNaSaida(&saida, ($2), linhas); InsereNaSaida(&saida, " = 0\n", linhas);}SEMICOLON {InserirSimbolo(&tabela_simbolos, $2); cont++; linhas++; }
     | declaration_attribution
     ;
 
@@ -81,16 +82,28 @@ comparator:
 if_:
     SE {InsereNaSaida(&saida, "if (", linhas); }LEFT_PARENTHESIS multiple_conditional RIGHT_PARENTHESIS {InsereNaSaida(&saida, ")\n", linhas);} 
 
-conditional:
-    if_ LEFT_BRACKETS multiple_command
+else_:
+    SENAO {InsereNaSaida(&saida, "els", linhas); } conditional
     |
+    SENAO END_LINE {InsereNaSaida(&saida, "else\n", linhas); } command {InsereNaSaida(&saida, "end\n", linhas);}
+    |
+    SENAO{InsereNaSaida(&saida, "else\n", linhas); } LEFT_BRACKETS multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);}
+    ;
+
+
+
+conditional:
     if_ END_LINE {InsereNaSaida(&saida, "\t", linhas);} command {InsereNaSaida(&saida, "end\n", linhas);}
+    |
+    if_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);}
+    |
+    if_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);} else_
     ;
 
 multiple_command:
-    | command multiple_command
+    | command multiple_command  
     | END_LINE multiple_command
-    | RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);}
+    ;
 
 multiple_conditional:
     comparator

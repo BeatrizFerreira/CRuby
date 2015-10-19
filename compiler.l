@@ -13,6 +13,7 @@ end_line [\n]
 
 %%
 "if"			return SE;
+"else"			return SENAO;
 ";" 			return SEMICOLON;
 "int" 			return TYPE_INT;
 "float" 		return TYPE_FLOAT;
@@ -36,7 +37,6 @@ end_line [\n]
 "!="			return DIFERENTE;
 "&&"			return E;
 "||"			return OU;
-"else"			return SENAO;
 "("				return LEFT_PARENTHESIS;
 ")"				return RIGHT_PARENTHESIS;
 "{"				return LEFT_BRACKETS;
