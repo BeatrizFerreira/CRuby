@@ -4,7 +4,7 @@
 #include "compiler.tab.h"
 %}
 digit [0-9]
-identifier [a-zA-Z]+[a-zA-Z{digit}]*
+identifier [a-zA-Z]+[a-zA-Z0-9]*
 n_integer [+-]?{digit}+
 n_real [+-]?{digit}+\.{digit}+
 char .{1}
@@ -12,6 +12,7 @@ white [ \t]+
 end_line [\n]
 
 %%
+"for"			return FOR;
 "if"			return SE;
 "else"			return SENAO;
 ";" 			return SEMICOLON;
@@ -19,12 +20,11 @@ end_line [\n]
 "float" 		return TYPE_FLOAT;
 "double" 		return TYPE_DOUBLE;
 "char" 			return TYPE_CHAR;
-{identifier} 	{yylval.strval = strdup(yytext); return IDENTIFIER;}
+{identifier} 	{yylval.strval = strdup(yytext);}; return IDENTIFIER;
 "=" 			return ATTR;
 {n_integer} 	{yylval.strval = strdup(yytext); return N_INTEGER;}
 {n_real} 		{yylval.strval = strdup(yytext); return N_REAL;}
 "'"{char}"'" 	{yylval.strval = strdup(yytext); return N_CHAR;}
-"if"			return SE;
 "+"				return PLUS;
 "-"				return MINUS;
 "*"				return TIMES;
@@ -41,6 +41,7 @@ end_line [\n]
 ")"				return RIGHT_PARENTHESIS;
 "{"				return LEFT_BRACKETS;
 "}"				return RIGHT_BRACKETS;
+"["				return REFUSE;
 
 {end_line} 		return END_LINE;
 {white} 		/*ignore*/;

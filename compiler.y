@@ -20,7 +20,8 @@ extern char* yytext;
 %token END_LINE
 %token SEMICOLON
 %token PLUS MINUS TIMES DIVISION MENOR MENORIGUAL MAIOR MAIORIGUAL IGUAL DIFERENTE E OU SE SENAO
-%token LEFT_PARENTHESIS RIGHT_PARENTHESIS eof LEFT_BRACKETS RIGHT_BRACKETS
+%token LEFT_PARENTHESIS RIGHT_PARENTHESIS eof LEFT_BRACKETS RIGHT_BRACKETS FOR
+%token REFUSE
 
 %start Input
 
@@ -38,6 +39,7 @@ command:
     declaration
     | attribution
     | conditional
+    | loop
     ;
 
 declaration:
@@ -90,7 +92,22 @@ else_:
     SENAO{InsereNaSaida(&saida, "else\n", linhas); } LEFT_BRACKETS multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);}
     ;
 
+loop:
+    FOR LEFT_PARENTHESIS SEMICOLON SEMICOLON RIGHT_PARENTHESIS
+    |
+    FOR LEFT_PARENTHESIS first_for_loop_part SEMICOLON RIGHT_PARENTHESIS
+    |
+    FOR LEFT_PARENTHESIS first_for_loop_part multiple_conditional SEMICOLON last_for_loop_part RIGHT_PARENTHESIS
+    ;
 
+first_for_loop_part:
+    attribution
+    | declaration_attribution
+    ;
+
+last_for_loop_part:
+    IDENTIFIER{if(procura_tabela_simbolos($1)){InsereNaSaida(&saida, yytext, linhas);}else{erro++;yyerror("Variavel nao declarada");}} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+    ;    
 
 conditional:
     if_ END_LINE {InsereNaSaida(&saida, "\t", linhas);} command {InsereNaSaida(&saida, "end\n", linhas);}
@@ -100,6 +117,11 @@ conditional:
     if_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);} else_
     ;
 
+/*incremento:
+    IDENTIFIER PLUS PLUS
+    | attribution
+    ;
+*/
 multiple_command:
     | command multiple_command  
     | END_LINE multiple_command

@@ -81,6 +81,8 @@ void InserirSimbolo(Simbolo ** temp, char nome[MAX])
             }
             aux2->proximo = aux;
         }
+    } else {
+        printf("Ja esta na tabela de simbolos (%s)", nome);   
     }
 }
 
