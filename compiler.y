@@ -64,7 +64,7 @@ expression:
     | comparator
     | LEFT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);} expression RIGHT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);}
     ;
-
+    
 math_operation:
     | expression PLUS {InsereNaSaida(&saida, " + ", linhas);} expression 
     | expression MINUS {InsereNaSaida(&saida, " - ", linhas);} expression 
@@ -83,7 +83,7 @@ comparator:
 
 if_:
     SE {InsereNaSaida(&saida, "if (", linhas); }LEFT_PARENTHESIS multiple_conditional RIGHT_PARENTHESIS {InsereNaSaida(&saida, ")\n", linhas);} 
-
+    
 else_:
     SENAO {InsereNaSaida(&saida, "els", linhas); } conditional
     |
@@ -93,16 +93,27 @@ else_:
     ;
 
 loop:
-    FOR LEFT_PARENTHESIS SEMICOLON SEMICOLON RIGHT_PARENTHESIS
+    for_statement
+    ;
+
+for_:
+    FOR LEFT_PARENTHESIS SEMICOLON SEMICOLON RIGHT_PARENTHESIS END_LINE{InsereNaSaida(&saida, "while true\n", linhas);}
     |
-    FOR LEFT_PARENTHESIS first_for_loop_part SEMICOLON RIGHT_PARENTHESIS
+    FOR LEFT_PARENTHESIS first_for_loop_part SEMICOLON RIGHT_PARENTHESIS END_LINE{InsereNaSaida(&saida, "while true\n", linhas);} 
     |
-    FOR LEFT_PARENTHESIS first_for_loop_part multiple_conditional SEMICOLON last_for_loop_part RIGHT_PARENTHESIS
+    FOR LEFT_PARENTHESIS first_for_loop_part {InsereNaSaida(&saida, "while ", linhas);} multiple_conditional SEMICOLON {InsereNaSaida(&saida, "\n", linhas);} last_for_loop_part RIGHT_PARENTHESIS END_LINE
+    ;
+
+for_statement:
+    for_ command {InsereNaSaida(&saida, "end\n", linhas);}
+    |
+    for_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);}
+    |
+    FOR LEFT_PARENTHESIS first_for_loop_part SEMICOLON RIGHT_PARENTHESIS LEFT_BRACKETS END_LINE {InsereNaSaida(&saida, "while true\n", linhas);}  multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);}
     ;
 
 first_for_loop_part:
     attribution
-    | declaration_attribution
     ;
 
 last_for_loop_part:
