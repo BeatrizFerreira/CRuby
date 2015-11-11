@@ -1,0 +1,12 @@
+int i;
+int x;
+int y;
+for ( i = 0 ; i < 5 ; i = i + 1 ){
+for ( x = 0 ; x < 5 ; x = x + 2 ){
+for ( y = 0 ; y < 5 ; y = y + 2 ){
+int w;
+}
+}
+}
+
+;

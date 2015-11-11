@@ -4,6 +4,10 @@
 #include <string.h>
 #include "symbol_table.h"
 
+char condicao[100][100];
+
+int contador_for = 0;
+
 extern char* yytext;
 %}
 
@@ -64,7 +68,33 @@ expression:
     | comparator
     | LEFT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);} expression RIGHT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);}
     ;
-    
+
+expression_loop:
+    N_INTEGER { strcat(condicao[contador_for], yytext ); }
+    | N_REAL { strcat(condicao[contador_for], yytext); }
+    | N_CHAR { strcat(condicao[contador_for], yytext ); }
+    | IDENTIFIER { printf("expressao %s\n", yytext); strcat(condicao[contador_for], yytext ); printf("[%d] = %s\n", contador_for , condicao[contador_for]); }
+    | math_operation_loop
+    | comparator_loop
+    | LEFT_PARENTHESIS expression_loop RIGHT_PARENTHESIS
+    ;
+
+math_operation_loop:
+    | expression_loop PLUS { strcat(condicao[contador_for], yytext ); } expression_loop 
+    | expression_loop MINUS { strcat(condicao[contador_for], yytext ); } expression_loop 
+    | expression_loop TIMES { strcat(condicao[contador_for], yytext ); } expression_loop
+    | expression_loop DIVISION { strcat(condicao[contador_for], yytext ); } expression_loop
+    ;
+
+comparator_loop:
+    expression_loop MENOR { strcat(condicao[contador_for], yytext ); } expression_loop
+    | expression_loop MENORIGUAL { strcat(condicao[contador_for], yytext ); }  expression_loop
+    | expression_loop MAIOR { strcat(condicao[contador_for], yytext ); }  expression_loop
+    | expression_loop MAIORIGUAL { strcat(condicao[contador_for], yytext ); } expression_loop
+    | expression_loop IGUAL { strcat(condicao[contador_for], yytext ); }  expression_loop 
+    | expression_loop DIFERENTE { strcat(condicao[contador_for], yytext ); } expression_loop
+    ;
+
 math_operation:
     | expression PLUS {InsereNaSaida(&saida, " + ", linhas);} expression 
     | expression MINUS {InsereNaSaida(&saida, " - ", linhas);} expression 
@@ -101,13 +131,13 @@ for_:
     |
     FOR LEFT_PARENTHESIS first_for_loop_part SEMICOLON RIGHT_PARENTHESIS END_LINE{InsereNaSaida(&saida, "while true\n", linhas);} 
     |
-    FOR LEFT_PARENTHESIS first_for_loop_part {InsereNaSaida(&saida, "while ", linhas);} multiple_conditional SEMICOLON {InsereNaSaida(&saida, "\n", linhas);} last_for_loop_part RIGHT_PARENTHESIS END_LINE
+    FOR LEFT_PARENTHESIS first_for_loop_part {InsereNaSaida(&saida, "while ", linhas);} multiple_conditional_loop SEMICOLON {InsereNaSaida(&saida, "\n", linhas);} last_for_loop_part RIGHT_PARENTHESIS {contador_for++;}
     ;
 
 for_statement:
     for_ command {InsereNaSaida(&saida, "end\n", linhas);}
     |
-    for_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);}
+    for_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, condicao[--   contador_for], linhas); printf("condicao eh %s\n", condicao[contador_for]); InsereNaSaida(&saida, "\nend\n", linhas);}
     |
     FOR LEFT_PARENTHESIS first_for_loop_part SEMICOLON RIGHT_PARENTHESIS LEFT_BRACKETS END_LINE {InsereNaSaida(&saida, "while true\n", linhas);}  multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);}
     ;
@@ -117,7 +147,7 @@ first_for_loop_part:
     ;
 
 last_for_loop_part:
-    IDENTIFIER{if(procura_tabela_simbolos($1)){InsereNaSaida(&saida, yytext, linhas);}else{erro++;yyerror("Variavel nao declarada");}} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+    IDENTIFIER{if(procura_tabela_simbolos($1)){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{erro++;yyerror("Variavel nao declarada");}} ATTR { strcat(condicao[contador_for], " = " ); } expression_loop {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;    
 
 conditional:
@@ -139,6 +169,11 @@ multiple_command:
     ;
 
 multiple_conditional:
+    comparator
+    | comparator booleans
+    ;
+
+multiple_conditional_loop:
     comparator
     | comparator booleans
     ;
@@ -169,6 +204,15 @@ int main(void) {
 
     fp = fopen("ruby.rb", "w");
     Imprime(saida);
+    printf("caracalho %s\n", condicao[contador_for]);
+
+    int i;
+
+    printf("hue\n%s\n", condicao[0]);
+    printf("hue\n%s\n", condicao[1]);
+    printf("hue\n%s\n", condicao[2]);
+
+
     fclose(fp);
     /*passo = 1;
     yyparse();
