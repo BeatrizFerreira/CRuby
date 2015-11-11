@@ -137,7 +137,7 @@ for_:
 for_statement:
     for_ command {InsereNaSaida(&saida, "end\n", linhas);}
     |
-    for_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, condicao[--   contador_for], linhas); printf("condicao eh %s\n", condicao[contador_for]); InsereNaSaida(&saida, "\nend\n", linhas);}
+    for_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0'; printf("condicao eh %s\n", condicao[contador_for]);InsereNaSaida(&saida, "\nend\n", linhas);}
     |
     FOR LEFT_PARENTHESIS first_for_loop_part SEMICOLON RIGHT_PARENTHESIS LEFT_BRACKETS END_LINE {InsereNaSaida(&saida, "while true\n", linhas);}  multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);}
     ;
