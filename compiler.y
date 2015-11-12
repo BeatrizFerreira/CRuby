@@ -24,8 +24,7 @@ extern char* yytext;
 %token END_LINE
 %token SEMICOLON
 %token PLUS MINUS TIMES DIVISION MENOR MENORIGUAL MAIOR MAIORIGUAL IGUAL DIFERENTE E OU SE SENAO
-%token LEFT_PARENTHESIS RIGHT_PARENTHESIS eof LEFT_BRACKETS RIGHT_BRACKETS FOR
-%token REFUSE
+%token LEFT_PARENTHESIS RIGHT_PARENTHESIS eof LEFT_BRACKETS RIGHT_BRACKETS FOR WHILE REFUSE
 
 %start Input
 
@@ -124,6 +123,16 @@ else_:
 
 loop:
     for_statement
+    | while
+    ;
+
+while_statement:
+    WHILE { InsereNaSaida(&saida, "while ( ", linhas); } LEFT_PARENTHESIS multiple_conditional RIGHT_PARENTHESIS { InsereNaSaida(&saida, " ) \n" , linhas); }
+    ;
+
+while:
+    while_statement END_LINE command { InsereNaSaida(&saida, "\nend\n" , linhas); }
+    | while_statement LEFT_BRACKETS END_LINE multiple_command RIGHT_BRACKETS { InsereNaSaida(&saida, "\nend\n" , linhas); }
     ;
 
 for_:
@@ -131,11 +140,11 @@ for_:
     |
     FOR LEFT_PARENTHESIS first_for_loop_part SEMICOLON RIGHT_PARENTHESIS END_LINE{InsereNaSaida(&saida, "while true\n", linhas);} 
     |
-    FOR LEFT_PARENTHESIS first_for_loop_part {InsereNaSaida(&saida, "while ", linhas);} multiple_conditional_loop SEMICOLON {InsereNaSaida(&saida, "\n", linhas);} last_for_loop_part RIGHT_PARENTHESIS {contador_for++;}
+    FOR LEFT_PARENTHESIS first_for_loop_part {InsereNaSaida(&saida, "while ", linhas);} multiple_conditional_loop SEMICOLON {InsereNaSaida(&saida, "\n", linhas);} last_for_loop_part RIGHT_PARENTHESIS  {contador_for++;}
     ;
 
 for_statement:
-    for_ command {InsereNaSaida(&saida, "end\n", linhas);}
+    for_ END_LINE command {InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0';} {InsereNaSaida(&saida, "\nend\n", linhas);}  
     |
     for_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0'; printf("condicao eh %s\n", condicao[contador_for]);InsereNaSaida(&saida, "\nend\n", linhas);}
     |

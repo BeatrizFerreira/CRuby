@@ -12,6 +12,7 @@ white [ \t]+
 end_line [\n]
 
 %%
+"while"			return WHILE;
 "for"			return FOR;
 "if"			return SE;
 "else"			return SENAO;
