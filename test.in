@@ -12,4 +12,14 @@ int w;
 for ( i = 3; i < 10 ; i = i + 3 ){
 w = 3;
 }
+
+int a;
+
+if ( 1 ){
+	a = 2;
+	}else if ( 0 ){
+		a = 3;
+			} else {
+				a = 4;
+				}
 ;

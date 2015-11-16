@@ -114,6 +114,15 @@ void InsereNaSaida(Saida ** temp, char string[MAX], int linha){
     }
 }
 
+void InsereTabsSaida(Saida ** temp, int tabs , int linha){
+
+    int i;
+
+    for ( i = 0 ; i < tabs ; i++ )
+        InsereNaSaida(&saida, "\t" , linha );
+
+}
+
 void Imprime(Saida * temp)
 {
 

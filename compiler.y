@@ -7,6 +7,7 @@
 char condicao[100][100];
 
 int contador_for = 0;
+int contador_tab = 0;
 
 extern char* yytext;
 %}
@@ -41,7 +42,11 @@ Line:
 command:
     declaration
     | attribution
-    | conditional
+    | loop_and_conditional
+    ;
+
+loop_and_conditional:
+    conditional
     | loop
     ;
 
@@ -114,11 +119,11 @@ if_:
     SE {InsereNaSaida(&saida, "if (", linhas); }LEFT_PARENTHESIS multiple_conditional RIGHT_PARENTHESIS {InsereNaSaida(&saida, ")\n", linhas);} 
     
 else_:
-    SENAO {InsereNaSaida(&saida, "els", linhas); } conditional
+    SENAO { contador_tab--; InsereNaSaida(&saida, "els", linhas); } conditional
     |
-    SENAO END_LINE {InsereNaSaida(&saida, "else\n", linhas); } command {InsereNaSaida(&saida, "end\n", linhas);}
+    SENAO END_LINE { InsereNaSaida(&saida, "else\n", linhas); } command {  InsereNaSaida(&saida, "end\n", linhas);}
     |
-    SENAO{InsereNaSaida(&saida, "else\n", linhas); } LEFT_BRACKETS multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);}
+    SENAO{ InsereNaSaida(&saida, "else\n", linhas); } LEFT_BRACKETS multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);}
     ;
 
 loop:
@@ -160,12 +165,13 @@ last_for_loop_part:
     ;    
 
 conditional:
-    if_ END_LINE {InsereNaSaida(&saida, "\t", linhas);} command {InsereNaSaida(&saida, "end\n", linhas);}
+    if_ END_LINE command {contador_tab--; InsereTabsSaida(&saida, contador_tab , linhas); InsereNaSaida(&saida, "end\n", linhas);}
     |
-    if_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);}
+    if_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS {contador_tab--; InsereTabsSaida(&saida, contador_tab , linhas); InsereNaSaida(&saida, "end\n", linhas);}
     |
-    if_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);} else_
+    if_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS else_
     ;
+
 
 /*incremento:
     IDENTIFIER PLUS PLUS
@@ -178,7 +184,8 @@ multiple_command:
     ;
 
 multiple_conditional:
-    comparator
+    N_INTEGER { if ( strcmp($1, "0") == 0 )InsereNaSaida(&saida, "false", linhas); else InsereNaSaida(&saida, "true", linhas);}
+    | comparator
     | comparator booleans
     ;
 
