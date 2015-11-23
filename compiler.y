@@ -40,13 +40,13 @@ Line:
     ;
 
 command:
-    declaration
-    | attribution
+    {InsereTabsSaida(&saida, contador_tab);} declaration
+    | {InsereTabsSaida(&saida, contador_tab);} attribution
     | loop_and_conditional
     ;
 
 loop_and_conditional:
-    conditional
+    {InsereTabsSaida(&saida, contador_tab);} conditional
     | loop
     ;
 
@@ -116,58 +116,58 @@ comparator:
     ;
 
 if_:
-    SE {InsereNaSaida(&saida, "if (", linhas); }LEFT_PARENTHESIS multiple_conditional RIGHT_PARENTHESIS {InsereNaSaida(&saida, ")\n", linhas);} 
+    SE { InsereNaSaida(&saida, "if (", linhas); }LEFT_PARENTHESIS multiple_conditional RIGHT_PARENTHESIS {InsereNaSaida(&saida, ")\n", linhas); contador_tab++; } 
     
 else_:
-    SENAO { contador_tab--; InsereNaSaida(&saida, "els", linhas); } conditional
+    SENAO { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "els", linhas); } conditional
     |
-    SENAO END_LINE { InsereNaSaida(&saida, "else\n", linhas); } command {  InsereNaSaida(&saida, "end\n", linhas);}
+    SENAO END_LINE { contador_tab--; InsereNaSaida(&saida, "else\n", linhas); } command { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
     |
-    SENAO{ InsereNaSaida(&saida, "else\n", linhas); } LEFT_BRACKETS multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);}
+    SENAO{ contador_tab--; InsereTabsSaida(&saida, contador_tab); contador_tab++; InsereNaSaida(&saida, "else\n", linhas); } LEFT_BRACKETS multiple_command RIGHT_BRACKETS { contador_tab--;InsereTabsSaida(&saida, contador_tab);InsereNaSaida(&saida, "end\n", linhas);}
     ;
 
 loop:
     for_statement
-    | while
+    | {InsereTabsSaida(&saida, contador_tab);} while
     ;
 
 while_statement:
-    WHILE { InsereNaSaida(&saida, "while ( ", linhas); } LEFT_PARENTHESIS multiple_conditional RIGHT_PARENTHESIS { InsereNaSaida(&saida, " ) \n" , linhas); }
+    WHILE { InsereNaSaida(&saida, "while ( ", linhas); } LEFT_PARENTHESIS multiple_conditional RIGHT_PARENTHESIS { InsereNaSaida(&saida, " ) \n" , linhas); contador_tab++; }
     ;
 
 while:
-    while_statement END_LINE command { InsereNaSaida(&saida, "\nend\n" , linhas); }
-    | while_statement LEFT_BRACKETS END_LINE multiple_command RIGHT_BRACKETS { InsereNaSaida(&saida, "\nend\n" , linhas); }
+    while_statement END_LINE command { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "\nend\n" , linhas);}
+    | while_statement LEFT_BRACKETS END_LINE multiple_command RIGHT_BRACKETS { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n" , linhas); }
     ;
 
 for_:
-    FOR LEFT_PARENTHESIS SEMICOLON SEMICOLON RIGHT_PARENTHESIS END_LINE{InsereNaSaida(&saida, "while true\n", linhas);}
+    FOR LEFT_PARENTHESIS SEMICOLON SEMICOLON RIGHT_PARENTHESIS END_LINE {InsereTabsSaida(&saida, contador_tab);} {InsereNaSaida(&saida, "while true\n", linhas);}
     |
-    FOR LEFT_PARENTHESIS first_for_loop_part SEMICOLON RIGHT_PARENTHESIS END_LINE{InsereNaSaida(&saida, "while true\n", linhas);} 
+    FOR LEFT_PARENTHESIS first_for_loop_part SEMICOLON RIGHT_PARENTHESIS END_LINE {InsereTabsSaida(&saida, contador_tab);} {InsereNaSaida(&saida, "while true\n", linhas);} 
     |
-    FOR LEFT_PARENTHESIS first_for_loop_part {InsereNaSaida(&saida, "while ", linhas);} multiple_conditional_loop SEMICOLON {InsereNaSaida(&saida, "\n", linhas);} last_for_loop_part RIGHT_PARENTHESIS  {contador_for++;}
+    FOR LEFT_PARENTHESIS first_for_loop_part {InsereTabsSaida(&saida, contador_tab);} {InsereNaSaida(&saida, "while ", linhas);} multiple_conditional_loop SEMICOLON {InsereNaSaida(&saida, "\n", linhas);} last_for_loop_part RIGHT_PARENTHESIS  {contador_for++;}
     ;
 
 for_statement:
-    for_ END_LINE command {InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0';} {InsereNaSaida(&saida, "\nend\n", linhas);}  
+    for_ END_LINE {contador_tab++;} command {InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0';} {InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}  
     |
-    for_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0'; printf("condicao eh %s\n", condicao[contador_for]);InsereNaSaida(&saida, "\nend\n", linhas);}
+    for_ LEFT_BRACKETS {contador_tab++;} multiple_command RIGHT_BRACKETS { InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0'; printf("condicao eh %s\n", condicao[contador_for]); InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
     |
-    FOR LEFT_PARENTHESIS first_for_loop_part SEMICOLON RIGHT_PARENTHESIS LEFT_BRACKETS END_LINE {InsereNaSaida(&saida, "while true\n", linhas);}  multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "end\n", linhas);}
+    FOR LEFT_PARENTHESIS first_for_loop_part SEMICOLON RIGHT_PARENTHESIS LEFT_BRACKETS END_LINE {contador_tab++; InsereNaSaida(&saida, "while true\n", linhas);}  multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
     ;
 
 first_for_loop_part:
-    attribution
+    {InsereTabsSaida(&saida, contador_tab);} attribution
     ;
 
 last_for_loop_part:
-    IDENTIFIER{if(procura_tabela_simbolos($1)){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{erro++;yyerror("Variavel nao declarada");}} ATTR { strcat(condicao[contador_for], " = " ); } expression_loop {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+    IDENTIFIER {if(procura_tabela_simbolos($1)){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{erro++;yyerror("Variavel nao declarada");}} ATTR { strcat(condicao[contador_for], " = " ); } expression_loop {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;    
 
 conditional:
-    if_ END_LINE command {contador_tab--; InsereTabsSaida(&saida, contador_tab , linhas); InsereNaSaida(&saida, "end\n", linhas);}
+    if_ END_LINE command {contador_tab--; {InsereTabsSaida(&saida, contador_tab);}  InsereNaSaida(&saida, "end\n", linhas);}
     |
-    if_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS {contador_tab--; InsereTabsSaida(&saida, contador_tab , linhas); InsereNaSaida(&saida, "end\n", linhas);}
+    if_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS {contador_tab--; {InsereTabsSaida(&saida, contador_tab);} InsereNaSaida(&saida, "end\n", linhas);}
     |
     if_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS else_
     ;

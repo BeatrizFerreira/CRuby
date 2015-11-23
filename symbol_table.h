@@ -96,6 +96,7 @@ Saida * AddSaida(char string[MAX], int linha){
 }
 
 void InsereNaSaida(Saida ** temp, char string[MAX], int linha){
+
     Saida * aux = AddSaida(string, linha);
     Saida * head = *temp;
 
@@ -114,12 +115,12 @@ void InsereNaSaida(Saida ** temp, char string[MAX], int linha){
     }
 }
 
-void InsereTabsSaida(Saida ** temp, int tabs , int linha){
+void InsereTabsSaida(Saida ** temp, int tabs ){
 
     int i;
 
     for ( i = 0 ; i < tabs ; i++ )
-        InsereNaSaida(&saida, "\t" , linha );
+        InsereNaSaida(&saida, "\t" , tabs );
 
 }
 

@@ -1,25 +1,32 @@
-i = 0
-x = 0
-y = 0
-i = 0
-while i < 5
+a = 0
+if (true)
+	w = 0
+	u = 0
+elsif (true)
+	k = 0
+	i = 0
+	if (true)
+		while ( k < i ) 
+			a = 0
+			b = 0
+			c = 0
+		end
+		while ( true ) 
+			d = 0
+		end
+		a = 0
+		while a < 10
 
-x = 0
-while x < 5
+			a = 0
+			while a < 10
 
-y = 0
-while y < 5
-
-w = 0
-y = y+2
-end
-x = x+2
-end
-i = i+1
-end
-i = 3
-while i < 10
-
-w = 3
-i = i+3
+				e = 0
+				f = 0
+				a = a+1
+			end
+			a = a+1
+		end
+	elsif (true)
+		v = 0
+	end
 end
