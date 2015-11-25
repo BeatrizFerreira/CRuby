@@ -10,7 +10,6 @@ int contador_for = 0;
 int contador_tab = 0;
 extern FILE *yyin;
 extern char* yytext;
-FILE * in;
 %}
 
 %union{
@@ -23,7 +22,7 @@ FILE * in;
 %token <strval> IDENTIFIER
 %token <strval> ATTR
 %token <strval> N_INTEGER N_REAL N_CHAR
-%token END_LINE
+%token END_LINE END
 %token SEMICOLON
 %token PLUS MINUS TIMES DIVISION MENOR MENORIGUAL MAIOR MAIORIGUAL IGUAL DIFERENTE E OU SE SENAO
 %token LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKETS RIGHT_BRACKETS FOR WHILE REFUSE
@@ -32,9 +31,8 @@ FILE * in;
 
 %%
 Input:
-    /* Empty */
-    //EOF {return;} |
-    | Input Line 
+    Input Line 
+    | /*Empty*/
     ;
 Line:
     command
@@ -174,12 +172,6 @@ conditional:
     if_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS else_
     ;
 
-
-/*incremento:
-    IDENTIFIER PLUS PLUS
-    | attribution
-    ;
-*/
 multiple_command:
     | command multiple_command  
     | END_LINE multiple_command
@@ -223,33 +215,13 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
-    while( !feof(yyin) ){
-        printf("Couopen file.\n");
-        yyparse();
-        printf("saiu\n");
-    }
-    //if(feof(in)){
+    yyparse();
+    
     fp = fopen("ruby.rb", "w");
     Imprime(saida);
-    //}
 
     int i;
-
-    printf("hue\n%s\n", condicao[0]);
-    printf("hue\n%s\n", condicao[1]);
-    printf("hue\n%s\n", condicao[2]);
-
-
     fclose(fp);
-    /*passo = 1;
-    yyparse();
-
-    rewind(fp, 0); //volta o arquivo para 0
-
-    passo = 2;
-    yyparse();
-
-    fclose(fp);*/
 }
 
 

@@ -11,6 +11,8 @@ char .{1}
 white [ \t]+
 end_line [\n]
 
+%option noyywrap
+
 %%
 "while"			return WHILE;
 "for"			return FOR;
@@ -47,8 +49,6 @@ end_line [\n]
 {end_line} 		return END_LINE;
 {white} 		/*ignore*/;
 
+[<<EOF>>]		{printf("end of file\n");}return END;
 %%
-/*main(){yylex();}*/
-int yywrap() {
-return 0;
-}
+
