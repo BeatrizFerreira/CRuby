@@ -46,7 +46,6 @@ end_line [\n]
 
 {end_line} 		return END_LINE;
 {white} 		/*ignore*/;
-<<EOF>>			return eof;
 
 %%
 /*main(){yylex();}*/

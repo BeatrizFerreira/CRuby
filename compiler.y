@@ -8,8 +8,9 @@ char condicao[100][100];
 
 int contador_for = 0;
 int contador_tab = 0;
-
+extern FILE *yyin;
 extern char* yytext;
+FILE * in;
 %}
 
 %union{
@@ -25,13 +26,14 @@ extern char* yytext;
 %token END_LINE
 %token SEMICOLON
 %token PLUS MINUS TIMES DIVISION MENOR MENORIGUAL MAIOR MAIORIGUAL IGUAL DIFERENTE E OU SE SENAO
-%token LEFT_PARENTHESIS RIGHT_PARENTHESIS eof LEFT_BRACKETS RIGHT_BRACKETS FOR WHILE REFUSE
+%token LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKETS RIGHT_BRACKETS FOR WHILE REFUSE
 
 %start Input
 
 %%
 Input:
     /* Empty */
+    //EOF {return;} |
     | Input Line 
     ;
 Line:
@@ -211,16 +213,25 @@ int yyerror(char *s) {
     // erro++;
 }
 
-int main(void) {
+int main(int argc, char *argv[]) {
     saida = NULL;
     tabela_simbolos = NULL;
     linhas = 0;
+    yyin = fopen(argv[1], "r");
+    if (yyin == NULL){
+        printf("Could not open file.\n");
+        exit(1);
+    }
 
-    yyparse();
-
+    while( !feof(yyin) ){
+        printf("Couopen file.\n");
+        yyparse();
+        printf("saiu\n");
+    }
+    //if(feof(in)){
     fp = fopen("ruby.rb", "w");
     Imprime(saida);
-    printf("caracalho %s\n", condicao[contador_for]);
+    //}
 
     int i;
 

@@ -1,5 +1,9 @@
 int a;
 
+int a = 2 + 3;
+
+int b = a + 3;
+
 if ( 1 ){
 	int w;
 	int u;
@@ -21,12 +25,16 @@ if ( 1 ){
 
 		for ( a = 0 ; a < 10 ; a = a + 1 ){
 			for ( a = 0 ; a < 10 ; a = a + 1 ){
-				int e;
-				int f;
+				while ( a > 0 ){
+					a = a + 1;
+					d = a * ( b * d );
+				}
 			}
 		}
 	}else if ( 1 ){
 		int v;
+	}else {
+
+		int aka;
 	}
 }
-;

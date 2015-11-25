@@ -72,12 +72,11 @@ extern int yydebug;
     SENAO = 282,
     LEFT_PARENTHESIS = 283,
     RIGHT_PARENTHESIS = 284,
-    eof = 285,
-    LEFT_BRACKETS = 286,
-    RIGHT_BRACKETS = 287,
-    FOR = 288,
-    WHILE = 289,
-    REFUSE = 290
+    LEFT_BRACKETS = 285,
+    RIGHT_BRACKETS = 286,
+    FOR = 287,
+    WHILE = 288,
+    REFUSE = 289
   };
 #endif
 
@@ -86,12 +85,12 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 15 "compiler.y" /* yacc.c:1909  */
+#line 16 "compiler.y" /* yacc.c:1909  */
 
     char * strval;
     int intval;
 
-#line 95 "compiler.tab.h" /* yacc.c:1909  */
+#line 94 "compiler.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
