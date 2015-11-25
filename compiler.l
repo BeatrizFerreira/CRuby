@@ -46,9 +46,8 @@ end_line [\n]
 "}"				return RIGHT_BRACKETS;
 "["				return REFUSE;
 
-{end_line} 		return END_LINE;
+{end_line} 		;
 {white} 		/*ignore*/;
 
-[<<EOF>>]		{printf("end of file\n");}return END;
 %%
 
