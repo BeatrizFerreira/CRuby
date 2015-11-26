@@ -60,14 +60,14 @@ declaration_attribution:
     ;
 
 attribution:
-    IDENTIFIER{if(procura_tabela_simbolos($1)){InsereNaSaida(&saida, yytext, linhas);}else{erro++;yyerror("Variavel nao declarada");}} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression SEMICOLON {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+    IDENTIFIER{if(procura_tabela_simbolos($1)){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variable not declared!\n");}} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression SEMICOLON {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;
 
 expression:
     N_INTEGER {InsereNaSaida(&saida, yytext, linhas);}
     | N_REAL {InsereNaSaida(&saida, yytext, linhas);}
     | N_CHAR {InsereNaSaida(&saida, yytext, linhas);}
-    | IDENTIFIER {printf("!%s\n", $1);if(procura_tabela_simbolos($1)){InsereNaSaida(&saida, yytext, linhas);}else{erro++;yyerror("Variavel nao declarada");} }
+    | IDENTIFIER {printf("!%s\n", $1);if(procura_tabela_simbolos($1)){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variable not declared!\n");} }
     | math_operation
     | comparator
     | LEFT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);} expression RIGHT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);}
@@ -77,7 +77,7 @@ expression_loop:
     N_INTEGER { strcat(condicao[contador_for], yytext ); }
     | N_REAL { strcat(condicao[contador_for], yytext); }
     | N_CHAR { strcat(condicao[contador_for], yytext ); }
-    | IDENTIFIER { printf("expressao %s\n", yytext); strcat(condicao[contador_for], yytext ); printf("[%d] = %s\n", contador_for , condicao[contador_for]); }
+    | IDENTIFIER { strcat(condicao[contador_for], yytext ); printf("[%d] = %s\n", contador_for , condicao[contador_for]); }
     | math_operation_loop
     | comparator_loop
     | LEFT_PARENTHESIS expression_loop RIGHT_PARENTHESIS
@@ -121,7 +121,7 @@ if_:
 else_:
     SENAO { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "els", linhas); } conditional
     |
-    SENAO { printf("BRISA FORTE\n"); InsereNaSaida(&saida, "else\n", linhas); } command {  contador_tab--;  InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
+    SENAO { InsereNaSaida(&saida, "else\n", linhas); } command {  contador_tab--;  InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
     |
     SENAO{ contador_tab--; InsereTabsSaida(&saida, contador_tab); contador_tab++; InsereNaSaida(&saida, "else\n", linhas); } LEFT_BRACKETS multiple_command RIGHT_BRACKETS { contador_tab--;InsereTabsSaida(&saida, contador_tab);InsereNaSaida(&saida, "end\n", linhas);}
     ;
@@ -161,7 +161,7 @@ first_for_loop_part:
     ;
 
 last_for_loop_part:
-    IDENTIFIER {if(procura_tabela_simbolos($1)){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{erro++;yyerror("Variavel nao declarada");}} ATTR { strcat(condicao[contador_for], " = " ); } expression_loop {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+    IDENTIFIER {if(procura_tabela_simbolos($1)){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{yyerror("Variable not declared!\n");}} ATTR { strcat(condicao[contador_for], " = " ); } expression_loop {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;    
 
 conditional:
@@ -204,7 +204,7 @@ type:
 
 int yyerror(char *s) {
     printf("error: %s\n",s);
-    // erro++;
+    erro++;
 }
 
 int main(int argc, char *argv[]) {
@@ -213,17 +213,27 @@ int main(int argc, char *argv[]) {
     linhas = 0;
     yyin = fopen(argv[1], "r");
     if (yyin == NULL){
-        printf("Could not open file.\n");
+        printf("Could not open the file.\n");
         exit(1);
     }
 
-    yyparse();
-    
-    fp = fopen("ruby.rb", "w");
-    Imprime(saida);
+    char file_name[100];
 
-    int i;
-    fclose(fp);
+    file_name[0] = '\0';
+
+    strcat(file_name, argv[1]);
+
+    strcat(file_name, ".rb");
+
+    yyparse();
+
+    if ( erro == 0 ){
+        printf("Name of the file: %s\n", file_name);
+        fp = fopen(file_name, "w");
+        Imprime(saida);
+        fclose(fp);
+    }
+
 }
 
 

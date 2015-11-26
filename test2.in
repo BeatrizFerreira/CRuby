@@ -1,7 +1,7 @@
 int y;
 
 if ( y == 5 )
-	int x;
+	int x;	
 else
 	int w;
 

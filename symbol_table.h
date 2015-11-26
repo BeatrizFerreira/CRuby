@@ -30,15 +30,15 @@ int cont = 0;
 int procura_tabela_simbolos(char nomesimbolo[MAX]){
     
     if(tabela_simbolos == NULL){
-        printf("vazio!\n");
+        // printf("vazio!\n");
         return 0; // nao esta na tabela de simbolos
     }else{
 
-        printf("nao vazio1\n");
+        // printf("nao vazio1\n");
         Simbolo *aux = tabela_simbolos;
         while( aux != NULL)
         {
-            printf("hue\n");
+            // printf("hue\n");
             if ( strcmp(nomesimbolo, aux->nome) == 0 ){
 
                 return 1; //esta na tabela de simbolos
@@ -68,12 +68,12 @@ void InserirSimbolo(Simbolo ** temp, char nome[MAX])
         {
             *temp = aux;
             // aux->proximo = NULL;
-            printf("entrou if\n");
+            // printf("entrou if\n");
         }
         else
         {
 
-            printf("entrou else\n");
+            // printf("entrou else\n");
             Simbolo * aux2 = *temp;
             while(aux2->proximo != NULL)
             {
@@ -127,7 +127,9 @@ void InsereTabsSaida(Saida ** temp, int tabs ){
 void Imprime(Saida * temp)
 {
 
-    if ( erro == 0){
+    if ( erro == 0 ){
+
+        printf("FILE COMPILED SUCCESSFULLY!\n");
 
         Saida * aux = temp;
         while(aux != NULL)
@@ -136,7 +138,6 @@ void Imprime(Saida * temp)
             aux= aux->proximo;    
         }
     }else{
-
 
         fprintf(fp, "##\n## SYNTAX ERROR\n##\n");
     }

@@ -1455,7 +1455,7 @@ yyreduce:
 
   case 20:
 #line 63 "compiler.y" /* yacc.c:1646  */
-    {if(procura_tabela_simbolos((yyvsp[0].strval))){InsereNaSaida(&saida, yytext, linhas);}else{erro++;yyerror("Variavel nao declarada");}}
+    {if(procura_tabela_simbolos((yyvsp[0].strval))){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variable not declared!\n");}}
 #line 1460 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1491,7 +1491,7 @@ yyreduce:
 
   case 26:
 #line 70 "compiler.y" /* yacc.c:1646  */
-    {printf("!%s\n", (yyvsp[0].strval));if(procura_tabela_simbolos((yyvsp[0].strval))){InsereNaSaida(&saida, yytext, linhas);}else{erro++;yyerror("Variavel nao declarada");} }
+    {printf("!%s\n", (yyvsp[0].strval));if(procura_tabela_simbolos((yyvsp[0].strval))){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variable not declared!\n");} }
 #line 1496 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1527,7 +1527,7 @@ yyreduce:
 
   case 34:
 #line 80 "compiler.y" /* yacc.c:1646  */
-    { printf("expressao %s\n", yytext); strcat(condicao[contador_for], yytext ); printf("[%d] = %s\n", contador_for , condicao[contador_for]); }
+    { strcat(condicao[contador_for], yytext ); printf("[%d] = %s\n", contador_for , condicao[contador_for]); }
 #line 1532 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1671,7 +1671,7 @@ yyreduce:
 
   case 84:
 #line 124 "compiler.y" /* yacc.c:1646  */
-    { printf("BRISA FORTE\n"); InsereNaSaida(&saida, "else\n", linhas); }
+    { InsereNaSaida(&saida, "else\n", linhas); }
 #line 1676 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1821,7 +1821,7 @@ yyreduce:
 
   case 112:
 #line 164 "compiler.y" /* yacc.c:1646  */
-    {if(procura_tabela_simbolos((yyvsp[0].strval))){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{erro++;yyerror("Variavel nao declarada");}}
+    {if(procura_tabela_simbolos((yyvsp[0].strval))){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{yyerror("Variable not declared!\n");}}
 #line 1826 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
@@ -2101,7 +2101,7 @@ yyreturn:
 
 int yyerror(char *s) {
     printf("error: %s\n",s);
-    // erro++;
+    erro++;
 }
 
 int main(int argc, char *argv[]) {
@@ -2110,17 +2110,27 @@ int main(int argc, char *argv[]) {
     linhas = 0;
     yyin = fopen(argv[1], "r");
     if (yyin == NULL){
-        printf("Could not open file.\n");
+        printf("Could not open the file.\n");
         exit(1);
     }
 
-    yyparse();
-    
-    fp = fopen("ruby.rb", "w");
-    Imprime(saida);
+    char file_name[100];
 
-    int i;
-    fclose(fp);
+    file_name[0] = '\0';
+
+    strcat(file_name, argv[1]);
+
+    strcat(file_name, ".rb");
+
+    yyparse();
+
+    if ( erro == 0 ){
+        printf("Name of the file: %s\n", file_name);
+        fp = fopen(file_name, "w");
+        Imprime(saida);
+        fclose(fp);
+    }
+
 }
 
 
