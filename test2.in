@@ -1,16 +1,13 @@
-int y = 3;
-int x = 3;
-if ( x == 5 )
-{
-	y = 2; y = 3;
-}
+int y;
 
-while(1)
-{
-	y = 3;
-}
+if ( y == 5 )
+	int x;
+else
+	int w;
 
-for ( y = 0 ; y < 10 ; y = y + 1 )
-{
-	x = x + y;
-}
+char a = 'a';
+
+if ( y == 5 )
+	x = 5;
+else
+	w = 5;

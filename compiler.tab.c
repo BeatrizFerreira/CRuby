@@ -1671,13 +1671,13 @@ yyreduce:
 
   case 84:
 #line 124 "compiler.y" /* yacc.c:1646  */
-    { printf("BRISA FORTE\n"); contador_tab--; InsereNaSaida(&saida, "else\n", linhas); }
+    { printf("BRISA FORTE\n"); InsereNaSaida(&saida, "else\n", linhas); }
 #line 1676 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 85:
 #line 124 "compiler.y" /* yacc.c:1646  */
-    { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
+    {  contador_tab--;  InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
 #line 1682 "compiler.tab.c" /* yacc.c:1646  */
     break;
 

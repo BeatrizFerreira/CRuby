@@ -121,7 +121,7 @@ if_:
 else_:
     SENAO { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "els", linhas); } conditional
     |
-    SENAO { printf("BRISA FORTE\n"); contador_tab--; InsereNaSaida(&saida, "else\n", linhas); } command { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
+    SENAO { printf("BRISA FORTE\n"); InsereNaSaida(&saida, "else\n", linhas); } command {  contador_tab--;  InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
     |
     SENAO{ contador_tab--; InsereTabsSaida(&saida, contador_tab); contador_tab++; InsereNaSaida(&saida, "else\n", linhas); } LEFT_BRACKETS multiple_command RIGHT_BRACKETS { contador_tab--;InsereTabsSaida(&saida, contador_tab);InsereNaSaida(&saida, "end\n", linhas);}
     ;

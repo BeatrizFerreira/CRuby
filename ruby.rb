@@ -1,15 +1,12 @@
-y = 3
-x = 3
-if (x == 5)
-	y = 2
-	y = 3
-end
-while ( true ) 
-	y = 3
-end
 y = 0
-while y < 10
-
-	x = x + y
-	y = y+1
+if (y == 5)
+	x = 0
+else
+	w = 0
+end
+a = 'a'
+if (y == 5)
+	x = 5
+else
+	w = 5
 end
