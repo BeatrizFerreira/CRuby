@@ -17,12 +17,12 @@ Estruturas:
 5) - Controle:
   -> If..Else
   -> If.. Else If.. Else
-6) Funções
-  - Definição de funções. Ex.: Função que soma 2 números inteiros.
+
+Para utilizar o compilador use o comando make prog para compilar o compilador.
+Depois de compilado, utilize o comando ./cruby nomedoarquivo.c para gerar um arquivo .rb
 
 
 Integrantes
 - Beatriz Gonçalves
 - Euler Carvalho
 - Gustavo Cavalcante
-- Kleber Brito

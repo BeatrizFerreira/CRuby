@@ -473,20 +473,20 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    34,    34,    35,    38,    39,    43,    43,    44,    44,
-      45,    49,    49,    50,    54,    54,    55,    59,    59,    59,
-      63,    63,    63,    67,    68,    69,    70,    71,    72,    73,
-      73,    77,    78,    79,    80,    81,    82,    83,    86,    87,
-      87,    88,    88,    89,    89,    90,    90,    94,    94,    95,
-      95,    96,    96,    97,    97,    98,    98,    99,    99,   102,
-     103,   103,   104,   104,   105,   105,   106,   106,   110,   110,
-     111,   111,   112,   112,   113,   113,   114,   114,   115,   115,
-     119,   119,   122,   122,   124,   124,   126,   126,   130,   131,
-     131,   135,   135,   139,   140,   144,   144,   146,   146,   148,
-     148,   148,   148,   152,   152,   152,   154,   154,   156,   156,
-     160,   160,   164,   164,   164,   168,   170,   172,   174,   177,
-     178,   179,   183,   184,   185,   189,   190,   194,   194,   195,
-     195,   199,   200,   201,   202
+       0,    33,    33,    34,    37,    38,    42,    42,    43,    43,
+      44,    48,    48,    49,    53,    53,    54,    58,    58,    58,
+      62,    62,    62,    66,    67,    68,    69,    70,    71,    72,
+      72,    76,    77,    78,    79,    80,    81,    82,    85,    86,
+      86,    87,    87,    88,    88,    89,    89,    93,    93,    94,
+      94,    95,    95,    96,    96,    97,    97,    98,    98,   101,
+     102,   102,   103,   103,   104,   104,   105,   105,   109,   109,
+     110,   110,   111,   111,   112,   112,   113,   113,   114,   114,
+     118,   118,   121,   121,   123,   123,   125,   125,   129,   130,
+     130,   134,   134,   138,   139,   143,   143,   145,   145,   147,
+     147,   147,   147,   151,   151,   151,   153,   153,   155,   155,
+     159,   159,   163,   163,   163,   167,   169,   171,   173,   176,
+     177,   178,   182,   183,   184,   188,   189,   193,   193,   194,
+     194,   198,   199,   200,   201
 };
 #endif
 
@@ -1406,463 +1406,463 @@ yyreduce:
   switch (yyn)
     {
         case 6:
-#line 43 "compiler.y" /* yacc.c:1646  */
+#line 42 "compiler.y" /* yacc.c:1646  */
     {InsereTabsSaida(&saida, contador_tab);}
 #line 1412 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 44 "compiler.y" /* yacc.c:1646  */
+#line 43 "compiler.y" /* yacc.c:1646  */
     {InsereTabsSaida(&saida, contador_tab);}
 #line 1418 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 49 "compiler.y" /* yacc.c:1646  */
+#line 48 "compiler.y" /* yacc.c:1646  */
     {InsereTabsSaida(&saida, contador_tab);}
 #line 1424 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 54 "compiler.y" /* yacc.c:1646  */
+#line 53 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, ((yyvsp[0].strval)), linhas); InsereNaSaida(&saida, " = 0\n", linhas);}
 #line 1430 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 54 "compiler.y" /* yacc.c:1646  */
+#line 53 "compiler.y" /* yacc.c:1646  */
     {InserirSimbolo(&tabela_simbolos, (yyvsp[-2].strval)); cont++; linhas++; }
 #line 1436 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 59 "compiler.y" /* yacc.c:1646  */
+#line 58 "compiler.y" /* yacc.c:1646  */
     {InserirSimbolo(&tabela_simbolos, (yyvsp[0].strval));InsereNaSaida(&saida, ((yyvsp[0].strval)), linhas);cont++;}
 #line 1442 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 59 "compiler.y" /* yacc.c:1646  */
+#line 58 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " = ", linhas);}
 #line 1448 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 59 "compiler.y" /* yacc.c:1646  */
+#line 58 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, "\n", linhas);linhas++;}
 #line 1454 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 63 "compiler.y" /* yacc.c:1646  */
+#line 62 "compiler.y" /* yacc.c:1646  */
     {if(procura_tabela_simbolos((yyvsp[0].strval))){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variable not declared!\n");}}
 #line 1460 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 63 "compiler.y" /* yacc.c:1646  */
+#line 62 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " = ", linhas);}
 #line 1466 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 63 "compiler.y" /* yacc.c:1646  */
+#line 62 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, "\n", linhas);linhas++;}
 #line 1472 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 67 "compiler.y" /* yacc.c:1646  */
+#line 66 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, yytext, linhas);}
 #line 1478 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 68 "compiler.y" /* yacc.c:1646  */
+#line 67 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, yytext, linhas);}
 #line 1484 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 69 "compiler.y" /* yacc.c:1646  */
+#line 68 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, yytext, linhas);}
 #line 1490 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 70 "compiler.y" /* yacc.c:1646  */
+#line 69 "compiler.y" /* yacc.c:1646  */
     {printf("!%s\n", (yyvsp[0].strval));if(procura_tabela_simbolos((yyvsp[0].strval))){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variable not declared!\n");} }
 #line 1496 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 73 "compiler.y" /* yacc.c:1646  */
+#line 72 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, yytext, linhas);}
 #line 1502 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 73 "compiler.y" /* yacc.c:1646  */
+#line 72 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, yytext, linhas);}
 #line 1508 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 77 "compiler.y" /* yacc.c:1646  */
+#line 76 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
 #line 1514 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 78 "compiler.y" /* yacc.c:1646  */
+#line 77 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext); }
 #line 1520 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 79 "compiler.y" /* yacc.c:1646  */
+#line 78 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
 #line 1526 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 80 "compiler.y" /* yacc.c:1646  */
+#line 79 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); printf("[%d] = %s\n", contador_for , condicao[contador_for]); }
 #line 1532 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 87 "compiler.y" /* yacc.c:1646  */
+#line 86 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
 #line 1538 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 88 "compiler.y" /* yacc.c:1646  */
+#line 87 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
 #line 1544 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 89 "compiler.y" /* yacc.c:1646  */
+#line 88 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
 #line 1550 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 90 "compiler.y" /* yacc.c:1646  */
+#line 89 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
 #line 1556 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 94 "compiler.y" /* yacc.c:1646  */
+#line 93 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
 #line 1562 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 95 "compiler.y" /* yacc.c:1646  */
+#line 94 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
 #line 1568 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 96 "compiler.y" /* yacc.c:1646  */
+#line 95 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
 #line 1574 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 97 "compiler.y" /* yacc.c:1646  */
+#line 96 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
 #line 1580 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 98 "compiler.y" /* yacc.c:1646  */
+#line 97 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
 #line 1586 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 99 "compiler.y" /* yacc.c:1646  */
+#line 98 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
 #line 1592 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 103 "compiler.y" /* yacc.c:1646  */
+#line 102 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " + ", linhas);}
 #line 1598 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 104 "compiler.y" /* yacc.c:1646  */
+#line 103 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " - ", linhas);}
 #line 1604 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 105 "compiler.y" /* yacc.c:1646  */
+#line 104 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " * ", linhas);}
 #line 1610 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 106 "compiler.y" /* yacc.c:1646  */
+#line 105 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " / ", linhas);}
 #line 1616 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 110 "compiler.y" /* yacc.c:1646  */
+#line 109 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " < ", linhas);}
 #line 1622 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 111 "compiler.y" /* yacc.c:1646  */
+#line 110 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " <= ", linhas);}
 #line 1628 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 112 "compiler.y" /* yacc.c:1646  */
+#line 111 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " > ", linhas);}
 #line 1634 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 113 "compiler.y" /* yacc.c:1646  */
+#line 112 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " >= ", linhas);}
 #line 1640 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 114 "compiler.y" /* yacc.c:1646  */
+#line 113 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " == ", linhas);}
 #line 1646 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 115 "compiler.y" /* yacc.c:1646  */
+#line 114 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " != ", linhas);}
 #line 1652 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 119 "compiler.y" /* yacc.c:1646  */
+#line 118 "compiler.y" /* yacc.c:1646  */
     { InsereNaSaida(&saida, "if (", linhas); }
 #line 1658 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 81:
-#line 119 "compiler.y" /* yacc.c:1646  */
+#line 118 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, ")\n", linhas); contador_tab++; }
 #line 1664 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 82:
-#line 122 "compiler.y" /* yacc.c:1646  */
+#line 121 "compiler.y" /* yacc.c:1646  */
     { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "els", linhas); }
 #line 1670 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 84:
-#line 124 "compiler.y" /* yacc.c:1646  */
+#line 123 "compiler.y" /* yacc.c:1646  */
     { InsereNaSaida(&saida, "else\n", linhas); }
 #line 1676 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 85:
-#line 124 "compiler.y" /* yacc.c:1646  */
+#line 123 "compiler.y" /* yacc.c:1646  */
     {  contador_tab--;  InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
 #line 1682 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 86:
-#line 126 "compiler.y" /* yacc.c:1646  */
+#line 125 "compiler.y" /* yacc.c:1646  */
     { contador_tab--; InsereTabsSaida(&saida, contador_tab); contador_tab++; InsereNaSaida(&saida, "else\n", linhas); }
 #line 1688 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 87:
-#line 126 "compiler.y" /* yacc.c:1646  */
+#line 125 "compiler.y" /* yacc.c:1646  */
     { contador_tab--;InsereTabsSaida(&saida, contador_tab);InsereNaSaida(&saida, "end\n", linhas);}
 #line 1694 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 89:
-#line 131 "compiler.y" /* yacc.c:1646  */
+#line 130 "compiler.y" /* yacc.c:1646  */
     {InsereTabsSaida(&saida, contador_tab);}
 #line 1700 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 91:
-#line 135 "compiler.y" /* yacc.c:1646  */
+#line 134 "compiler.y" /* yacc.c:1646  */
     { InsereNaSaida(&saida, "while ( ", linhas); }
 #line 1706 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 92:
-#line 135 "compiler.y" /* yacc.c:1646  */
+#line 134 "compiler.y" /* yacc.c:1646  */
     { InsereNaSaida(&saida, " ) \n" , linhas); contador_tab++; }
 #line 1712 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 93:
-#line 139 "compiler.y" /* yacc.c:1646  */
+#line 138 "compiler.y" /* yacc.c:1646  */
     { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "\nend\n" , linhas);}
 #line 1718 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 94:
-#line 140 "compiler.y" /* yacc.c:1646  */
+#line 139 "compiler.y" /* yacc.c:1646  */
     { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n" , linhas); }
 #line 1724 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 95:
-#line 144 "compiler.y" /* yacc.c:1646  */
+#line 143 "compiler.y" /* yacc.c:1646  */
     {InsereTabsSaida(&saida, contador_tab);}
 #line 1730 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 96:
-#line 144 "compiler.y" /* yacc.c:1646  */
+#line 143 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, "while true\n", linhas);}
 #line 1736 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 97:
-#line 146 "compiler.y" /* yacc.c:1646  */
+#line 145 "compiler.y" /* yacc.c:1646  */
     {InsereTabsSaida(&saida, contador_tab);}
 #line 1742 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 98:
-#line 146 "compiler.y" /* yacc.c:1646  */
+#line 145 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, "while true\n", linhas);}
 #line 1748 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 99:
-#line 148 "compiler.y" /* yacc.c:1646  */
+#line 147 "compiler.y" /* yacc.c:1646  */
     {InsereTabsSaida(&saida, contador_tab);}
 #line 1754 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 100:
-#line 148 "compiler.y" /* yacc.c:1646  */
+#line 147 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, "while ", linhas);}
 #line 1760 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 101:
-#line 148 "compiler.y" /* yacc.c:1646  */
+#line 147 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, "\n", linhas);}
 #line 1766 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 102:
-#line 148 "compiler.y" /* yacc.c:1646  */
+#line 147 "compiler.y" /* yacc.c:1646  */
     {contador_for++;}
 #line 1772 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 103:
-#line 152 "compiler.y" /* yacc.c:1646  */
+#line 151 "compiler.y" /* yacc.c:1646  */
     {contador_tab++;}
 #line 1778 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 104:
-#line 152 "compiler.y" /* yacc.c:1646  */
+#line 151 "compiler.y" /* yacc.c:1646  */
     {InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0';}
 #line 1784 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 105:
-#line 152 "compiler.y" /* yacc.c:1646  */
+#line 151 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
 #line 1790 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 106:
-#line 154 "compiler.y" /* yacc.c:1646  */
+#line 153 "compiler.y" /* yacc.c:1646  */
     {contador_tab++;}
 #line 1796 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 107:
-#line 154 "compiler.y" /* yacc.c:1646  */
+#line 153 "compiler.y" /* yacc.c:1646  */
     { InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0'; printf("condicao eh %s\n", condicao[contador_for]); InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
 #line 1802 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 108:
-#line 156 "compiler.y" /* yacc.c:1646  */
+#line 155 "compiler.y" /* yacc.c:1646  */
     {contador_tab++; InsereNaSaida(&saida, "while true\n", linhas);}
 #line 1808 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 109:
-#line 156 "compiler.y" /* yacc.c:1646  */
+#line 155 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
 #line 1814 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 110:
-#line 160 "compiler.y" /* yacc.c:1646  */
+#line 159 "compiler.y" /* yacc.c:1646  */
     {InsereTabsSaida(&saida, contador_tab);}
 #line 1820 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 112:
-#line 164 "compiler.y" /* yacc.c:1646  */
+#line 163 "compiler.y" /* yacc.c:1646  */
     {if(procura_tabela_simbolos((yyvsp[0].strval))){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{yyerror("Variable not declared!\n");}}
 #line 1826 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 113:
-#line 164 "compiler.y" /* yacc.c:1646  */
+#line 163 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], " = " ); }
 #line 1832 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 114:
-#line 164 "compiler.y" /* yacc.c:1646  */
+#line 163 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, "\n", linhas);linhas++;}
 #line 1838 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 115:
-#line 168 "compiler.y" /* yacc.c:1646  */
+#line 167 "compiler.y" /* yacc.c:1646  */
     {contador_tab--; {InsereTabsSaida(&saida, contador_tab);}  InsereNaSaida(&saida, "end\n", linhas);}
 #line 1844 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 116:
-#line 170 "compiler.y" /* yacc.c:1646  */
+#line 169 "compiler.y" /* yacc.c:1646  */
     {contador_tab--; {InsereTabsSaida(&saida, contador_tab);} InsereNaSaida(&saida, "end\n", linhas);}
 #line 1850 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 122:
-#line 183 "compiler.y" /* yacc.c:1646  */
+#line 182 "compiler.y" /* yacc.c:1646  */
     { if ( strcmp((yyvsp[0].strval), "0") == 0 )InsereNaSaida(&saida, "false", linhas); else InsereNaSaida(&saida, "true", linhas);}
 #line 1856 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 127:
-#line 194 "compiler.y" /* yacc.c:1646  */
+#line 193 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " and ", linhas);}
 #line 1862 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 129:
-#line 195 "compiler.y" /* yacc.c:1646  */
+#line 194 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " or ", linhas);}
 #line 1868 "compiler.tab.c" /* yacc.c:1646  */
     break;
@@ -2096,7 +2096,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 203 "compiler.y" /* yacc.c:1906  */
+#line 202 "compiler.y" /* yacc.c:1906  */
 
 
 int yyerror(char *s) {
@@ -2124,6 +2124,8 @@ int main(int argc, char *argv[]) {
 
     yyparse();
 
+    // Gera o arquivo compilado corretamente , caso dê erro de compilação
+    // ultimo arquivo fica disponível sem alteração.
     if ( erro == 0 ){
         printf("Name of the file: %s\n", file_name);
         fp = fopen(file_name, "w");

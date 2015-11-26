@@ -17,7 +17,6 @@ extern char* yytext;
     int intval;
 }
 
-
 %token <strval> TYPE_INT TYPE_FLOAT TYPE_DOUBLE TYPE_CHAR
 %token <strval> IDENTIFIER
 %token <strval> ATTR
@@ -227,6 +226,8 @@ int main(int argc, char *argv[]) {
 
     yyparse();
 
+    // Gera o arquivo compilado corretamente , caso dê erro de compilação
+    // ultimo arquivo fica disponível sem alteração.
     if ( erro == 0 ){
         printf("Name of the file: %s\n", file_name);
         fp = fopen(file_name, "w");
