@@ -121,30 +121,28 @@ extern int yydebug;
     N_INTEIRO = 264,
     N_REAL = 265,
     N_CARACTERE = 266,
-    END_LINE = 267,
-    END = 268,
-    PONTO_VIRGULA = 269,
-    PLUS = 270,
-    MINUS = 271,
-    TIMES = 272,
-    DIVISION = 273,
-    MENOR = 274,
-    MENORIGUAL = 275,
-    MAIOR = 276,
-    MAIORIGUAL = 277,
-    IGUAL = 278,
-    DIFERENTE = 279,
-    E = 280,
-    OU = 281,
-    SE = 282,
-    SENAO = 283,
-    LEFT_PARENTHESIS = 284,
-    RIGHT_PARENTHESIS = 285,
-    LEFT_BRACKETS = 286,
-    RIGHT_BRACKETS = 287,
-    FOR = 288,
-    WHILE = 289,
-    REFUSE = 290
+    PONTO_VIRGULA = 267,
+    FINAL_LINHA = 268,
+    MAIS = 269,
+    MENOS = 270,
+    VEZES = 271,
+    DIVISAO = 272,
+    MENOR = 273,
+    MENORIGUAL = 274,
+    MAIOR = 275,
+    MAIORIGUAL = 276,
+    IGUAL = 277,
+    DIFERENTE = 278,
+    E = 279,
+    OU = 280,
+    SE = 281,
+    SENAO = 282,
+    LEFT_PARENTHESIS = 283,
+    RIGHT_PARENTHESIS = 284,
+    LEFT_BRACKETS = 285,
+    RIGHT_BRACKETS = 286,
+    FOR = 287,
+    WHILE = 288
   };
 #endif
 
@@ -158,7 +156,7 @@ union YYSTYPE
     char * strval;
     int intval;
 
-#line 162 "compiler.tab.c" /* yacc.c:355  */
+#line 160 "compiler.tab.c" /* yacc.c:355  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -173,7 +171,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 177 "compiler.tab.c" /* yacc.c:358  */
+#line 175 "compiler.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -415,10 +413,10 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   195
+#define YYLAST   199
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  36
+#define YYNTOKENS  34
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  77
 /* YYNRULES -- Number of rules.  */
@@ -429,7 +427,7 @@ union yyalloc
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   290
+#define YYMAXUTOK   288
 
 #define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -466,28 +464,27 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35
+      25,    26,    27,    28,    29,    30,    31,    32,    33
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    34,    34,    35,    38,    39,    43,    43,    44,    44,
-      45,    49,    49,    50,    54,    54,    55,    59,    59,    59,
-      63,    63,    63,    67,    68,    69,    70,    71,    72,    73,
-      73,    77,    78,    79,    80,    81,    82,    83,    86,    87,
-      87,    88,    88,    89,    89,    90,    90,    94,    94,    95,
-      95,    96,    96,    97,    97,    98,    98,    99,    99,   102,
-     103,   103,   104,   104,   105,   105,   106,   106,   110,   110,
-     111,   111,   112,   112,   113,   113,   114,   114,   115,   115,
-     119,   119,   122,   122,   124,   124,   126,   126,   130,   131,
-     131,   135,   135,   139,   140,   146,   146,   148,   148,   148,
-     148,   152,   152,   152,   154,   154,   156,   156,   160,   160,
-     164,   164,   164,   168,   170,   172,   174,   177,   178,   179,
-     183,   184,   185,   189,   190,   194,   194,   195,   195,   199,
-     200,   201,   202
+       0,    33,    33,    34,    37,    38,    42,    42,    43,    43,
+      44,    48,    48,    49,    53,    53,    54,    58,    58,    58,
+      62,    62,    62,    66,    67,    68,    69,    70,    71,    72,
+      72,    76,    77,    78,    79,    80,    81,    82,    85,    86,
+      86,    87,    87,    88,    88,    89,    89,    93,    93,    94,
+      94,    95,    95,    96,    96,    97,    97,    98,    98,   101,
+     102,   102,   103,   103,   104,   104,   105,   105,   109,   109,
+     110,   110,   111,   111,   112,   112,   113,   113,   114,   114,
+     118,   118,   121,   121,   123,   123,   125,   125,   129,   130,
+     130,   134,   134,   138,   139,   145,   145,   147,   147,   147,
+     147,   151,   151,   151,   153,   153,   155,   155,   159,   159,
+     163,   163,   163,   167,   169,   171,   173,   176,   177,   178,
+     182,   183,   184,   188,   189,   193,   193,   194,   194,   198,
+     199,   200,   201
 };
 #endif
 
@@ -498,18 +495,18 @@ static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "TIPO_INTEIRO", "TIPO_FLOAT",
   "TIPO_DOUBLE", "TIPO_CHAR", "IDENTIFICADOR", "ATTR", "N_INTEIRO",
-  "N_REAL", "N_CARACTERE", "END_LINE", "END", "PONTO_VIRGULA", "PLUS",
-  "MINUS", "TIMES", "DIVISION", "MENOR", "MENORIGUAL", "MAIOR",
-  "MAIORIGUAL", "IGUAL", "DIFERENTE", "E", "OU", "SE", "SENAO",
-  "LEFT_PARENTHESIS", "RIGHT_PARENTHESIS", "LEFT_BRACKETS",
-  "RIGHT_BRACKETS", "FOR", "WHILE", "REFUSE", "$accept", "Input", "Line",
-  "command", "$@1", "$@2", "loop_and_conditional", "$@3", "declaration",
-  "$@4", "declaration_attribution", "$@5", "$@6", "attribution", "$@7",
-  "$@8", "expression", "$@9", "expression_loop", "math_operation_loop",
-  "$@10", "$@11", "$@12", "$@13", "comparator_loop", "$@14", "$@15",
-  "$@16", "$@17", "$@18", "$@19", "math_operation", "$@20", "$@21", "$@22",
-  "$@23", "comparator", "$@24", "$@25", "$@26", "$@27", "$@28", "$@29",
-  "if_", "$@30", "else_", "$@31", "$@32", "$@33", "loop", "$@34",
+  "N_REAL", "N_CARACTERE", "PONTO_VIRGULA", "FINAL_LINHA", "MAIS", "MENOS",
+  "VEZES", "DIVISAO", "MENOR", "MENORIGUAL", "MAIOR", "MAIORIGUAL",
+  "IGUAL", "DIFERENTE", "E", "OU", "SE", "SENAO", "LEFT_PARENTHESIS",
+  "RIGHT_PARENTHESIS", "LEFT_BRACKETS", "RIGHT_BRACKETS", "FOR", "WHILE",
+  "$accept", "Input", "Line", "command", "$@1", "$@2",
+  "loop_and_conditional", "$@3", "declaration", "$@4",
+  "declaration_attribution", "$@5", "$@6", "attribution", "$@7", "$@8",
+  "expression", "$@9", "expression_loop", "math_operation_loop", "$@10",
+  "$@11", "$@12", "$@13", "comparator_loop", "$@14", "$@15", "$@16",
+  "$@17", "$@18", "$@19", "math_operation", "$@20", "$@21", "$@22", "$@23",
+  "comparator", "$@24", "$@25", "$@26", "$@27", "$@28", "$@29", "if_",
+  "$@30", "else_", "$@31", "$@32", "$@33", "loop", "$@34",
   "while_statement", "$@35", "while", "for_", "$@36", "$@37", "$@38",
   "$@39", "for_statement", "$@40", "$@41", "$@42", "$@43",
   "first_for_loop_part", "$@44", "last_for_loop_part", "$@45", "$@46",
@@ -526,14 +523,14 @@ static const yytype_uint16 yytoknum[] =
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
-     285,   286,   287,   288,   289,   290
+     285,   286,   287,   288
 };
 # endif
 
-#define YYPACT_NINF -77
+#define YYPACT_NINF -83
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-77)))
+  (!!((Yystate) == (-83)))
 
 #define YYTABLE_NINF -128
 
@@ -544,26 +541,26 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-     -77,    11,   -77,   -77,   -17,   -77,   -77,   141,     8,   -77,
-      -8,   -77,     6,    -7,   -77,   -77,   -77,   -77,   -77,   -77,
-     -77,   -77,    19,   -77,   -77,   -77,    15,   -77,   -77,    59,
-     -77,   -77,    48,    27,     8,    35,    39,    23,     2,    26,
-      24,     2,   -77,     2,   -77,    38,   -77,   -77,    63,    76,
-     -77,    60,     2,     2,    53,   -21,   -77,    60,    55,    56,
-     -77,    64,    87,   -77,   -77,    87,   -77,   -10,   -77,   -77,
-     -77,   157,   -77,     7,    61,   -77,   -77,    26,    -8,    48,
-      79,    84,   -77,   -77,   -77,   -77,   -77,    25,   101,    87,
-     136,   -77,    87,   -77,   -77,   -77,   -77,   -77,   -77,   -77,
-     -77,   -77,   -77,   -77,   -77,    91,   -77,   -77,   -77,   -77,
-       2,   -77,     2,   -77,   -77,   147,   -77,   103,    87,    87,
-      87,    87,    87,    87,    87,    87,    87,    87,    60,    60,
-      96,    97,   123,   -77,   -77,   157,   157,   157,   157,   157,
-     157,   157,   157,   157,   157,   -77,   -77,   -77,   -77,   -77,
-     118,   124,   -77,   -77,   102,   -77,   -77,   -77,   -77,   102,
-     167,   -77,   -77,   119,   -77,   -77,   -77,   -77,   -77,   -77,
-     -77,   -77,   -77,   -77,   -77,   102,   102,   102,   102,   102,
-     102,   102,   102,   102,   102,   167,   167,   167,   167,   167,
-     167,   167,   167,   167,   167
+     -83,    11,   -83,   -83,   -22,   -83,   -83,   106,     2,   -83,
+     -14,   -83,   -10,    -4,   -83,   -83,   -83,   -83,   -83,   -83,
+     -83,   -83,    25,   -83,   -83,   -83,    15,   -83,   -83,    59,
+     -83,   -83,     3,    22,     2,    38,    60,    39,     7,    23,
+      41,     7,   -83,     7,   -83,    46,   -83,   -83,    69,    63,
+     -83,    42,     7,     7,    51,   -11,   -83,    42,    52,    82,
+     -83,    84,    77,   -83,   -83,    77,   -83,    -8,   -83,   -83,
+     -83,   166,   -83,    91,    61,   -83,   -83,    23,   -14,     3,
+      87,    89,   -83,   -83,   -83,   -83,   -83,    30,   107,    77,
+     144,   -83,    77,   -83,   -83,   -83,   -83,   -83,   -83,   -83,
+     -83,   -83,   -83,   -83,   -83,    96,   -83,   -83,   -83,   -83,
+       7,   -83,     7,   -83,   -83,   156,   -83,   112,    77,    77,
+      77,    77,    77,    77,    77,    77,    77,    77,    42,    42,
+      92,    93,   115,   -83,   -83,   166,   166,   166,   166,   166,
+     166,   166,   166,   166,   166,   -83,   -83,   -83,   -83,   -83,
+     108,   130,   -83,   -83,    97,   -83,   -83,   -83,   -83,    97,
+     176,   -83,   -83,   128,   -83,   -83,   -83,   -83,   -83,   -83,
+     -83,   -83,   -83,   -83,   -83,    97,    97,    97,    97,    97,
+      97,    97,    97,    97,    97,   176,   176,   176,   176,   176,
+     176,   176,   176,   176,   176
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -594,16 +591,16 @@ static const yytype_uint8 yydefact[] =
 };
 
   /* YYPGOTO[NTERM-NUM].  */
-static const yytype_int16 yypgoto[] =
+static const yytype_int8 yypgoto[] =
 {
-     -77,   -77,   -77,    -1,   -77,   -77,   -77,   -77,   -77,   -77,
-     -77,   -77,   -77,   158,   -77,   -77,   -62,   -77,   -76,   -77,
-     -77,   -77,   -77,   -77,   -77,   -77,   -77,   -77,   -77,   -77,
-     -77,   -77,   -77,   -77,   -77,   -77,   -49,   -77,   -77,   -77,
-     -77,   -77,   -77,   -77,   -77,   116,   -77,   -77,   -77,   -77,
-     -77,   -77,   -77,   -77,   -77,   -77,   -77,   -77,   -77,   -77,
-     -77,   -77,   -77,   -77,   -77,   -77,   -77,   -77,   -77,   117,
-     -36,   -56,   -77,   107,   -77,   -77,   -77
+     -83,   -83,   -83,    -1,   -83,   -83,   -83,   -83,   -83,   -83,
+     -83,   -83,   -83,   102,   -83,   -83,   -62,   -83,   -82,   -83,
+     -83,   -83,   -83,   -83,   -83,   -83,   -83,   -83,   -83,   -83,
+     -83,   -83,   -83,   -83,   -83,   -83,   -49,   -83,   -83,   -83,
+     -83,   -83,   -83,   -83,   -83,    62,   -83,   -83,   -83,   -83,
+     -83,   -83,   -83,   -83,   -83,   -83,   -83,   -83,   -83,   -83,
+     -83,   -83,   -83,   -83,   -83,   -83,   -83,   -83,   -83,    74,
+     -36,   -56,   -83,    53,   -83,   -83,   -83
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
@@ -624,95 +621,95 @@ static const yytype_int16 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int16 yytable[] =
 {
-       6,    81,    73,    90,  -120,    58,   -82,    59,    73,    -8,
-     -86,     2,    15,    87,    52,    23,    75,    76,    -8,    25,
-    -120,  -121,    -8,     3,    31,    39,    35,   115,    42,   -11,
-     117,    44,   103,  -127,  -117,     4,   -89,  -121,   -11,  -123,
-      28,    45,   -11,   -17,     4,   -89,    38,    50,     4,   -89,
-     103,  -127,    51,    57,    55,    -8,   135,   136,   137,   138,
-     139,   140,   141,   142,   143,   144,    -8,    66,    61,    67,
-      68,    69,   145,   146,   130,   -11,   131,    63,   109,    73,
-      73,     4,   -89,   163,    64,    77,   -11,    82,    83,    70,
-      41,   106,     4,   -89,    66,    84,    86,    68,    69,   185,
-     186,   187,   188,   189,   190,   191,   192,   193,   194,   155,
-     110,   156,   157,   158,   111,   114,    70,   129,    93,    94,
-      95,    96,    97,    98,    99,   100,   101,   102,   147,   148,
-     149,   159,   153,   134,   164,   165,   166,   167,   168,   169,
-     170,   171,   172,   173,    16,    17,    18,    19,   152,   174,
-     116,    93,    94,    95,    96,    97,    98,    99,   100,   101,
-     102,   133,    93,    94,    95,    96,    97,    98,    99,   100,
-     101,   102,    93,    94,    95,    96,    97,    98,    99,   100,
-     101,   102,   164,   165,   166,   167,   168,   169,   170,   171,
-     172,   173,    47,   107,   113,   108
+       6,    81,    73,    90,  -120,    58,    15,    59,    73,    23,
+      -8,     2,    25,    87,    -8,   -82,    75,    76,    -8,   -86,
+      52,  -120,    -8,    28,     3,    39,    31,   115,    42,   -11,
+     117,    44,    35,   -11,    45,     4,   -89,   -11,  -117,     4,
+     -89,   -11,  -123,     4,   -89,    38,   -17,     4,   -89,    66,
+      55,    67,    68,    69,   103,  -127,   135,   136,   137,   138,
+     139,   140,   141,   142,   143,   144,    -8,    51,    50,    57,
+      70,    64,   145,   146,   130,    61,   131,   163,   109,    73,
+      73,    63,    77,    82,    66,   -11,    86,    68,    69,    41,
+     106,     4,   -89,   185,   186,   187,   188,   189,   190,   191,
+     192,   193,   194,  -121,   155,    70,   156,   157,   158,    16,
+      17,    18,    19,    83,    84,   103,  -127,   110,   111,   114,
+    -121,   129,   149,   147,   148,   159,    93,    94,    95,    96,
+      97,    98,    99,   100,   101,   102,    47,   152,   153,   107,
+     113,   134,   164,   165,   166,   167,   168,   169,   170,   171,
+     172,   173,   108,     0,     0,     0,   116,   174,    93,    94,
+      95,    96,    97,    98,    99,   100,   101,   102,   133,     0,
+      93,    94,    95,    96,    97,    98,    99,   100,   101,   102,
+      93,    94,    95,    96,    97,    98,    99,   100,   101,   102,
+     164,   165,   166,   167,   168,   169,   170,   171,   172,   173
 };
 
-static const yytype_uint8 yycheck[] =
+static const yytype_int16 yycheck[] =
 {
-       1,    57,    51,    65,    14,    41,    27,    43,    57,     7,
-      31,     0,    29,    62,    12,     7,    52,    53,     7,    27,
-      30,    14,     7,    12,    31,    26,     7,    89,    29,    27,
-      92,    32,    25,    26,    32,    33,    34,    30,    27,    14,
-      34,    14,    27,     8,    33,    34,    31,     8,    33,    34,
-      25,    26,    29,    29,    28,     7,   118,   119,   120,   121,
-     122,   123,   124,   125,   126,   127,     7,     7,    30,     9,
-      10,    11,   128,   129,   110,    27,   112,    14,    79,   128,
-     129,    33,    34,   159,     8,    32,    27,    32,    32,    29,
-      31,    30,    33,    34,     7,    31,     9,    10,    11,   175,
-     176,   177,   178,   179,   180,   181,   182,   183,   184,     7,
-      31,     9,    10,    11,    30,    14,    29,    26,    15,    16,
-      17,    18,    19,    20,    21,    22,    23,    24,    32,    32,
-       7,    29,     8,    30,    15,    16,    17,    18,    19,    20,
-      21,    22,    23,    24,     3,     4,     5,     6,    30,    30,
+       1,    57,    51,    65,    12,    41,    28,    43,    57,     7,
+       7,     0,    26,    62,     7,    26,    52,    53,     7,    30,
+      13,    29,     7,    33,    13,    26,    30,    89,    29,    26,
+      92,    32,     7,    26,    12,    32,    33,    26,    31,    32,
+      33,    26,    12,    32,    33,    30,     8,    32,    33,     7,
+      27,     9,    10,    11,    24,    25,   118,   119,   120,   121,
+     122,   123,   124,   125,   126,   127,     7,    28,     8,    28,
+      28,     8,   128,   129,   110,    29,   112,   159,    79,   128,
+     129,    12,    31,    31,     7,    26,     9,    10,    11,    30,
+      29,    32,    33,   175,   176,   177,   178,   179,   180,   181,
+     182,   183,   184,    12,     7,    28,     9,    10,    11,     3,
+       4,     5,     6,    31,    30,    24,    25,    30,    29,    12,
+      29,    25,     7,    31,    31,    28,    14,    15,    16,    17,
+      18,    19,    20,    21,    22,    23,    34,    29,     8,    77,
+      87,    29,    14,    15,    16,    17,    18,    19,    20,    21,
+      22,    23,    78,    -1,    -1,    -1,    12,    29,    14,    15,
+      16,    17,    18,    19,    20,    21,    22,    23,    12,    -1,
       14,    15,    16,    17,    18,    19,    20,    21,    22,    23,
-      24,    14,    15,    16,    17,    18,    19,    20,    21,    22,
-      23,    24,    15,    16,    17,    18,    19,    20,    21,    22,
-      23,    24,    15,    16,    17,    18,    19,    20,    21,    22,
-      23,    24,    34,    77,    87,    78
+      14,    15,    16,    17,    18,    19,    20,    21,    22,    23,
+      14,    15,    16,    17,    18,    19,    20,    21,    22,    23
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,    37,     0,    12,    33,    38,    39,    40,    41,    42,
-      43,    85,    86,    90,    95,    29,     3,     4,     5,     6,
-      44,    46,   112,     7,    49,    27,    79,   105,    34,    87,
-      89,    31,    96,   100,   101,     7,    50,    80,    31,    39,
-      88,    31,    39,    98,    39,    14,    92,    49,    45,    47,
-       8,    29,    12,    39,   106,    28,    81,    29,   106,   106,
-      97,    30,    93,    14,     8,    51,     7,     9,    10,    11,
-      29,    52,    67,    72,   107,   106,   106,    32,    82,    83,
-      84,   107,    32,    32,    31,    91,     9,    72,   108,    48,
-      52,    72,    53,    15,    16,    17,    18,    19,    20,    21,
-      22,    23,    24,    25,   109,   111,    30,    81,   105,    39,
-      31,    30,    99,   109,    14,    52,    14,    52,    68,    69,
-      70,    71,    73,    74,    75,    76,    77,    78,   110,    26,
-     106,   106,    94,    14,    30,    52,    52,    52,    52,    52,
-      52,    52,    52,    52,    52,   107,   107,    32,    32,     7,
-     102,   103,    30,     8,   104,     7,     9,    10,    11,    29,
-      54,    55,    60,    54,    15,    16,    17,    18,    19,    20,
-      21,    22,    23,    24,    30,    56,    57,    58,    59,    61,
-      62,    63,    64,    65,    66,    54,    54,    54,    54,    54,
-      54,    54,    54,    54,    54
+       0,    35,     0,    13,    32,    36,    37,    38,    39,    40,
+      41,    83,    84,    88,    93,    28,     3,     4,     5,     6,
+      42,    44,   110,     7,    47,    26,    77,   103,    33,    85,
+      87,    30,    94,    98,    99,     7,    48,    78,    30,    37,
+      86,    30,    37,    96,    37,    12,    90,    47,    43,    45,
+       8,    28,    13,    37,   104,    27,    79,    28,   104,   104,
+      95,    29,    91,    12,     8,    49,     7,     9,    10,    11,
+      28,    50,    65,    70,   105,   104,   104,    31,    80,    81,
+      82,   105,    31,    31,    30,    89,     9,    70,   106,    46,
+      50,    70,    51,    14,    15,    16,    17,    18,    19,    20,
+      21,    22,    23,    24,   107,   109,    29,    79,   103,    37,
+      30,    29,    97,   107,    12,    50,    12,    50,    66,    67,
+      68,    69,    71,    72,    73,    74,    75,    76,   108,    25,
+     104,   104,    92,    12,    29,    50,    50,    50,    50,    50,
+      50,    50,    50,    50,    50,   105,   105,    31,    31,     7,
+     100,   101,    29,     8,   102,     7,     9,    10,    11,    28,
+      52,    53,    58,    52,    14,    15,    16,    17,    18,    19,
+      20,    21,    22,    23,    29,    54,    55,    56,    57,    59,
+      60,    61,    62,    63,    64,    52,    52,    52,    52,    52,
+      52,    52,    52,    52,    52
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    36,    37,    37,    38,    38,    40,    39,    41,    39,
-      39,    43,    42,    42,    45,    44,    44,    47,    48,    46,
-      50,    51,    49,    52,    52,    52,    52,    52,    52,    53,
-      52,    54,    54,    54,    54,    54,    54,    54,    55,    56,
-      55,    57,    55,    58,    55,    59,    55,    61,    60,    62,
-      60,    63,    60,    64,    60,    65,    60,    66,    60,    67,
-      68,    67,    69,    67,    70,    67,    71,    67,    73,    72,
-      74,    72,    75,    72,    76,    72,    77,    72,    78,    72,
-      80,    79,    82,    81,    83,    81,    84,    81,    85,    86,
-      85,    88,    87,    89,    89,    91,    90,    92,    93,    94,
-      90,    96,    97,    95,    98,    95,    99,    95,   101,   100,
-     103,   104,   102,   105,   105,   105,   105,   106,   106,   106,
-     107,   107,   107,   108,   108,   110,   109,   111,   109,   112,
-     112,   112,   112
+       0,    34,    35,    35,    36,    36,    38,    37,    39,    37,
+      37,    41,    40,    40,    43,    42,    42,    45,    46,    44,
+      48,    49,    47,    50,    50,    50,    50,    50,    50,    51,
+      50,    52,    52,    52,    52,    52,    52,    52,    53,    54,
+      53,    55,    53,    56,    53,    57,    53,    59,    58,    60,
+      58,    61,    58,    62,    58,    63,    58,    64,    58,    65,
+      66,    65,    67,    65,    68,    65,    69,    65,    71,    70,
+      72,    70,    73,    70,    74,    70,    75,    70,    76,    70,
+      78,    77,    80,    79,    81,    79,    82,    79,    83,    84,
+      83,    86,    85,    87,    87,    89,    88,    90,    91,    92,
+      88,    94,    95,    93,    96,    93,    97,    93,    99,    98,
+     101,   102,   100,   103,   103,   103,   103,   104,   104,   104,
+     105,   105,   105,   106,   106,   108,   107,   109,   107,   110,
+     110,   110,   110
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
@@ -1408,457 +1405,457 @@ yyreduce:
   switch (yyn)
     {
         case 6:
-#line 43 "compiler.y" /* yacc.c:1646  */
+#line 42 "compiler.y" /* yacc.c:1646  */
     {InsereTabsSaida(&saida, contador_tab);}
-#line 1414 "compiler.tab.c" /* yacc.c:1646  */
+#line 1411 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 44 "compiler.y" /* yacc.c:1646  */
+#line 43 "compiler.y" /* yacc.c:1646  */
     {InsereTabsSaida(&saida, contador_tab);}
-#line 1420 "compiler.tab.c" /* yacc.c:1646  */
+#line 1417 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 49 "compiler.y" /* yacc.c:1646  */
+#line 48 "compiler.y" /* yacc.c:1646  */
     {InsereTabsSaida(&saida, contador_tab);}
-#line 1426 "compiler.tab.c" /* yacc.c:1646  */
+#line 1423 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 54 "compiler.y" /* yacc.c:1646  */
+#line 53 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, ((yyvsp[0].strval)), linhas); InsereNaSaida(&saida, " = 0\n", linhas);}
-#line 1432 "compiler.tab.c" /* yacc.c:1646  */
+#line 1429 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 54 "compiler.y" /* yacc.c:1646  */
+#line 53 "compiler.y" /* yacc.c:1646  */
     {InserirSimbolo(&tabela_simbolos, (yyvsp[-2].strval), contador_tab); cont++; linhas++; }
-#line 1438 "compiler.tab.c" /* yacc.c:1646  */
+#line 1435 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 59 "compiler.y" /* yacc.c:1646  */
+#line 58 "compiler.y" /* yacc.c:1646  */
     {InserirSimbolo(&tabela_simbolos, (yyvsp[0].strval), contador_tab);InsereNaSaida(&saida, ((yyvsp[0].strval)), linhas);cont++;}
-#line 1444 "compiler.tab.c" /* yacc.c:1646  */
+#line 1441 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 59 "compiler.y" /* yacc.c:1646  */
+#line 58 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " = ", linhas);}
-#line 1450 "compiler.tab.c" /* yacc.c:1646  */
+#line 1447 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 59 "compiler.y" /* yacc.c:1646  */
+#line 58 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, "\n", linhas);linhas++;}
-#line 1456 "compiler.tab.c" /* yacc.c:1646  */
+#line 1453 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 63 "compiler.y" /* yacc.c:1646  */
+#line 62 "compiler.y" /* yacc.c:1646  */
     {if(verifica_usabilidade((yyvsp[0].strval), contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{printf("(%s) => ", yytext); yyerror("Variable not declared!\n");}}
-#line 1462 "compiler.tab.c" /* yacc.c:1646  */
+#line 1459 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 63 "compiler.y" /* yacc.c:1646  */
+#line 62 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " = ", linhas);}
-#line 1468 "compiler.tab.c" /* yacc.c:1646  */
+#line 1465 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 63 "compiler.y" /* yacc.c:1646  */
+#line 62 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, "\n", linhas);linhas++;}
-#line 1474 "compiler.tab.c" /* yacc.c:1646  */
+#line 1471 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 67 "compiler.y" /* yacc.c:1646  */
+#line 66 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, yytext, linhas);}
-#line 1480 "compiler.tab.c" /* yacc.c:1646  */
+#line 1477 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 68 "compiler.y" /* yacc.c:1646  */
+#line 67 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, yytext, linhas);}
-#line 1486 "compiler.tab.c" /* yacc.c:1646  */
+#line 1483 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 69 "compiler.y" /* yacc.c:1646  */
+#line 68 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, yytext, linhas);}
-#line 1492 "compiler.tab.c" /* yacc.c:1646  */
+#line 1489 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 70 "compiler.y" /* yacc.c:1646  */
+#line 69 "compiler.y" /* yacc.c:1646  */
     {if(verifica_usabilidade((yyvsp[0].strval), contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{printf("(%s) => ", yytext); yyerror("Variable not declared!\n");} }
-#line 1498 "compiler.tab.c" /* yacc.c:1646  */
+#line 1495 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 73 "compiler.y" /* yacc.c:1646  */
+#line 72 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, yytext, linhas);}
-#line 1504 "compiler.tab.c" /* yacc.c:1646  */
+#line 1501 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 73 "compiler.y" /* yacc.c:1646  */
+#line 72 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, yytext, linhas);}
-#line 1510 "compiler.tab.c" /* yacc.c:1646  */
+#line 1507 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 77 "compiler.y" /* yacc.c:1646  */
+#line 76 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
-#line 1516 "compiler.tab.c" /* yacc.c:1646  */
+#line 1513 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 78 "compiler.y" /* yacc.c:1646  */
+#line 77 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext); }
-#line 1522 "compiler.tab.c" /* yacc.c:1646  */
+#line 1519 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 79 "compiler.y" /* yacc.c:1646  */
+#line 78 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
-#line 1528 "compiler.tab.c" /* yacc.c:1646  */
+#line 1525 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 80 "compiler.y" /* yacc.c:1646  */
+#line 79 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); printf("[%d] = %s\n", contador_for , condicao[contador_for]); }
-#line 1534 "compiler.tab.c" /* yacc.c:1646  */
+#line 1531 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 87 "compiler.y" /* yacc.c:1646  */
+#line 86 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
-#line 1540 "compiler.tab.c" /* yacc.c:1646  */
+#line 1537 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 88 "compiler.y" /* yacc.c:1646  */
+#line 87 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
-#line 1546 "compiler.tab.c" /* yacc.c:1646  */
+#line 1543 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 89 "compiler.y" /* yacc.c:1646  */
+#line 88 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
-#line 1552 "compiler.tab.c" /* yacc.c:1646  */
+#line 1549 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 90 "compiler.y" /* yacc.c:1646  */
+#line 89 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
-#line 1558 "compiler.tab.c" /* yacc.c:1646  */
+#line 1555 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 94 "compiler.y" /* yacc.c:1646  */
+#line 93 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
-#line 1564 "compiler.tab.c" /* yacc.c:1646  */
+#line 1561 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 95 "compiler.y" /* yacc.c:1646  */
+#line 94 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
-#line 1570 "compiler.tab.c" /* yacc.c:1646  */
+#line 1567 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 96 "compiler.y" /* yacc.c:1646  */
+#line 95 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
-#line 1576 "compiler.tab.c" /* yacc.c:1646  */
+#line 1573 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 97 "compiler.y" /* yacc.c:1646  */
+#line 96 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
-#line 1582 "compiler.tab.c" /* yacc.c:1646  */
+#line 1579 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 98 "compiler.y" /* yacc.c:1646  */
+#line 97 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
-#line 1588 "compiler.tab.c" /* yacc.c:1646  */
+#line 1585 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 99 "compiler.y" /* yacc.c:1646  */
+#line 98 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], yytext ); }
-#line 1594 "compiler.tab.c" /* yacc.c:1646  */
+#line 1591 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 103 "compiler.y" /* yacc.c:1646  */
+#line 102 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " + ", linhas);}
-#line 1600 "compiler.tab.c" /* yacc.c:1646  */
+#line 1597 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 104 "compiler.y" /* yacc.c:1646  */
+#line 103 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " - ", linhas);}
-#line 1606 "compiler.tab.c" /* yacc.c:1646  */
+#line 1603 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 105 "compiler.y" /* yacc.c:1646  */
+#line 104 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " * ", linhas);}
-#line 1612 "compiler.tab.c" /* yacc.c:1646  */
+#line 1609 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 106 "compiler.y" /* yacc.c:1646  */
+#line 105 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " / ", linhas);}
-#line 1618 "compiler.tab.c" /* yacc.c:1646  */
+#line 1615 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 110 "compiler.y" /* yacc.c:1646  */
+#line 109 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " < ", linhas);}
-#line 1624 "compiler.tab.c" /* yacc.c:1646  */
+#line 1621 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 111 "compiler.y" /* yacc.c:1646  */
+#line 110 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " <= ", linhas);}
-#line 1630 "compiler.tab.c" /* yacc.c:1646  */
+#line 1627 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 112 "compiler.y" /* yacc.c:1646  */
+#line 111 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " > ", linhas);}
-#line 1636 "compiler.tab.c" /* yacc.c:1646  */
+#line 1633 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 113 "compiler.y" /* yacc.c:1646  */
+#line 112 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " >= ", linhas);}
-#line 1642 "compiler.tab.c" /* yacc.c:1646  */
+#line 1639 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 114 "compiler.y" /* yacc.c:1646  */
+#line 113 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " == ", linhas);}
-#line 1648 "compiler.tab.c" /* yacc.c:1646  */
+#line 1645 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 115 "compiler.y" /* yacc.c:1646  */
+#line 114 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " != ", linhas);}
-#line 1654 "compiler.tab.c" /* yacc.c:1646  */
+#line 1651 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 119 "compiler.y" /* yacc.c:1646  */
+#line 118 "compiler.y" /* yacc.c:1646  */
     { InsereNaSaida(&saida, "if (", linhas); }
-#line 1660 "compiler.tab.c" /* yacc.c:1646  */
+#line 1657 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 81:
-#line 119 "compiler.y" /* yacc.c:1646  */
+#line 118 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, ")\n", linhas); contador_tab++; }
-#line 1666 "compiler.tab.c" /* yacc.c:1646  */
+#line 1663 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 82:
-#line 122 "compiler.y" /* yacc.c:1646  */
+#line 121 "compiler.y" /* yacc.c:1646  */
     { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "els", linhas); }
-#line 1672 "compiler.tab.c" /* yacc.c:1646  */
+#line 1669 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 84:
-#line 124 "compiler.y" /* yacc.c:1646  */
+#line 123 "compiler.y" /* yacc.c:1646  */
     { InsereNaSaida(&saida, "else\n", linhas); }
-#line 1678 "compiler.tab.c" /* yacc.c:1646  */
+#line 1675 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 85:
-#line 124 "compiler.y" /* yacc.c:1646  */
+#line 123 "compiler.y" /* yacc.c:1646  */
     {  contador_tab--;  InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
-#line 1684 "compiler.tab.c" /* yacc.c:1646  */
+#line 1681 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 86:
-#line 126 "compiler.y" /* yacc.c:1646  */
+#line 125 "compiler.y" /* yacc.c:1646  */
     { contador_tab--; InsereTabsSaida(&saida, contador_tab); contador_tab++; InsereNaSaida(&saida, "else\n", linhas); }
-#line 1690 "compiler.tab.c" /* yacc.c:1646  */
+#line 1687 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 87:
-#line 126 "compiler.y" /* yacc.c:1646  */
+#line 125 "compiler.y" /* yacc.c:1646  */
     { contador_tab--;InsereTabsSaida(&saida, contador_tab);InsereNaSaida(&saida, "end\n", linhas);}
-#line 1696 "compiler.tab.c" /* yacc.c:1646  */
+#line 1693 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 89:
-#line 131 "compiler.y" /* yacc.c:1646  */
+#line 130 "compiler.y" /* yacc.c:1646  */
     {InsereTabsSaida(&saida, contador_tab);}
-#line 1702 "compiler.tab.c" /* yacc.c:1646  */
+#line 1699 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 91:
-#line 135 "compiler.y" /* yacc.c:1646  */
+#line 134 "compiler.y" /* yacc.c:1646  */
     { InsereNaSaida(&saida, "while ( ", linhas); }
-#line 1708 "compiler.tab.c" /* yacc.c:1646  */
+#line 1705 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 92:
-#line 135 "compiler.y" /* yacc.c:1646  */
+#line 134 "compiler.y" /* yacc.c:1646  */
     { InsereNaSaida(&saida, " ) \n" , linhas); contador_tab++; }
-#line 1714 "compiler.tab.c" /* yacc.c:1646  */
+#line 1711 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 93:
-#line 139 "compiler.y" /* yacc.c:1646  */
+#line 138 "compiler.y" /* yacc.c:1646  */
     { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "\nend\n" , linhas);}
-#line 1720 "compiler.tab.c" /* yacc.c:1646  */
+#line 1717 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 94:
-#line 140 "compiler.y" /* yacc.c:1646  */
+#line 139 "compiler.y" /* yacc.c:1646  */
     { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n" , linhas); }
-#line 1726 "compiler.tab.c" /* yacc.c:1646  */
+#line 1723 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 95:
-#line 146 "compiler.y" /* yacc.c:1646  */
+#line 145 "compiler.y" /* yacc.c:1646  */
     {InsereTabsSaida(&saida, contador_tab);}
-#line 1732 "compiler.tab.c" /* yacc.c:1646  */
+#line 1729 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 96:
-#line 146 "compiler.y" /* yacc.c:1646  */
+#line 145 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, "while true\n", linhas);}
-#line 1738 "compiler.tab.c" /* yacc.c:1646  */
+#line 1735 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 97:
-#line 148 "compiler.y" /* yacc.c:1646  */
+#line 147 "compiler.y" /* yacc.c:1646  */
     {InsereTabsSaida(&saida, contador_tab);}
-#line 1744 "compiler.tab.c" /* yacc.c:1646  */
+#line 1741 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 98:
-#line 148 "compiler.y" /* yacc.c:1646  */
+#line 147 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, "while ", linhas);}
-#line 1750 "compiler.tab.c" /* yacc.c:1646  */
+#line 1747 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 99:
-#line 148 "compiler.y" /* yacc.c:1646  */
+#line 147 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, "\n", linhas);}
-#line 1756 "compiler.tab.c" /* yacc.c:1646  */
+#line 1753 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 100:
-#line 148 "compiler.y" /* yacc.c:1646  */
+#line 147 "compiler.y" /* yacc.c:1646  */
     {contador_for++;}
-#line 1762 "compiler.tab.c" /* yacc.c:1646  */
+#line 1759 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 101:
-#line 152 "compiler.y" /* yacc.c:1646  */
+#line 151 "compiler.y" /* yacc.c:1646  */
     {contador_tab++;}
-#line 1768 "compiler.tab.c" /* yacc.c:1646  */
+#line 1765 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 102:
-#line 152 "compiler.y" /* yacc.c:1646  */
+#line 151 "compiler.y" /* yacc.c:1646  */
     {InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0';}
-#line 1774 "compiler.tab.c" /* yacc.c:1646  */
+#line 1771 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 103:
-#line 152 "compiler.y" /* yacc.c:1646  */
+#line 151 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
-#line 1780 "compiler.tab.c" /* yacc.c:1646  */
+#line 1777 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 104:
-#line 154 "compiler.y" /* yacc.c:1646  */
+#line 153 "compiler.y" /* yacc.c:1646  */
     {contador_tab++;}
-#line 1786 "compiler.tab.c" /* yacc.c:1646  */
+#line 1783 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 105:
-#line 154 "compiler.y" /* yacc.c:1646  */
+#line 153 "compiler.y" /* yacc.c:1646  */
     { InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0'; printf("condicao eh %s\n", condicao[contador_for]); InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
-#line 1792 "compiler.tab.c" /* yacc.c:1646  */
+#line 1789 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 106:
-#line 156 "compiler.y" /* yacc.c:1646  */
+#line 155 "compiler.y" /* yacc.c:1646  */
     {contador_tab++; InsereNaSaida(&saida, "while true\n", linhas);}
-#line 1798 "compiler.tab.c" /* yacc.c:1646  */
+#line 1795 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 107:
-#line 156 "compiler.y" /* yacc.c:1646  */
+#line 155 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
-#line 1804 "compiler.tab.c" /* yacc.c:1646  */
+#line 1801 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 108:
-#line 160 "compiler.y" /* yacc.c:1646  */
+#line 159 "compiler.y" /* yacc.c:1646  */
     {InsereTabsSaida(&saida, contador_tab);}
-#line 1810 "compiler.tab.c" /* yacc.c:1646  */
+#line 1807 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 110:
-#line 164 "compiler.y" /* yacc.c:1646  */
+#line 163 "compiler.y" /* yacc.c:1646  */
     {if(procura_tabela_simbolos((yyvsp[0].strval), contador_tab)){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{yyerror("Variable not declared!\n");}}
-#line 1816 "compiler.tab.c" /* yacc.c:1646  */
+#line 1813 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 111:
-#line 164 "compiler.y" /* yacc.c:1646  */
+#line 163 "compiler.y" /* yacc.c:1646  */
     { strcat(condicao[contador_for], " = " ); }
-#line 1822 "compiler.tab.c" /* yacc.c:1646  */
+#line 1819 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 112:
-#line 164 "compiler.y" /* yacc.c:1646  */
+#line 163 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, "\n", linhas);linhas++;}
-#line 1828 "compiler.tab.c" /* yacc.c:1646  */
+#line 1825 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 113:
-#line 168 "compiler.y" /* yacc.c:1646  */
+#line 167 "compiler.y" /* yacc.c:1646  */
     {contador_tab--; {InsereTabsSaida(&saida, contador_tab);}  InsereNaSaida(&saida, "end\n", linhas);}
-#line 1834 "compiler.tab.c" /* yacc.c:1646  */
+#line 1831 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 114:
-#line 170 "compiler.y" /* yacc.c:1646  */
+#line 169 "compiler.y" /* yacc.c:1646  */
     {contador_tab--; {InsereTabsSaida(&saida, contador_tab);} InsereNaSaida(&saida, "end\n", linhas);}
-#line 1840 "compiler.tab.c" /* yacc.c:1646  */
+#line 1837 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 120:
-#line 183 "compiler.y" /* yacc.c:1646  */
+#line 182 "compiler.y" /* yacc.c:1646  */
     { if ( strcmp((yyvsp[0].strval), "0") == 0 )InsereNaSaida(&saida, "false", linhas); else InsereNaSaida(&saida, "true", linhas);}
-#line 1846 "compiler.tab.c" /* yacc.c:1646  */
+#line 1843 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 125:
-#line 194 "compiler.y" /* yacc.c:1646  */
+#line 193 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " and ", linhas);}
-#line 1852 "compiler.tab.c" /* yacc.c:1646  */
+#line 1849 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 127:
-#line 195 "compiler.y" /* yacc.c:1646  */
+#line 194 "compiler.y" /* yacc.c:1646  */
     {InsereNaSaida(&saida, " or ", linhas);}
-#line 1858 "compiler.tab.c" /* yacc.c:1646  */
+#line 1855 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1862 "compiler.tab.c" /* yacc.c:1646  */
+#line 1859 "compiler.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2086,7 +2083,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 203 "compiler.y" /* yacc.c:1906  */
+#line 202 "compiler.y" /* yacc.c:1906  */
 
 
 int yyerror(char *s) {

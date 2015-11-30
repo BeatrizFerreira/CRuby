@@ -22,10 +22,9 @@ extern char* yytext;
 %token <strval> IDENTIFICADOR
 %token <strval> ATTR
 %token <strval> N_INTEIRO N_REAL N_CARACTERE
-%token END_LINE END
-%token PONTO_VIRGULA
-%token PLUS MINUS TIMES DIVISION MENOR MENORIGUAL MAIOR MAIORIGUAL IGUAL DIFERENTE E OU SE SENAO
-%token LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKETS RIGHT_BRACKETS FOR WHILE REFUSE
+%token PONTO_VIRGULA FINAL_LINHA
+%token MAIS MENOS VEZES DIVISAO MENOR MENORIGUAL MAIOR MAIORIGUAL IGUAL DIFERENTE E OU SE SENAO
+%token LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKETS RIGHT_BRACKETS FOR WHILE
 
 %start Input
 
@@ -36,7 +35,7 @@ Input:
     ;
 Line:
     command
-    | END_LINE
+    | FINAL_LINHA
     ;
 
 command:
@@ -84,10 +83,10 @@ expression_loop:
     ;
 
 math_operation_loop:
-    | expression_loop PLUS { strcat(condicao[contador_for], yytext ); } expression_loop 
-    | expression_loop MINUS { strcat(condicao[contador_for], yytext ); } expression_loop 
-    | expression_loop TIMES { strcat(condicao[contador_for], yytext ); } expression_loop
-    | expression_loop DIVISION { strcat(condicao[contador_for], yytext ); } expression_loop
+    | expression_loop MAIS { strcat(condicao[contador_for], yytext ); } expression_loop 
+    | expression_loop MENOS { strcat(condicao[contador_for], yytext ); } expression_loop 
+    | expression_loop VEZES { strcat(condicao[contador_for], yytext ); } expression_loop
+    | expression_loop DIVISAO { strcat(condicao[contador_for], yytext ); } expression_loop
     ;
 
 comparator_loop:
@@ -100,10 +99,10 @@ comparator_loop:
     ;
 
 math_operation:
-    | expression PLUS {InsereNaSaida(&saida, " + ", linhas);} expression 
-    | expression MINUS {InsereNaSaida(&saida, " - ", linhas);} expression 
-    | expression TIMES {InsereNaSaida(&saida, " * ", linhas);} expression
-    | expression DIVISION {InsereNaSaida(&saida, " / ", linhas);} expression
+    | expression MAIS {InsereNaSaida(&saida, " + ", linhas);} expression 
+    | expression MENOS {InsereNaSaida(&saida, " - ", linhas);} expression 
+    | expression VEZES {InsereNaSaida(&saida, " * ", linhas);} expression
+    | expression DIVISAO {InsereNaSaida(&saida, " / ", linhas);} expression
     ;
 
 comparator:
@@ -176,7 +175,7 @@ conditional:
 
 multiple_command:
     | command multiple_command  
-    | END_LINE multiple_command
+    | FINAL_LINHA multiple_command
     ;
 
 multiple_conditional:

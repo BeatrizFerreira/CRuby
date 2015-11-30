@@ -54,30 +54,28 @@ extern int yydebug;
     N_INTEIRO = 264,
     N_REAL = 265,
     N_CARACTERE = 266,
-    END_LINE = 267,
-    END = 268,
-    PONTO_VIRGULA = 269,
-    PLUS = 270,
-    MINUS = 271,
-    TIMES = 272,
-    DIVISION = 273,
-    MENOR = 274,
-    MENORIGUAL = 275,
-    MAIOR = 276,
-    MAIORIGUAL = 277,
-    IGUAL = 278,
-    DIFERENTE = 279,
-    E = 280,
-    OU = 281,
-    SE = 282,
-    SENAO = 283,
-    LEFT_PARENTHESIS = 284,
-    RIGHT_PARENTHESIS = 285,
-    LEFT_BRACKETS = 286,
-    RIGHT_BRACKETS = 287,
-    FOR = 288,
-    WHILE = 289,
-    REFUSE = 290
+    PONTO_VIRGULA = 267,
+    FINAL_LINHA = 268,
+    MAIS = 269,
+    MENOS = 270,
+    VEZES = 271,
+    DIVISAO = 272,
+    MENOR = 273,
+    MENORIGUAL = 274,
+    MAIOR = 275,
+    MAIORIGUAL = 276,
+    IGUAL = 277,
+    DIFERENTE = 278,
+    E = 279,
+    OU = 280,
+    SE = 281,
+    SENAO = 282,
+    LEFT_PARENTHESIS = 283,
+    RIGHT_PARENTHESIS = 284,
+    LEFT_BRACKETS = 285,
+    RIGHT_BRACKETS = 286,
+    FOR = 287,
+    WHILE = 288
   };
 #endif
 
@@ -91,7 +89,7 @@ union YYSTYPE
     char * strval;
     int intval;
 
-#line 95 "compiler.tab.h" /* yacc.c:1909  */
+#line 93 "compiler.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

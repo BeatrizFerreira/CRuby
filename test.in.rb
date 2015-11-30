@@ -18,6 +18,7 @@ while w < 1
 	while y < 4
 
 		b = 0
+		b = 1 + 2 - 3 * (5 / 4)
 		y = y+2
 	end
 	w = w+1

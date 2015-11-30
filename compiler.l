@@ -28,10 +28,10 @@ final_de_linha [\n]
 {n_inteiro} 		{yylval.strval = strdup(yytext); return N_INTEIRO;}
 {n_real} 			{yylval.strval = strdup(yytext); return N_REAL;}
 "'"{caractere}"'" 	{yylval.strval = strdup(yytext); return N_CARACTERE;}
-"+"					return PLUS;
-"-"					return MINUS;
-"*"					return TIMES;
-"/"					return DIVISION;
+"+"					return MAIS;
+"-"					return MENOS;
+"*"					return VEZES;
+"/"					return DIVISAO;
 "<"					return MENOR;
 "<="				return MENORIGUAL;
 ">"					return MAIOR;
@@ -44,7 +44,6 @@ final_de_linha [\n]
 ")"					return RIGHT_PARENTHESIS;
 "{"					return LEFT_BRACKETS;
 "}"					return RIGHT_BRACKETS;
-"["					return REFUSE;
 
 {final_de_linha} 	/*ignore*/;
 {espaco_branco} 	/*ignore*/;
