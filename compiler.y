@@ -60,14 +60,14 @@ declaration_attribution:
     ;
 
 attribution:
-    IDENTIFIER{if(procura_tabela_simbolos($1, contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variable not declared!\n");}} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression SEMICOLON {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+    IDENTIFIER{if(verifica_usabilidade($1, contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{printf("(%s) => ", yytext); yyerror("Variable not declared!\n");}} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression SEMICOLON {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;
 
 expression:
     N_INTEGER {InsereNaSaida(&saida, yytext, linhas);}
     | N_REAL {InsereNaSaida(&saida, yytext, linhas);}
     | N_CHAR {InsereNaSaida(&saida, yytext, linhas);}
-    | IDENTIFIER {printf("!%s\n", $1);if(procura_tabela_simbolos($1, contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variable not declared!\n");} }
+    | IDENTIFIER {if(verifica_usabilidade($1, contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{printf("(%s) => ", yytext); yyerror("Variable not declared!\n");} }
     | math_operation
     | comparator
     | LEFT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);} expression RIGHT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);}

@@ -3,6 +3,9 @@
 #include <string.h>
 
 #define MAX 100
+#define USAVEL 1;
+#define ENCONTRADO 1;
+#define NAO_ENCONTRADO 0;
 
 int linhas;
 
@@ -43,14 +46,40 @@ int procura_tabela_simbolos(char nomesimbolo[MAX], int escopo){
             if ( strcmp(nomesimbolo, aux->nome) == 0 ){
 
                 if ( aux->nivelEscopo == escopo )
-                    return 1;//esta na tabela de simbolos
+                    return ENCONTRADO;//esta na tabela de simbolos
             }
             aux = aux->proximo;
         }
-        return 0; //simbolo nao foi encontrado
+        return NAO_ENCONTRADO; //simbolo nao foi encontrado
     }
 
 }
+
+int verifica_usabilidade(char nomesimbolo[MAX], int escopo){
+    
+    if(tabela_simbolos == NULL){
+        // printf("vazio!\n");
+        return 0; // nao esta na tabela de simbolos
+    }else{
+
+        // printf("nao vazio1\n");
+        Simbolo *aux = tabela_simbolos;
+        while( aux != NULL)
+        {
+            // printf("hue\n");
+            if ( strcmp(nomesimbolo, aux->nome) == 0 ){
+
+                if ( aux->nivelEscopo <= escopo )
+                    return USAVEL;
+            }
+            aux = aux->proximo;
+        }
+        return NAO_ENCONTRADO; //simbolo nao foi encontrado
+    }
+
+}
+
+// fazer metodo que ve se o simbolo existe antes de usar
 
 Simbolo * AddSimbolo(char nome[MAX] , int escopo )
 {

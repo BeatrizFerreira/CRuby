@@ -1456,7 +1456,7 @@ yyreduce:
 
   case 20:
 #line 63 "compiler.y" /* yacc.c:1646  */
-    {if(procura_tabela_simbolos((yyvsp[0].strval), contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variable not declared!\n");}}
+    {if(verifica_usabilidade((yyvsp[0].strval), contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{printf("(%s) => ", yytext); yyerror("Variable not declared!\n");}}
 #line 1461 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1492,7 +1492,7 @@ yyreduce:
 
   case 26:
 #line 70 "compiler.y" /* yacc.c:1646  */
-    {printf("!%s\n", (yyvsp[0].strval));if(procura_tabela_simbolos((yyvsp[0].strval), contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variable not declared!\n");} }
+    {if(verifica_usabilidade((yyvsp[0].strval), contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{printf("(%s) => ", yytext); yyerror("Variable not declared!\n");} }
 #line 1497 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
