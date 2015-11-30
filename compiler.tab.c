@@ -70,7 +70,7 @@
 #include "symbol_table.h"
 
 char condicao[100][100];
-
+    
 int contador_for = 0;
 int contador_tab = 0;
 
@@ -1432,13 +1432,13 @@ yyreduce:
 
   case 15:
 #line 54 "compiler.y" /* yacc.c:1646  */
-    {InserirSimbolo(&tabela_simbolos, (yyvsp[-2].strval)); cont++; linhas++; }
+    {InserirSimbolo(&tabela_simbolos, (yyvsp[-2].strval), contador_tab); cont++; linhas++; }
 #line 1437 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
 #line 59 "compiler.y" /* yacc.c:1646  */
-    {InserirSimbolo(&tabela_simbolos, (yyvsp[0].strval));InsereNaSaida(&saida, ((yyvsp[0].strval)), linhas);cont++;}
+    {InserirSimbolo(&tabela_simbolos, (yyvsp[0].strval), contador_tab);InsereNaSaida(&saida, ((yyvsp[0].strval)), linhas);cont++;}
 #line 1443 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1456,7 +1456,7 @@ yyreduce:
 
   case 20:
 #line 63 "compiler.y" /* yacc.c:1646  */
-    {if(procura_tabela_simbolos((yyvsp[0].strval))){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variable not declared!\n");}}
+    {if(procura_tabela_simbolos((yyvsp[0].strval), contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variable not declared!\n");}}
 #line 1461 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1492,7 +1492,7 @@ yyreduce:
 
   case 26:
 #line 70 "compiler.y" /* yacc.c:1646  */
-    {printf("!%s\n", (yyvsp[0].strval));if(procura_tabela_simbolos((yyvsp[0].strval))){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variable not declared!\n");} }
+    {printf("!%s\n", (yyvsp[0].strval));if(procura_tabela_simbolos((yyvsp[0].strval), contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variable not declared!\n");} }
 #line 1497 "compiler.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1810,7 +1810,7 @@ yyreduce:
 
   case 110:
 #line 164 "compiler.y" /* yacc.c:1646  */
-    {if(procura_tabela_simbolos((yyvsp[0].strval))){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{yyerror("Variable not declared!\n");}}
+    {if(procura_tabela_simbolos((yyvsp[0].strval), contador_tab)){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{yyerror("Variable not declared!\n");}}
 #line 1815 "compiler.tab.c" /* yacc.c:1646  */
     break;
 

@@ -1,40 +1,11 @@
-int a;
+int w = 2;
 
-int a = 2 + 3;
-
-int b = a + 3;
+w = 3;
 
 if ( 1 ){
-	int w;
-	int u;
-}else if (1){
-	int k;
-	int i;
+	
+	int a;
+	int b;
 
-	if ( 1 ){
-		while( k < i ){
-			int a;
-			int b;
-			int c;
-		}
-
-		while ( 1 ){
-
-			int d;
-		}
-
-		for ( a = 0 ; a < 10 ; a = a + 1 ){
-			for ( a = 0 ; a < 10 ; a = a + 1 ){
-				while ( a > 0 ){
-					a = a + 1;
-					d = a * ( b * d );
-				}
-			}
-		}
-	}else if ( 1 ){
-		int v;
-	}else {
-
-		int aka;
-	}
+	w = 4;
 }

@@ -5,7 +5,7 @@
 #include "symbol_table.h"
 
 char condicao[100][100];
-
+    
 int contador_for = 0;
 int contador_tab = 0;
 
@@ -51,23 +51,23 @@ loop_and_conditional:
     ;
 
 declaration:
-    type IDENTIFIER {InsereNaSaida(&saida, ($2), linhas); InsereNaSaida(&saida, " = 0\n", linhas);}SEMICOLON {InserirSimbolo(&tabela_simbolos, $2); cont++; linhas++; }
+    type IDENTIFIER {InsereNaSaida(&saida, ($2), linhas); InsereNaSaida(&saida, " = 0\n", linhas);}SEMICOLON {InserirSimbolo(&tabela_simbolos, $2, contador_tab); cont++; linhas++; }
     | declaration_attribution
     ;
 
 declaration_attribution:
-    type IDENTIFIER{InserirSimbolo(&tabela_simbolos, $2);InsereNaSaida(&saida, ($2), linhas);cont++;} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression SEMICOLON {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+    type IDENTIFIER{InserirSimbolo(&tabela_simbolos, $2, contador_tab);InsereNaSaida(&saida, ($2), linhas);cont++;} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression SEMICOLON {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;
 
 attribution:
-    IDENTIFIER{if(procura_tabela_simbolos($1)){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variable not declared!\n");}} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression SEMICOLON {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+    IDENTIFIER{if(procura_tabela_simbolos($1, contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variable not declared!\n");}} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression SEMICOLON {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;
 
 expression:
     N_INTEGER {InsereNaSaida(&saida, yytext, linhas);}
     | N_REAL {InsereNaSaida(&saida, yytext, linhas);}
     | N_CHAR {InsereNaSaida(&saida, yytext, linhas);}
-    | IDENTIFIER {printf("!%s\n", $1);if(procura_tabela_simbolos($1)){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variable not declared!\n");} }
+    | IDENTIFIER {printf("!%s\n", $1);if(procura_tabela_simbolos($1, contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{yyerror("Variable not declared!\n");} }
     | math_operation
     | comparator
     | LEFT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);} expression RIGHT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);}
@@ -161,7 +161,7 @@ first_for_loop_part:
     ;
 
 last_for_loop_part:
-    IDENTIFIER {if(procura_tabela_simbolos($1)){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{yyerror("Variable not declared!\n");}} ATTR { strcat(condicao[contador_for], " = " ); } expression_loop {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+    IDENTIFIER {if(procura_tabela_simbolos($1, contador_tab)){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{yyerror("Variable not declared!\n");}} ATTR { strcat(condicao[contador_for], " = " ); } expression_loop {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;    
 
 conditional:

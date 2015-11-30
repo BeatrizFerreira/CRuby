@@ -1,40 +1,13 @@
-if ( 1 ){
-	int w;
-	int u;
-}else if (1){
-	int k;
-	int i;
+#include <stdio.h>
 
-	if ( 1 ){
-		while( k < i ){
-			int a;
-			int b;
-			int c;
+int main(){
+
+	for ( int i = 0 ; i < 5 ; i++ ) {
+		for ( int j = 0 ; i < 5 ; i++ ){
+			;
 		}
-
-		while ( 1 ){
-
-			int d;
-		}
-
-		for ( a = 0 ; a < 10 ; a = a + 1 ){
-			for ( a = 0 ; a < 10 ; a = a + 1 ){
-				while ( a > 0 ){
-					a = a + 1;
-					d = a * ( b * d );
-				}
-			}
-		}
-	}else if ( 1 ){
-		int v;
-	}else {
-
-		int aka;
 	}
+		
+
+	return 0;
 }
-
-double e;
-
-char king = 'k';
-
-float a9 = 3.0;	

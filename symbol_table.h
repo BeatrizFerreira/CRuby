@@ -28,7 +28,7 @@ Saida * saida;
 int contador_simbolos = 0;
 int cont = 0;
 
-int procura_tabela_simbolos(char nomesimbolo[MAX]){
+int procura_tabela_simbolos(char nomesimbolo[MAX], int escopo){
     
     if(tabela_simbolos == NULL){
         // printf("vazio!\n");
@@ -42,7 +42,8 @@ int procura_tabela_simbolos(char nomesimbolo[MAX]){
             // printf("hue\n");
             if ( strcmp(nomesimbolo, aux->nome) == 0 ){
 
-                return 1; //esta na tabela de simbolos
+                if ( aux->nivelEscopo == escopo )
+                    return 1;//esta na tabela de simbolos
             }
             aux = aux->proximo;
         }
@@ -51,24 +52,25 @@ int procura_tabela_simbolos(char nomesimbolo[MAX]){
 
 }
 
-Simbolo * AddSimbolo(char nome[MAX])
+Simbolo * AddSimbolo(char nome[MAX] , int escopo )
 {
     Simbolo * novo = (Simbolo*) malloc(sizeof(Simbolo));
     strcpy(novo->nome, nome);
+    novo->nivelEscopo = escopo;
     novo->proximo = NULL;
 
     return novo;
 }
 
-void InserirSimbolo(Simbolo ** temp, char nome[MAX])
+void InserirSimbolo(Simbolo ** temp, char nome[MAX], int escopo)
 {
-    if ( !procura_tabela_simbolos(nome) ){//se nao esta na tabela, insere o novo simbolo
-        Simbolo * aux = AddSimbolo(nome);
-        // Simbolo * head = *temp;
+    if ( !procura_tabela_simbolos(nome, escopo) ){//se nao esta na tabela, insere o novo simbolo
+        Simbolo * aux = AddSimbolo(nome , escopo );
+
         if(*temp == NULL)
         {
             *temp = aux;
-            // aux->proximo = NULL;
+            aux->proximo = NULL;
             // printf("entrou if\n");
         }
         else
