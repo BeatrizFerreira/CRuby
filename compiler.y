@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "symbol_table.h"
+#include "tabela_simbolos.h"
 
 char condicao[100][100];
     
@@ -18,12 +18,12 @@ extern char* yytext;
     int intval;
 }
 
-%token <strval> TYPE_INT TYPE_FLOAT TYPE_DOUBLE TYPE_CHAR
-%token <strval> IDENTIFIER
+%token <strval> TIPO_INTEIRO TIPO_FLOAT TIPO_DOUBLE TIPO_CHAR
+%token <strval> IDENTIFICADOR
 %token <strval> ATTR
-%token <strval> N_INTEGER N_REAL N_CHAR
+%token <strval> N_INTEIRO N_REAL N_CARACTERE
 %token END_LINE END
-%token SEMICOLON
+%token PONTO_VIRGULA
 %token PLUS MINUS TIMES DIVISION MENOR MENORIGUAL MAIOR MAIORIGUAL IGUAL DIFERENTE E OU SE SENAO
 %token LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKETS RIGHT_BRACKETS FOR WHILE REFUSE
 
@@ -51,33 +51,33 @@ loop_and_conditional:
     ;
 
 declaration:
-    type IDENTIFIER {InsereNaSaida(&saida, ($2), linhas); InsereNaSaida(&saida, " = 0\n", linhas);}SEMICOLON {InserirSimbolo(&tabela_simbolos, $2, contador_tab); cont++; linhas++; }
+    tipo IDENTIFICADOR {InsereNaSaida(&saida, ($2), linhas); InsereNaSaida(&saida, " = 0\n", linhas);}PONTO_VIRGULA {InserirSimbolo(&tabela_simbolos, $2, contador_tab); cont++; linhas++; }
     | declaration_attribution
     ;
 
 declaration_attribution:
-    type IDENTIFIER{InserirSimbolo(&tabela_simbolos, $2, contador_tab);InsereNaSaida(&saida, ($2), linhas);cont++;} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression SEMICOLON {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+    tipo IDENTIFICADOR{InserirSimbolo(&tabela_simbolos, $2, contador_tab);InsereNaSaida(&saida, ($2), linhas);cont++;} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression PONTO_VIRGULA {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;
 
 attribution:
-    IDENTIFIER{if(verifica_usabilidade($1, contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{printf("(%s) => ", yytext); yyerror("Variable not declared!\n");}} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression SEMICOLON {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+    IDENTIFICADOR{if(verifica_usabilidade($1, contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{printf("(%s) => ", yytext); yyerror("Variable not declared!\n");}} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression PONTO_VIRGULA {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;
 
 expression:
-    N_INTEGER {InsereNaSaida(&saida, yytext, linhas);}
+    N_INTEIRO {InsereNaSaida(&saida, yytext, linhas);}
     | N_REAL {InsereNaSaida(&saida, yytext, linhas);}
-    | N_CHAR {InsereNaSaida(&saida, yytext, linhas);}
-    | IDENTIFIER {if(verifica_usabilidade($1, contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{printf("(%s) => ", yytext); yyerror("Variable not declared!\n");} }
+    | N_CARACTERE {InsereNaSaida(&saida, yytext, linhas);}
+    | IDENTIFICADOR {if(verifica_usabilidade($1, contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{printf("(%s) => ", yytext); yyerror("Variable not declared!\n");} }
     | math_operation
     | comparator
     | LEFT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);} expression RIGHT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);}
     ;
 
 expression_loop:
-    N_INTEGER { strcat(condicao[contador_for], yytext ); }
+    N_INTEIRO { strcat(condicao[contador_for], yytext ); }
     | N_REAL { strcat(condicao[contador_for], yytext); }
-    | N_CHAR { strcat(condicao[contador_for], yytext ); }
-    | IDENTIFIER { strcat(condicao[contador_for], yytext ); printf("[%d] = %s\n", contador_for , condicao[contador_for]); }
+    | N_CARACTERE { strcat(condicao[contador_for], yytext ); }
+    | IDENTIFICADOR { strcat(condicao[contador_for], yytext ); printf("[%d] = %s\n", contador_for , condicao[contador_for]); }
     | math_operation_loop
     | comparator_loop
     | LEFT_PARENTHESIS expression_loop RIGHT_PARENTHESIS
@@ -141,11 +141,11 @@ while:
     ;
 
 for_:
-    // FOR LEFT_PARENTHESIS SEMICOLON SEMICOLON RIGHT_PARENTHESIS  {InsereTabsSaida(&saida, contador_tab);} {InsereNaSaida(&saida, "while true\n", linhas);}
+    // FOR LEFT_PARENTHESIS PONTO_VIRGULA PONTO_VIRGULA RIGHT_PARENTHESIS  {InsereTabsSaida(&saida, contador_tab);} {InsereNaSaida(&saida, "while true\n", linhas);}
     // |
-    FOR LEFT_PARENTHESIS first_for_loop_part SEMICOLON RIGHT_PARENTHESIS {InsereTabsSaida(&saida, contador_tab);} {InsereNaSaida(&saida, "while true\n", linhas);} 
+    FOR LEFT_PARENTHESIS first_for_loop_part PONTO_VIRGULA RIGHT_PARENTHESIS {InsereTabsSaida(&saida, contador_tab);} {InsereNaSaida(&saida, "while true\n", linhas);} 
     |
-    FOR LEFT_PARENTHESIS first_for_loop_part {InsereTabsSaida(&saida, contador_tab);} {InsereNaSaida(&saida, "while ", linhas);} multiple_conditional_loop SEMICOLON {InsereNaSaida(&saida, "\n", linhas);} last_for_loop_part RIGHT_PARENTHESIS  {contador_for++;}
+    FOR LEFT_PARENTHESIS first_for_loop_part {InsereTabsSaida(&saida, contador_tab);} {InsereNaSaida(&saida, "while ", linhas);} multiple_conditional_loop PONTO_VIRGULA {InsereNaSaida(&saida, "\n", linhas);} last_for_loop_part RIGHT_PARENTHESIS  {contador_for++;}
     ;
 
 for_statement:
@@ -153,7 +153,7 @@ for_statement:
     |
     for_ LEFT_BRACKETS {contador_tab++;} multiple_command RIGHT_BRACKETS { InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0'; printf("condicao eh %s\n", condicao[contador_for]); InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
     |
-    FOR LEFT_PARENTHESIS first_for_loop_part SEMICOLON RIGHT_PARENTHESIS LEFT_BRACKETS {contador_tab++; InsereNaSaida(&saida, "while true\n", linhas);}  multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
+    FOR LEFT_PARENTHESIS first_for_loop_part PONTO_VIRGULA RIGHT_PARENTHESIS LEFT_BRACKETS {contador_tab++; InsereNaSaida(&saida, "while true\n", linhas);}  multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
     ;
 
 first_for_loop_part:
@@ -161,7 +161,7 @@ first_for_loop_part:
     ;
 
 last_for_loop_part:
-    IDENTIFIER {if(procura_tabela_simbolos($1, contador_tab)){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{yyerror("Variable not declared!\n");}} ATTR { strcat(condicao[contador_for], " = " ); } expression_loop {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+    IDENTIFICADOR {if(procura_tabela_simbolos($1, contador_tab)){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{yyerror("Variable not declared!\n");}} ATTR { strcat(condicao[contador_for], " = " ); } expression_loop {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;    
 
 conditional:
@@ -180,7 +180,7 @@ multiple_command:
     ;
 
 multiple_conditional:
-    N_INTEGER { if ( strcmp($1, "0") == 0 )InsereNaSaida(&saida, "false", linhas); else InsereNaSaida(&saida, "true", linhas);}
+    N_INTEIRO { if ( strcmp($1, "0") == 0 )InsereNaSaida(&saida, "false", linhas); else InsereNaSaida(&saida, "true", linhas);}
     | comparator
     | comparator booleans
     ;
@@ -195,11 +195,11 @@ booleans:
     | {InsereNaSaida(&saida, " or ", linhas);} OU multiple_conditional
     ;
 
-type:
-    TYPE_INT
-    |TYPE_FLOAT
-    |TYPE_DOUBLE
-    |TYPE_CHAR
+tipo:
+    TIPO_INTEIRO
+    |TIPO_FLOAT
+    |TIPO_DOUBLE
+    |TIPO_CHAR
 %%
 
 int yyerror(char *s) {

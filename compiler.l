@@ -3,51 +3,51 @@
 #include <stdio.h>
 #include "compiler.tab.h"
 %}
-digit [0-9]
-identifier [a-zA-Z]+[a-zA-Z0-9]*
-n_integer [+-]?{digit}+
-n_real [+-]?{digit}+\.{digit}+
-char .{1}
-white [ \t]+
-end_line [\n]
+digito [0-9]
+identificador [a-zA-Z]+[a-zA-Z0-9]*
+n_inteiro [+-]?{digito}+
+n_real [+-]?{digito}+\.{digito}+
+caractere .{1}
+espaco_branco [ \t]+
+final_de_linha [\n]
 
 %option noyywrap
 
 %%
-"while"			return WHILE;
-"for"			return FOR;
-"if"			return SE;
-"else"			return SENAO;
-";" 			return SEMICOLON;
-"int" 			return TYPE_INT;
-"float" 		return TYPE_FLOAT;
-"double" 		return TYPE_DOUBLE;
-"char" 			return TYPE_CHAR;
-{identifier} 	{yylval.strval = strdup(yytext);}; return IDENTIFIER;
-"=" 			return ATTR;
-{n_integer} 	{yylval.strval = strdup(yytext); return N_INTEGER;}
-{n_real} 		{yylval.strval = strdup(yytext); return N_REAL;}
-"'"{char}"'" 	{yylval.strval = strdup(yytext); return N_CHAR;}
-"+"				return PLUS;
-"-"				return MINUS;
-"*"				return TIMES;
-"/"				return DIVISION;
-"<"				return MENOR;
-"<="			return MENORIGUAL;
-">"				return MAIOR;
-">="			return MAIORIGUAL;
-"=="			return IGUAL;
-"!="			return DIFERENTE;
-"&&"			return E;
-"||"			return OU;
-"("				return LEFT_PARENTHESIS;
-")"				return RIGHT_PARENTHESIS;
-"{"				return LEFT_BRACKETS;
-"}"				return RIGHT_BRACKETS;
-"["				return REFUSE;
+"while"				return WHILE;
+"for"				return FOR;
+"if"				return SE;
+"else"				return SENAO;
+";" 				return PONTO_VIRGULA;
+"int" 				return TIPO_INTEIRO;
+"float" 			return TIPO_FLOAT;
+"double" 			return TIPO_DOUBLE;
+"char" 				return TIPO_CHAR;
+{identificador} 	{yylval.strval = strdup(yytext);}; return IDENTIFICADOR;
+"=" 				return ATTR;
+{n_inteiro} 		{yylval.strval = strdup(yytext); return N_INTEIRO;}
+{n_real} 			{yylval.strval = strdup(yytext); return N_REAL;}
+"'"{caractere}"'" 	{yylval.strval = strdup(yytext); return N_CARACTERE;}
+"+"					return PLUS;
+"-"					return MINUS;
+"*"					return TIMES;
+"/"					return DIVISION;
+"<"					return MENOR;
+"<="				return MENORIGUAL;
+">"					return MAIOR;
+">="				return MAIORIGUAL;
+"=="				return IGUAL;
+"!="				return DIFERENTE;
+"&&"				return E;
+"||"				return OU;
+"("					return LEFT_PARENTHESIS;
+")"					return RIGHT_PARENTHESIS;
+"{"					return LEFT_BRACKETS;
+"}"					return RIGHT_BRACKETS;
+"["					return REFUSE;
 
-{end_line} 		;
-{white} 		/*ignore*/;
+{final_de_linha} 	/*ignore*/;
+{espaco_branco} 	/*ignore*/;
 
 %%
 

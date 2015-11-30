@@ -811,32 +811,32 @@ return SENAO;
 case 5:
 YY_RULE_SETUP
 #line 21 "compiler.l"
-return SEMICOLON;
+return PONTO_VIRGULA;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 22 "compiler.l"
-return TYPE_INT;
+return TIPO_INTEIRO;
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 23 "compiler.l"
-return TYPE_FLOAT;
+return TIPO_FLOAT;
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 24 "compiler.l"
-return TYPE_DOUBLE;
+return TIPO_DOUBLE;
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 25 "compiler.l"
-return TYPE_CHAR;
+return TIPO_CHAR;
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 26 "compiler.l"
-{yylval.strval = strdup(yytext);}; return IDENTIFIER;
+{yylval.strval = strdup(yytext);}; return IDENTIFICADOR;
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
@@ -846,7 +846,7 @@ return ATTR;
 case 12:
 YY_RULE_SETUP
 #line 28 "compiler.l"
-{yylval.strval = strdup(yytext); return N_INTEGER;}
+{yylval.strval = strdup(yytext); return N_INTEIRO;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
@@ -856,7 +856,7 @@ YY_RULE_SETUP
 case 14:
 YY_RULE_SETUP
 #line 30 "compiler.l"
-{yylval.strval = strdup(yytext); return N_CHAR;}
+{yylval.strval = strdup(yytext); return N_CARACTERE;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
@@ -947,7 +947,7 @@ case 32:
 /* rule 32 can match eol */
 YY_RULE_SETUP
 #line 49 "compiler.l"
-;
+/*ignore*/;
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
