@@ -1,22 +1,40 @@
-int x = 2;
-float y = 3;
-char t = 't';
-double d = 12;
+if ( 1 ){
+	int w;
+	int u;
+}else if (1){
+	int k;
+	int i;
 
-int xx;
-xx = 22;
+	if ( 1 ){
+		while( k < i ){
+			int a;
+			int b;
+			int c;
+		}
 
-float yy;
-yy = 33;
+		while ( 1 ){
 
-char tt;
-t = 'T';
+			int d;
+		}
 
-double dd;
-dd = 12;
+		for ( a = 0 ; a < 10 ; a = a + 1 ){
+			for ( a = 0 ; a < 10 ; a = a + 1 ){
+				while ( a > 0 ){
+					a = a + 1;
+					d = a * ( b * d );
+				}
+			}
+		}
+	}else if ( 1 ){
+		int v;
+	}else {
 
-int w = x;
+		int aka;
+	}
+}
 
-int op = x + xx;
+double e;
 
-int e = ( 1 + 2 ) * 3;
+char king = 'k';
+
+float a9 = 3.0;	

@@ -10,6 +10,7 @@ int erro = 0;
 
 typedef struct simbolo{
     char nome[MAX];
+    int nivelEscopo;
     struct simbolo * proximo;
 }Simbolo;
 
@@ -82,7 +83,8 @@ void InserirSimbolo(Simbolo ** temp, char nome[MAX])
             aux2->proximo = aux;
         }
     } else {
-        printf("Ja esta na tabela de simbolos (%s)", nome);   
+        printf("(%s) => ", nome); 
+        yyerror("Variavel já declarada.\n");  
     }
 }
 
@@ -127,18 +129,12 @@ void InsereTabsSaida(Saida ** temp, int tabs ){
 void Imprime(Saida * temp)
 {
 
-    if ( erro == 0 ){
+    Saida * aux = temp;
 
-        printf("FILE COMPILED SUCCESSFULLY!\n");
-
-        Saida * aux = temp;
-        while(aux != NULL)
-        {
-            fprintf(fp, "%s", aux->string );
-            aux= aux->proximo;    
-        }
-    }else{
-
-        fprintf(fp, "##\n## SYNTAX ERROR\n##\n");
+    while(aux != NULL)
+    {
+        fprintf(fp, "%s", aux->string );
+        aux= aux->proximo;    
     }
+    
 }

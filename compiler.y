@@ -8,10 +8,11 @@ char condicao[100][100];
 
 int contador_for = 0;
 int contador_tab = 0;
+
 extern FILE *yyin;
 extern char* yytext;
 %}
-
+ 
 %union{
     char * strval;
     int intval;
@@ -140,8 +141,8 @@ while:
     ;
 
 for_:
-    FOR LEFT_PARENTHESIS SEMICOLON SEMICOLON RIGHT_PARENTHESIS  {InsereTabsSaida(&saida, contador_tab);} {InsereNaSaida(&saida, "while true\n", linhas);}
-    |
+    // FOR LEFT_PARENTHESIS SEMICOLON SEMICOLON RIGHT_PARENTHESIS  {InsereTabsSaida(&saida, contador_tab);} {InsereNaSaida(&saida, "while true\n", linhas);}
+    // |
     FOR LEFT_PARENTHESIS first_for_loop_part SEMICOLON RIGHT_PARENTHESIS {InsereTabsSaida(&saida, contador_tab);} {InsereNaSaida(&saida, "while true\n", linhas);} 
     |
     FOR LEFT_PARENTHESIS first_for_loop_part {InsereTabsSaida(&saida, contador_tab);} {InsereNaSaida(&saida, "while ", linhas);} multiple_conditional_loop SEMICOLON {InsereNaSaida(&saida, "\n", linhas);} last_for_loop_part RIGHT_PARENTHESIS  {contador_for++;}
@@ -229,10 +230,12 @@ int main(int argc, char *argv[]) {
     // Gera o arquivo compilado corretamente , caso dê erro de compilação
     // ultimo arquivo fica disponível sem alteração.
     if ( erro == 0 ){
+
         printf("Name of the file: %s\n", file_name);
         fp = fopen(file_name, "w");
         Imprime(saida);
         fclose(fp);
+        printf("FILE COMPILED SUCCESSFULLY!\n");
     }
 
 }
