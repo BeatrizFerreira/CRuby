@@ -4,9 +4,12 @@
 #include <string.h>
 #include "tabela_simbolos.h"
 
-char condicao[100][100];
-    
+
+// Coloca a condicao do for numa variavel para o for ser utilizado como while.
+char condicao[100][100]; 
+// Conta o numero de for declarados.
 int contador_for = 0;
+// Auxilia a identacao do arquivo e é utilizado também no auxilio do escopo da variável.
 int contador_tab = 0;
 
 extern FILE *yyin;
@@ -59,14 +62,14 @@ declaracao_atribuicao:
     ;
 
 atribuicao:
-    IDENTIFICADOR{if(verifica_usabilidade($1, contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{printf("(%s) => ", yytext); yyerror("Variable not declared!\n");}} ATTR {InsereNaSaida(&saida, " = ", linhas);} expressao PONTO_VIRGULA {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+    IDENTIFICADOR{if(verifica_usabilidade($1, contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{printf("(%s) => ", yytext); yyerror("Variável não declarada.\n");}} ATTR {InsereNaSaida(&saida, " = ", linhas);} expressao PONTO_VIRGULA {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;
 
 expressao:
     N_INTEIRO {InsereNaSaida(&saida, yytext, linhas);}
     | N_REAL {InsereNaSaida(&saida, yytext, linhas);}
     | N_CARACTERE {InsereNaSaida(&saida, yytext, linhas);}
-    | IDENTIFICADOR {if(verifica_usabilidade($1, contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{printf("(%s) => ", yytext); yyerror("Variable not declared!\n");} }
+    | IDENTIFICADOR {if(verifica_usabilidade($1, contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{printf("(%s) => ", yytext); yyerror("Variável não declarada.\n");} }
     | operacao_matematica
     | comparador
     | PARENTESIS_ESQUERDO{InsereNaSaida(&saida, yytext, linhas);} expressao PARENTESIS_DIREITO{InsereNaSaida(&saida, yytext, linhas);}
@@ -158,7 +161,7 @@ laco_for_primeira_parte:
     ;
 
 laco_for_ultima_parte:
-    IDENTIFICADOR {if(procura_tabela_simbolos($1, contador_tab)){strcat(condicao[contador_for], yytext );}else{yyerror("Variable not declared!\n");}} ATTR { strcat(condicao[contador_for], " = " ); } laco_expressao {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+    IDENTIFICADOR {if(procura_tabela_simbolos($1, contador_tab)){strcat(condicao[contador_for], yytext );}else{yyerror("Variável não declarada.\n");}} ATTR { strcat(condicao[contador_for], " = " ); } laco_expressao {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;    
 
 condicional:
@@ -200,7 +203,7 @@ tipo:
 %%
 
 int yyerror(char *s) {
-    printf("error: %s\n",s);
+    printf("Erro: %s\n",s);
     erro++;
 }
 
@@ -210,16 +213,14 @@ int main(int argc, char *argv[]) {
     linhas = 0;
     yyin = fopen(argv[1], "r");
     if (yyin == NULL){
-        printf("Could not open the file.\n");
+        printf("Não foi possível abrir o arquivo.\n");
         exit(1);
     }
 
+    // Gera o nome do arquivo baseado no arquivo de entrada.
     char file_name[100];
-
     file_name[0] = '\0';
-
     strcat(file_name, argv[1]);
-
     strcat(file_name, ".rb");
 
     yyparse();
@@ -228,11 +229,11 @@ int main(int argc, char *argv[]) {
     // ultimo arquivo fica disponível sem alteração.
     if ( erro == 0 ){
 
-        printf("Name of the file: %s\n", file_name);
+        printf("Nome do arquivo: %s\n", file_name);
         fp = fopen(file_name, "w");
         Imprime(saida);
         fclose(fp);
-        printf("FILE COMPILED SUCCESSFULLY!\n");
+        printf("Arquivo compilado com sucesso.\n");
     }
 
 }

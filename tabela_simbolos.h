@@ -31,19 +31,24 @@ Saida * saida;
 int contador_simbolos = 0;
 int cont = 0;
 
-int procura_tabela_simbolos(char nomesimbolo[MAX], int escopo){
+// Verifica se uma variável está na tabela de símbolo.
+int procura_tabela_simbolos(char nomesimbolo[MAX], int escopo)
+{
     
-    if(tabela_simbolos == NULL){
-        // printf("vazio!\n");
-        return 0; // nao esta na tabela de simbolos
-    }else{
+    if(tabela_simbolos == NULL)
+    {
 
-        // printf("nao vazio1\n");
+        return 0; // nao esta na tabela de simbolos
+    }
+    else
+    {
+
         Simbolo *aux = tabela_simbolos;
         while( aux != NULL)
         {
-            // printf("hue\n");
-            if ( strcmp(nomesimbolo, aux->nome) == 0 ){
+
+            if ( strcmp(nomesimbolo, aux->nome) == 0 )
+            {
 
                 if ( aux->nivelEscopo == escopo )
                     return ENCONTRADO;//esta na tabela de simbolos
@@ -55,19 +60,24 @@ int procura_tabela_simbolos(char nomesimbolo[MAX], int escopo){
 
 }
 
-int verifica_usabilidade(char nomesimbolo[MAX], int escopo){
+// Verifica se uma variável pode ser usada dentro de determinado escopo.
+int verifica_usabilidade(char nomesimbolo[MAX], int escopo)
+{
     
-    if(tabela_simbolos == NULL){
-        // printf("vazio!\n");
-        return 0; // nao esta na tabela de simbolos
-    }else{
+    if(tabela_simbolos == NULL)
+    {
 
-        // printf("nao vazio1\n");
+        return 0; // nao esta na tabela de simbolos
+    }
+    else
+    {
+
         Simbolo *aux = tabela_simbolos;
         while( aux != NULL)
         {
-            // printf("hue\n");
-            if ( strcmp(nomesimbolo, aux->nome) == 0 ){
+
+            if ( strcmp(nomesimbolo, aux->nome) == 0 )
+            {
 
                 if ( aux->nivelEscopo <= escopo )
                     return USAVEL;
@@ -80,7 +90,6 @@ int verifica_usabilidade(char nomesimbolo[MAX], int escopo){
 }
 
 // fazer metodo que ve se o simbolo existe antes de usar
-
 Simbolo * AddSimbolo(char nome[MAX] , int escopo )
 {
     Simbolo * novo = (Simbolo*) malloc(sizeof(Simbolo));
@@ -91,21 +100,21 @@ Simbolo * AddSimbolo(char nome[MAX] , int escopo )
     return novo;
 }
 
+// Insere símbolo na tabela de símbolos.
 void InserirSimbolo(Simbolo ** temp, char nome[MAX], int escopo)
 {
-    if ( !procura_tabela_simbolos(nome, escopo) ){//se nao esta na tabela, insere o novo simbolo
+    if ( !procura_tabela_simbolos(nome, escopo) )
+    {//se nao esta na tabela, insere o novo simbolo
         Simbolo * aux = AddSimbolo(nome , escopo );
 
         if(*temp == NULL)
         {
             *temp = aux;
             aux->proximo = NULL;
-            // printf("entrou if\n");
         }
         else
         {
 
-            // printf("entrou else\n");
             Simbolo * aux2 = *temp;
             while(aux2->proximo != NULL)
             {
@@ -113,13 +122,16 @@ void InserirSimbolo(Simbolo ** temp, char nome[MAX], int escopo)
             }
             aux2->proximo = aux;
         }
-    } else {
+    } 
+    else
+    {
         printf("(%s) => ", nome); 
         yyerror("Variavel já declarada.\n");  
     }
 }
-
-Saida * AddSaida(char string[MAX], int linha){
+// Aloca memória de símbolos para gerar o código em Ruby.
+Saida * AddSaida(char string[MAX], int linha)
+{
     Saida * novo = (Saida*) malloc(sizeof(Saida));
     strcpy(novo->string, string);
     novo->linha = linha;
@@ -128,7 +140,9 @@ Saida * AddSaida(char string[MAX], int linha){
     return novo;
 }
 
-void InsereNaSaida(Saida ** temp, char string[MAX], int linha){
+// Insere símbolos em uma lista dinâmica para gerar o código em Ruby.
+void InsereNaSaida(Saida ** temp, char string[MAX], int linha)
+{
 
     Saida * aux = AddSaida(string, linha);
     Saida * head = *temp;
@@ -148,7 +162,9 @@ void InsereNaSaida(Saida ** temp, char string[MAX], int linha){
     }
 }
 
-void InsereTabsSaida(Saida ** temp, int tabs ){
+// Insere tabs na lista dinâmica para gerar o código em Ruby.
+void InsereTabsSaida(Saida ** temp, int tabs )
+{
 
     int i;
 
@@ -157,6 +173,7 @@ void InsereTabsSaida(Saida ** temp, int tabs ){
 
 }
 
+// Imprime a lista dinâmica contendo o código em Ruby.
 void Imprime(Saida * temp)
 {
 
