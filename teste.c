@@ -23,7 +23,6 @@ for ( w = 0 ;  w < 1 ; w = w + 1 ){
 	}
 }
 
-int x;
 int y;
 
 char a = 'a';
@@ -32,3 +31,7 @@ if ( y == 5 )
 	x = 5;
 else
 	w = 5;
+
+
+while(1)
+	int kk;

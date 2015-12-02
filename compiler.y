@@ -76,7 +76,7 @@ laco_expressao:
     N_INTEIRO { strcat(condicao[contador_for], yytext ); }
     | N_REAL { strcat(condicao[contador_for], yytext); }
     | N_CARACTERE { strcat(condicao[contador_for], yytext ); }
-    | IDENTIFICADOR { strcat(condicao[contador_for], yytext ); printf("[%d] = %s\n", contador_for , condicao[contador_for]); }
+    | IDENTIFICADOR { strcat(condicao[contador_for], yytext ); }
     | laco_operacao_matematica
     | laco_comparador
     | PARENTESIS_ESQUERDO laco_expressao PARENTESIS_DIREITO
@@ -127,14 +127,14 @@ declaracao_else:
 
 laco:
     comando_for
-    | {InsereTabsSaida(&saida, contador_tab);} while
+    | {InsereTabsSaida(&saida, contador_tab);} declaracao_while
     ;
 
 declaracao_while:
     WHILE { InsereNaSaida(&saida, "while ( ", linhas); } PARENTESIS_ESQUERDO condicionais_multiplos PARENTESIS_DIREITO { InsereNaSaida(&saida, " ) \n" , linhas); contador_tab++; }
     ;
 
-while:
+declaracao_while:
     declaracao_while  comando { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "\nend\n" , linhas);}
     | declaracao_while CHAVES_ESQUERDA  comandos_multiplos CHAVES_DIREITA { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n" , linhas); }
     ;
@@ -148,7 +148,7 @@ declaracao_for:
 comando_for:
     declaracao_for  {contador_tab++;} comando {InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0';} {InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}  
     |
-    declaracao_for CHAVES_ESQUERDA {contador_tab++;} comandos_multiplos CHAVES_DIREITA { InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0'; printf("condicao eh %s\n", condicao[contador_for]); InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
+    declaracao_for CHAVES_ESQUERDA {contador_tab++;} comandos_multiplos CHAVES_DIREITA { InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0'; InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
     |
     FOR PARENTESIS_ESQUERDO laco_for_primeira_parte PONTO_VIRGULA PARENTESIS_DIREITO CHAVES_ESQUERDA {contador_tab++; InsereNaSaida(&saida, "while true\n", linhas);}  comandos_multiplos CHAVES_DIREITA {InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
     ;
@@ -158,7 +158,7 @@ laco_for_primeira_parte:
     ;
 
 laco_for_ultima_parte:
-    IDENTIFICADOR {if(procura_tabela_simbolos($1, contador_tab)){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{yyerror("Variable not declared!\n");}} ATTR { strcat(condicao[contador_for], " = " ); } laco_expressao {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+    IDENTIFICADOR {if(procura_tabela_simbolos($1, contador_tab)){strcat(condicao[contador_for], yytext );}else{yyerror("Variable not declared!\n");}} ATTR { strcat(condicao[contador_for], " = " ); } laco_expressao {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;    
 
 condicional:
