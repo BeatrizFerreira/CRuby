@@ -32,42 +32,42 @@ extern char* yytext;
 %token <strval> IDENTIFIER
 %token <strval> ATTR
 %token <strval> N_INTEGER N_REAL N_CHAR
-%token END_LINE
+%token END_Linha
 %token SEMICOLON
 
-%start Input
+%start Entrada
 
 %%
-Input:
+Entrada:
     /* Empty */
-    {printf("Qualquer coisa: INPUT \n ");}
-    | Input Line 
+    {printf("Qualquer coisa: Entrada \n ");}
+    | Entrada Linha 
     ;
-Line:
-    command
-    | END_LINE
-    ;
-
-command:
-    declaration
-    | attribution
+Linha:
+    comando
+    | END_Linha
     ;
 
-declaration:
+comando:
+    declaracao
+    | atribuicao
+    ;
+
+declaracao:
     type IDENTIFIER SEMICOLON {
         printf("=======%s\n", %2);
         //tabela_simbolo[cont].nome = strdup($2);
         //tabela_simbolo[cont].foiDefinido = 0;
     }
-    | type attribution
+    | type atribuicao
     ;
 
-attribution:
+atribuicao:
     /*{ printf("%s", yytext );}*/
-    IDENTIFIER ATTR expression SEMICOLON {printf("%s = %s", $1, p1); procura_tablela_simbolos($1); }
+    IDENTIFIER ATTR expressao SEMICOLON {printf("%s = %s", $1, p1); procura_tablela_simbolos($1); }
     ;
 
-expression:
+expressao:
     N_INTEGER {strcpy(p1, yytext);}
     | N_REAL {printf("%s\n", $1);}
     | N_CHAR {printf("%s\n", $1);}

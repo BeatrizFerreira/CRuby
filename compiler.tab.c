@@ -91,10 +91,10 @@
      OU = 280,
      SE = 281,
      SENAO = 282,
-     LEFT_PARENTHESIS = 283,
-     RIGHT_PARENTHESIS = 284,
-     LEFT_BRACKETS = 285,
-     RIGHT_BRACKETS = 286,
+     PARENTESIS_ESQUERDO = 283,
+     PARENTESIS_DIREITO = 284,
+     CHAVES_ESQUERDA = 285,
+     CHAVES_DIREITA = 286,
      FOR = 287,
      WHILE = 288
    };
@@ -125,10 +125,10 @@
 #define OU 280
 #define SE 281
 #define SENAO 282
-#define LEFT_PARENTHESIS 283
-#define RIGHT_PARENTHESIS 284
-#define LEFT_BRACKETS 285
-#define RIGHT_BRACKETS 286
+#define PARENTESIS_ESQUERDO 283
+#define PARENTESIS_DIREITO 284
+#define CHAVES_ESQUERDA 285
+#define CHAVES_DIREITA 286
 #define FOR 287
 #define WHILE 288
 
@@ -533,11 +533,11 @@ static const yytype_uint8 yyrline[] =
      102,   102,   103,   103,   104,   104,   105,   105,   109,   109,
      110,   110,   111,   111,   112,   112,   113,   113,   114,   114,
      118,   118,   121,   121,   123,   123,   125,   125,   129,   130,
-     130,   134,   134,   138,   139,   145,   145,   147,   147,   147,
-     147,   151,   151,   151,   153,   153,   155,   155,   159,   159,
-     163,   163,   163,   167,   169,   171,   173,   176,   177,   178,
-     182,   183,   184,   188,   189,   193,   193,   194,   194,   198,
-     199,   200,   201
+     130,   134,   134,   138,   139,   143,   143,   145,   145,   145,
+     145,   149,   149,   149,   151,   151,   153,   153,   157,   157,
+     161,   161,   161,   165,   167,   169,   171,   174,   175,   176,
+     180,   181,   182,   186,   187,   191,   191,   192,   192,   196,
+     197,   198,   199
 };
 #endif
 
@@ -550,20 +550,21 @@ static const char *const yytname[] =
   "TIPO_DOUBLE", "TIPO_CHAR", "IDENTIFICADOR", "ATTR", "N_INTEIRO",
   "N_REAL", "N_CARACTERE", "PONTO_VIRGULA", "FINAL_LINHA", "MAIS", "MENOS",
   "VEZES", "DIVISAO", "MENOR", "MENORIGUAL", "MAIOR", "MAIORIGUAL",
-  "IGUAL", "DIFERENTE", "E", "OU", "SE", "SENAO", "LEFT_PARENTHESIS",
-  "RIGHT_PARENTHESIS", "LEFT_BRACKETS", "RIGHT_BRACKETS", "FOR", "WHILE",
-  "$accept", "Input", "Line", "command", "@1", "@2",
-  "loop_and_conditional", "@3", "declaration", "@4",
-  "declaration_attribution", "@5", "@6", "attribution", "@7", "@8",
-  "expression", "@9", "expression_loop", "math_operation_loop", "@10",
-  "@11", "@12", "@13", "comparator_loop", "@14", "@15", "@16", "@17",
-  "@18", "@19", "math_operation", "@20", "@21", "@22", "@23", "comparator",
-  "@24", "@25", "@26", "@27", "@28", "@29", "if_", "@30", "else_", "@31",
-  "@32", "@33", "loop", "@34", "while_statement", "@35", "while", "for_",
-  "@36", "@37", "@38", "@39", "for_statement", "@40", "@41", "@42", "@43",
-  "first_for_loop_part", "@44", "last_for_loop_part", "@45", "@46",
-  "conditional", "multiple_command", "multiple_conditional",
-  "multiple_conditional_loop", "booleans", "@47", "@48", "tipo", 0
+  "IGUAL", "DIFERENTE", "E", "OU", "SE", "SENAO", "PARENTESIS_ESQUERDO",
+  "PARENTESIS_DIREITO", "CHAVES_ESQUERDA", "CHAVES_DIREITA", "FOR",
+  "WHILE", "$accept", "Entrada", "Linha", "comando", "@1", "@2",
+  "laco_e_condicional", "@3", "declaracao", "@4", "declaracao_atribuicao",
+  "@5", "@6", "atribuicao", "@7", "@8", "expressao", "@9",
+  "laco_expressao", "laco_operacao_matematica", "@10", "@11", "@12", "@13",
+  "laco_comparador", "@14", "@15", "@16", "@17", "@18", "@19",
+  "operacao_matematica", "@20", "@21", "@22", "@23", "comparador", "@24",
+  "@25", "@26", "@27", "@28", "@29", "declaracao_if", "@30",
+  "declaracao_else", "@31", "@32", "@33", "laco", "@34",
+  "declaracao_while", "@35", "while", "declaracao_for", "@36", "@37",
+  "@38", "@39", "comando_for", "@40", "@41", "@42", "@43",
+  "laco_for_primeira_parte", "@44", "laco_for_ultima_parte", "@45", "@46",
+  "condicional", "comandos_multiplos", "condicionais_multiplos",
+  "laco_condicionais_multiplos", "booleanas", "@47", "@48", "tipo", 0
 };
 #endif
 
@@ -1853,118 +1854,118 @@ yyreduce:
     break;
 
   case 95:
-#line 145 "compiler.y"
+#line 143 "compiler.y"
     {InsereTabsSaida(&saida, contador_tab);;}
     break;
 
   case 96:
-#line 145 "compiler.y"
+#line 143 "compiler.y"
     {InsereNaSaida(&saida, "while true\n", linhas);;}
     break;
 
   case 97:
-#line 147 "compiler.y"
+#line 145 "compiler.y"
     {InsereTabsSaida(&saida, contador_tab);;}
     break;
 
   case 98:
-#line 147 "compiler.y"
+#line 145 "compiler.y"
     {InsereNaSaida(&saida, "while ", linhas);;}
     break;
 
   case 99:
-#line 147 "compiler.y"
+#line 145 "compiler.y"
     {InsereNaSaida(&saida, "\n", linhas);;}
     break;
 
   case 100:
-#line 147 "compiler.y"
+#line 145 "compiler.y"
     {contador_for++;;}
     break;
 
   case 101:
-#line 151 "compiler.y"
+#line 149 "compiler.y"
     {contador_tab++;;}
     break;
 
   case 102:
-#line 151 "compiler.y"
+#line 149 "compiler.y"
     {InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0';;}
     break;
 
   case 103:
-#line 151 "compiler.y"
+#line 149 "compiler.y"
     {InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);;}
     break;
 
   case 104:
-#line 153 "compiler.y"
+#line 151 "compiler.y"
     {contador_tab++;;}
     break;
 
   case 105:
-#line 153 "compiler.y"
+#line 151 "compiler.y"
     { InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0'; printf("condicao eh %s\n", condicao[contador_for]); InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);;}
     break;
 
   case 106:
-#line 155 "compiler.y"
+#line 153 "compiler.y"
     {contador_tab++; InsereNaSaida(&saida, "while true\n", linhas);;}
     break;
 
   case 107:
-#line 155 "compiler.y"
+#line 153 "compiler.y"
     {InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);;}
     break;
 
   case 108:
-#line 159 "compiler.y"
+#line 157 "compiler.y"
     {InsereTabsSaida(&saida, contador_tab);;}
     break;
 
   case 110:
-#line 163 "compiler.y"
+#line 161 "compiler.y"
     {if(procura_tabela_simbolos((yyvsp[(1) - (1)].strval), contador_tab)){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{yyerror("Variable not declared!\n");};}
     break;
 
   case 111:
-#line 163 "compiler.y"
+#line 161 "compiler.y"
     { strcat(condicao[contador_for], " = " ); ;}
     break;
 
   case 112:
-#line 163 "compiler.y"
+#line 161 "compiler.y"
     {InsereNaSaida(&saida, "\n", linhas);linhas++;;}
     break;
 
   case 113:
-#line 167 "compiler.y"
+#line 165 "compiler.y"
     {contador_tab--; {InsereTabsSaida(&saida, contador_tab);}  InsereNaSaida(&saida, "end\n", linhas);;}
     break;
 
   case 114:
-#line 169 "compiler.y"
+#line 167 "compiler.y"
     {contador_tab--; {InsereTabsSaida(&saida, contador_tab);} InsereNaSaida(&saida, "end\n", linhas);;}
     break;
 
   case 120:
-#line 182 "compiler.y"
+#line 180 "compiler.y"
     { if ( strcmp((yyvsp[(1) - (1)].strval), "0") == 0 )InsereNaSaida(&saida, "false", linhas); else InsereNaSaida(&saida, "true", linhas);;}
     break;
 
   case 125:
-#line 193 "compiler.y"
+#line 191 "compiler.y"
     {InsereNaSaida(&saida, " and ", linhas);;}
     break;
 
   case 127:
-#line 194 "compiler.y"
+#line 192 "compiler.y"
     {InsereNaSaida(&saida, " or ", linhas);;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1968 "compiler.tab.c"
+#line 1969 "compiler.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2178,7 +2179,7 @@ yyreturn:
 }
 
 
-#line 202 "compiler.y"
+#line 200 "compiler.y"
 
 
 int yyerror(char *s) {

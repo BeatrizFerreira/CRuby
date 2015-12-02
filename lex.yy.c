@@ -908,22 +908,22 @@ return OU;
 case 27:
 YY_RULE_SETUP
 #line 43 "compiler.l"
-return LEFT_PARENTHESIS;
+return PARENTESIS_ESQUERDO;
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 44 "compiler.l"
-return RIGHT_PARENTHESIS;
+return PARENTESIS_DIREITO;
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 45 "compiler.l"
-return LEFT_BRACKETS;
+return CHAVES_ESQUERDA;
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 46 "compiler.l"
-return RIGHT_BRACKETS;
+return CHAVES_DIREITA;
 	YY_BREAK
 case 31:
 /* rule 31 can match eol */

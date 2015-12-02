@@ -40,10 +40,10 @@ final_de_linha [\n]
 "!="				return DIFERENTE;
 "&&"				return E;
 "||"				return OU;
-"("					return LEFT_PARENTHESIS;
-")"					return RIGHT_PARENTHESIS;
-"{"					return LEFT_BRACKETS;
-"}"					return RIGHT_BRACKETS;
+"("					return PARENTESIS_ESQUERDO;
+")"					return PARENTESIS_DIREITO;
+"{"					return CHAVES_ESQUERDA;
+"}"					return CHAVES_DIREITA;
 
 {final_de_linha} 	/*ignore*/;
 {espaco_branco} 	/*ignore*/;

@@ -24,174 +24,172 @@ extern char* yytext;
 %token <strval> N_INTEIRO N_REAL N_CARACTERE
 %token PONTO_VIRGULA FINAL_LINHA
 %token MAIS MENOS VEZES DIVISAO MENOR MENORIGUAL MAIOR MAIORIGUAL IGUAL DIFERENTE E OU SE SENAO
-%token LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKETS RIGHT_BRACKETS FOR WHILE
+%token PARENTESIS_ESQUERDO PARENTESIS_DIREITO CHAVES_ESQUERDA CHAVES_DIREITA FOR WHILE
 
-%start Input
+%start Entrada
 
 %%
-Input:
-    Input Line 
+Entrada:
+    Entrada Linha 
     | /*Empty*/
     ;
-Line:
-    command
+Linha:
+    comando
     | FINAL_LINHA
     ;
 
-command:
-    {InsereTabsSaida(&saida, contador_tab);} declaration
-    | {InsereTabsSaida(&saida, contador_tab);} attribution
-    | loop_and_conditional
+comando:
+    {InsereTabsSaida(&saida, contador_tab);} declaracao
+    | {InsereTabsSaida(&saida, contador_tab);} atribuicao
+    | laco_e_condicional
     ;
 
-loop_and_conditional:
-    {InsereTabsSaida(&saida, contador_tab);} conditional
-    | loop
+laco_e_condicional:
+    {InsereTabsSaida(&saida, contador_tab);} condicional
+    | laco
     ;
 
-declaration:
+declaracao:
     tipo IDENTIFICADOR {InsereNaSaida(&saida, ($2), linhas); InsereNaSaida(&saida, " = 0\n", linhas);}PONTO_VIRGULA {InserirSimbolo(&tabela_simbolos, $2, contador_tab); cont++; linhas++; }
-    | declaration_attribution
+    | declaracao_atribuicao
     ;
 
-declaration_attribution:
-    tipo IDENTIFICADOR{InserirSimbolo(&tabela_simbolos, $2, contador_tab);InsereNaSaida(&saida, ($2), linhas);cont++;} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression PONTO_VIRGULA {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+declaracao_atribuicao:
+    tipo IDENTIFICADOR{InserirSimbolo(&tabela_simbolos, $2, contador_tab);InsereNaSaida(&saida, ($2), linhas);cont++;} ATTR {InsereNaSaida(&saida, " = ", linhas);} expressao PONTO_VIRGULA {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;
 
-attribution:
-    IDENTIFICADOR{if(verifica_usabilidade($1, contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{printf("(%s) => ", yytext); yyerror("Variable not declared!\n");}} ATTR {InsereNaSaida(&saida, " = ", linhas);} expression PONTO_VIRGULA {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+atribuicao:
+    IDENTIFICADOR{if(verifica_usabilidade($1, contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{printf("(%s) => ", yytext); yyerror("Variable not declared!\n");}} ATTR {InsereNaSaida(&saida, " = ", linhas);} expressao PONTO_VIRGULA {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;
 
-expression:
+expressao:
     N_INTEIRO {InsereNaSaida(&saida, yytext, linhas);}
     | N_REAL {InsereNaSaida(&saida, yytext, linhas);}
     | N_CARACTERE {InsereNaSaida(&saida, yytext, linhas);}
     | IDENTIFICADOR {if(verifica_usabilidade($1, contador_tab)){InsereNaSaida(&saida, yytext, linhas);}else{printf("(%s) => ", yytext); yyerror("Variable not declared!\n");} }
-    | math_operation
-    | comparator
-    | LEFT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);} expression RIGHT_PARENTHESIS{InsereNaSaida(&saida, yytext, linhas);}
+    | operacao_matematica
+    | comparador
+    | PARENTESIS_ESQUERDO{InsereNaSaida(&saida, yytext, linhas);} expressao PARENTESIS_DIREITO{InsereNaSaida(&saida, yytext, linhas);}
     ;
 
-expression_loop:
+laco_expressao:
     N_INTEIRO { strcat(condicao[contador_for], yytext ); }
     | N_REAL { strcat(condicao[contador_for], yytext); }
     | N_CARACTERE { strcat(condicao[contador_for], yytext ); }
     | IDENTIFICADOR { strcat(condicao[contador_for], yytext ); printf("[%d] = %s\n", contador_for , condicao[contador_for]); }
-    | math_operation_loop
-    | comparator_loop
-    | LEFT_PARENTHESIS expression_loop RIGHT_PARENTHESIS
+    | laco_operacao_matematica
+    | laco_comparador
+    | PARENTESIS_ESQUERDO laco_expressao PARENTESIS_DIREITO
     ;
 
-math_operation_loop:
-    | expression_loop MAIS { strcat(condicao[contador_for], yytext ); } expression_loop 
-    | expression_loop MENOS { strcat(condicao[contador_for], yytext ); } expression_loop 
-    | expression_loop VEZES { strcat(condicao[contador_for], yytext ); } expression_loop
-    | expression_loop DIVISAO { strcat(condicao[contador_for], yytext ); } expression_loop
+laco_operacao_matematica:
+    | laco_expressao MAIS { strcat(condicao[contador_for], yytext ); } laco_expressao 
+    | laco_expressao MENOS { strcat(condicao[contador_for], yytext ); } laco_expressao 
+    | laco_expressao VEZES { strcat(condicao[contador_for], yytext ); } laco_expressao
+    | laco_expressao DIVISAO { strcat(condicao[contador_for], yytext ); } laco_expressao
     ;
 
-comparator_loop:
-    expression_loop MENOR { strcat(condicao[contador_for], yytext ); } expression_loop
-    | expression_loop MENORIGUAL { strcat(condicao[contador_for], yytext ); }  expression_loop
-    | expression_loop MAIOR { strcat(condicao[contador_for], yytext ); }  expression_loop
-    | expression_loop MAIORIGUAL { strcat(condicao[contador_for], yytext ); } expression_loop
-    | expression_loop IGUAL { strcat(condicao[contador_for], yytext ); }  expression_loop 
-    | expression_loop DIFERENTE { strcat(condicao[contador_for], yytext ); } expression_loop
+laco_comparador:
+    laco_expressao MENOR { strcat(condicao[contador_for], yytext ); } laco_expressao
+    | laco_expressao MENORIGUAL { strcat(condicao[contador_for], yytext ); }  laco_expressao
+    | laco_expressao MAIOR { strcat(condicao[contador_for], yytext ); }  laco_expressao
+    | laco_expressao MAIORIGUAL { strcat(condicao[contador_for], yytext ); } laco_expressao
+    | laco_expressao IGUAL { strcat(condicao[contador_for], yytext ); }  laco_expressao 
+    | laco_expressao DIFERENTE { strcat(condicao[contador_for], yytext ); } laco_expressao
     ;
 
-math_operation:
-    | expression MAIS {InsereNaSaida(&saida, " + ", linhas);} expression 
-    | expression MENOS {InsereNaSaida(&saida, " - ", linhas);} expression 
-    | expression VEZES {InsereNaSaida(&saida, " * ", linhas);} expression
-    | expression DIVISAO {InsereNaSaida(&saida, " / ", linhas);} expression
+operacao_matematica:
+    | expressao MAIS {InsereNaSaida(&saida, " + ", linhas);} expressao 
+    | expressao MENOS {InsereNaSaida(&saida, " - ", linhas);} expressao 
+    | expressao VEZES {InsereNaSaida(&saida, " * ", linhas);} expressao
+    | expressao DIVISAO {InsereNaSaida(&saida, " / ", linhas);} expressao
     ;
 
-comparator:
-    expression MENOR {InsereNaSaida(&saida, " < ", linhas);} expression
-    | expression MENORIGUAL {InsereNaSaida(&saida, " <= ", linhas);}  expression
-    | expression MAIOR {InsereNaSaida(&saida, " > ", linhas);}  expression
-    | expression MAIORIGUAL {InsereNaSaida(&saida, " >= ", linhas);} expression
-    | expression IGUAL {InsereNaSaida(&saida, " == ", linhas);}  expression 
-    | expression DIFERENTE {InsereNaSaida(&saida, " != ", linhas);}  expression
+comparador:
+    expressao MENOR {InsereNaSaida(&saida, " < ", linhas);} expressao
+    | expressao MENORIGUAL {InsereNaSaida(&saida, " <= ", linhas);}  expressao
+    | expressao MAIOR {InsereNaSaida(&saida, " > ", linhas);}  expressao
+    | expressao MAIORIGUAL {InsereNaSaida(&saida, " >= ", linhas);} expressao
+    | expressao IGUAL {InsereNaSaida(&saida, " == ", linhas);}  expressao 
+    | expressao DIFERENTE {InsereNaSaida(&saida, " != ", linhas);}  expressao
     ;
 
-if_:
-    SE { InsereNaSaida(&saida, "if (", linhas); }LEFT_PARENTHESIS multiple_conditional RIGHT_PARENTHESIS {InsereNaSaida(&saida, ")\n", linhas); contador_tab++; } 
+declaracao_if:
+    SE { InsereNaSaida(&saida, "if (", linhas); }PARENTESIS_ESQUERDO condicionais_multiplos PARENTESIS_DIREITO {InsereNaSaida(&saida, ")\n", linhas); contador_tab++; } 
     
-else_:
-    SENAO { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "els", linhas); } conditional
+declaracao_else:
+    SENAO { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "els", linhas); } condicional
     |
-    SENAO { InsereNaSaida(&saida, "else\n", linhas); } command {  contador_tab--;  InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
+    SENAO { InsereNaSaida(&saida, "else\n", linhas); } comando {  contador_tab--;  InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
     |
-    SENAO{ contador_tab--; InsereTabsSaida(&saida, contador_tab); contador_tab++; InsereNaSaida(&saida, "else\n", linhas); } LEFT_BRACKETS multiple_command RIGHT_BRACKETS { contador_tab--;InsereTabsSaida(&saida, contador_tab);InsereNaSaida(&saida, "end\n", linhas);}
+    SENAO{ contador_tab--; InsereTabsSaida(&saida, contador_tab); contador_tab++; InsereNaSaida(&saida, "else\n", linhas); } CHAVES_ESQUERDA comandos_multiplos CHAVES_DIREITA { contador_tab--;InsereTabsSaida(&saida, contador_tab);InsereNaSaida(&saida, "end\n", linhas);}
     ;
 
-loop:
-    for_statement
+laco:
+    comando_for
     | {InsereTabsSaida(&saida, contador_tab);} while
     ;
 
-while_statement:
-    WHILE { InsereNaSaida(&saida, "while ( ", linhas); } LEFT_PARENTHESIS multiple_conditional RIGHT_PARENTHESIS { InsereNaSaida(&saida, " ) \n" , linhas); contador_tab++; }
+declaracao_while:
+    WHILE { InsereNaSaida(&saida, "while ( ", linhas); } PARENTESIS_ESQUERDO condicionais_multiplos PARENTESIS_DIREITO { InsereNaSaida(&saida, " ) \n" , linhas); contador_tab++; }
     ;
 
 while:
-    while_statement  command { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "\nend\n" , linhas);}
-    | while_statement LEFT_BRACKETS  multiple_command RIGHT_BRACKETS { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n" , linhas); }
+    declaracao_while  comando { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "\nend\n" , linhas);}
+    | declaracao_while CHAVES_ESQUERDA  comandos_multiplos CHAVES_DIREITA { contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n" , linhas); }
     ;
 
-for_:
-    // FOR LEFT_PARENTHESIS PONTO_VIRGULA PONTO_VIRGULA RIGHT_PARENTHESIS  {InsereTabsSaida(&saida, contador_tab);} {InsereNaSaida(&saida, "while true\n", linhas);}
-    // |
-    FOR LEFT_PARENTHESIS first_for_loop_part PONTO_VIRGULA RIGHT_PARENTHESIS {InsereTabsSaida(&saida, contador_tab);} {InsereNaSaida(&saida, "while true\n", linhas);} 
+declaracao_for:
+    FOR PARENTESIS_ESQUERDO laco_for_primeira_parte PONTO_VIRGULA PARENTESIS_DIREITO {InsereTabsSaida(&saida, contador_tab);} {InsereNaSaida(&saida, "while true\n", linhas);} 
     |
-    FOR LEFT_PARENTHESIS first_for_loop_part {InsereTabsSaida(&saida, contador_tab);} {InsereNaSaida(&saida, "while ", linhas);} multiple_conditional_loop PONTO_VIRGULA {InsereNaSaida(&saida, "\n", linhas);} last_for_loop_part RIGHT_PARENTHESIS  {contador_for++;}
+    FOR PARENTESIS_ESQUERDO laco_for_primeira_parte {InsereTabsSaida(&saida, contador_tab);} {InsereNaSaida(&saida, "while ", linhas);} laco_condicionais_multiplos PONTO_VIRGULA {InsereNaSaida(&saida, "\n", linhas);} laco_for_ultima_parte PARENTESIS_DIREITO  {contador_for++;}
     ;
 
-for_statement:
-    for_  {contador_tab++;} command {InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0';} {InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}  
+comando_for:
+    declaracao_for  {contador_tab++;} comando {InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0';} {InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}  
     |
-    for_ LEFT_BRACKETS {contador_tab++;} multiple_command RIGHT_BRACKETS { InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0'; printf("condicao eh %s\n", condicao[contador_for]); InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
+    declaracao_for CHAVES_ESQUERDA {contador_tab++;} comandos_multiplos CHAVES_DIREITA { InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, condicao[--contador_for], linhas); condicao[contador_for][0] = '\0'; printf("condicao eh %s\n", condicao[contador_for]); InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
     |
-    FOR LEFT_PARENTHESIS first_for_loop_part PONTO_VIRGULA RIGHT_PARENTHESIS LEFT_BRACKETS {contador_tab++; InsereNaSaida(&saida, "while true\n", linhas);}  multiple_command RIGHT_BRACKETS {InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
+    FOR PARENTESIS_ESQUERDO laco_for_primeira_parte PONTO_VIRGULA PARENTESIS_DIREITO CHAVES_ESQUERDA {contador_tab++; InsereNaSaida(&saida, "while true\n", linhas);}  comandos_multiplos CHAVES_DIREITA {InsereNaSaida(&saida, "\n", linhas); contador_tab--; InsereTabsSaida(&saida, contador_tab); InsereNaSaida(&saida, "end\n", linhas);}
     ;
 
-first_for_loop_part:
-    {InsereTabsSaida(&saida, contador_tab);} attribution
+laco_for_primeira_parte:
+    {InsereTabsSaida(&saida, contador_tab);} atribuicao
     ;
 
-last_for_loop_part:
-    IDENTIFICADOR {if(procura_tabela_simbolos($1, contador_tab)){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{yyerror("Variable not declared!\n");}} ATTR { strcat(condicao[contador_for], " = " ); } expression_loop {InsereNaSaida(&saida, "\n", linhas);linhas++;}
+laco_for_ultima_parte:
+    IDENTIFICADOR {if(procura_tabela_simbolos($1, contador_tab)){strcat(condicao[contador_for], yytext );printf(" KK %s\n", condicao[contador_for]);}else{yyerror("Variable not declared!\n");}} ATTR { strcat(condicao[contador_for], " = " ); } laco_expressao {InsereNaSaida(&saida, "\n", linhas);linhas++;}
     ;    
 
-conditional:
-    if_ command {contador_tab--; {InsereTabsSaida(&saida, contador_tab);}  InsereNaSaida(&saida, "end\n", linhas);}
+condicional:
+    declaracao_if comando {contador_tab--; {InsereTabsSaida(&saida, contador_tab);}  InsereNaSaida(&saida, "end\n", linhas);}
     |
-    if_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS {contador_tab--; {InsereTabsSaida(&saida, contador_tab);} InsereNaSaida(&saida, "end\n", linhas);}
+    declaracao_if CHAVES_ESQUERDA comandos_multiplos CHAVES_DIREITA {contador_tab--; {InsereTabsSaida(&saida, contador_tab);} InsereNaSaida(&saida, "end\n", linhas);}
     |
-    if_ LEFT_BRACKETS multiple_command RIGHT_BRACKETS else_
+    declaracao_if CHAVES_ESQUERDA comandos_multiplos CHAVES_DIREITA declaracao_else
     |
-    if_ command else_
+    declaracao_if comando declaracao_else
     ;
 
-multiple_command:
-    | command multiple_command  
-    | FINAL_LINHA multiple_command
+comandos_multiplos:
+    | comando comandos_multiplos  
+    | FINAL_LINHA comandos_multiplos
     ;
 
-multiple_conditional:
+condicionais_multiplos:
     N_INTEIRO { if ( strcmp($1, "0") == 0 )InsereNaSaida(&saida, "false", linhas); else InsereNaSaida(&saida, "true", linhas);}
-    | comparator
-    | comparator booleans
+    | comparador
+    | comparador booleanas
     ;
 
-multiple_conditional_loop:
-    comparator
-    | comparator booleans
+laco_condicionais_multiplos:
+    comparador
+    | comparador booleanas
     ;
 
-booleans:
-    E {InsereNaSaida(&saida, " and ", linhas);}  multiple_conditional
-    | {InsereNaSaida(&saida, " or ", linhas);} OU multiple_conditional
+booleanas:
+    E {InsereNaSaida(&saida, " and ", linhas);}  condicionais_multiplos
+    | {InsereNaSaida(&saida, " or ", linhas);} OU condicionais_multiplos
     ;
 
 tipo:

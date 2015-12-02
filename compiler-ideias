@@ -1,18 +1,18 @@
 
 condicional:
-	IF LEFT_PARENTESIS comparative RIGHT_PARENTESIS "{" command "}"
-	|IF LEFT_PARENTESIS comparative RIGHT_PARENTESIS "{" command "}" ELSE "{" command "}"
+	IF LEFT_PARENTESIS comparative RIGHT_PARENTESIS "{" comando "}"
+	|IF LEFT_PARENTESIS comparative RIGHT_PARENTESIS "{" comando "}" ELSE "{" comando "}"
 	;
 
 comparative:
-	expression MENOR expression
-	|expression MENORIGUAL expression
-	|expression MAIOR expression
-	|expression MAIORIGUAL expression
-	|expression IGUAL expression
-	|expression DIFERENTE expression
-	|expression E expression
-	|expression OU expression
+	expressao MENOR expressao
+	|expressao MENORIGUAL expressao
+	|expressao MAIOR expressao
+	|expressao MAIORIGUAL expressao
+	|expressao IGUAL expressao
+	|expressao DIFERENTE expressao
+	|expressao E expressao
+	|expressao OU expressao
 	;
 
 "<"			return MENOR;
@@ -26,21 +26,21 @@ comparative:
 "if"		return IF;
 "else"		return ELSE;
 
-conditional:
+condicional:
 	expressao operador expressao
 	;
 
-multiple_conditional:
-	conditional
-	| conditional booleans
+condicionais_multiplos:
+	condicional
+	| condicional booleanas
 	;
 
-booleans:
-	E multiple_conditional
-	| OU multiple_conditional
+booleanas:
+	E condicionais_multiplos
+	| OU condicionais_multiplos
 	;
 
-if ( multiple_conditional )
+if ( condicionais_multiplos )
 
 x < 5 || 
 
