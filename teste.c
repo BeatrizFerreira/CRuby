@@ -23,6 +23,9 @@ for ( w = 0 ;  w < 1 ; w = w + 1 ){
 	}
 }
 
+int x;
+int y;
+
 char a = 'a';
 
 if ( y == 5 )
