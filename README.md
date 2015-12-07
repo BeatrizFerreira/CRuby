@@ -24,14 +24,14 @@ Estruturas:
 
 ##Guia de instalação e utilização
 
-Para utilizar o compilador use o comando make prog para compilar o compilador.
-Depois de compilado, utilize o comando ./cruby nomedoarquivo.c para gerar um arquivo .rb
-
-É recomendado o uso dos seguintes softwares:
+É necessário ter os seguintes softwares instalados:
 - Makefile
 - GCC
 - Bison
 - Flex
+
+Para utilizar o compilador use o comando make prog para compilar o compilador.
+Depois de compilado, utilize o comando ./cruby nomedoarquivo.c para gerar um arquivo .rb
 
 Para edição dos arquivos recomenda-se o uso do Sublime Text 2.0 .
 
